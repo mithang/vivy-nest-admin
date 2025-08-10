@@ -1,18 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseArrayPipe,
-  Post,
-  Put,
-  Query,
-  StreamableFile,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query, StreamableFile } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
@@ -152,14 +138,15 @@ export class UserController {
     return new StreamableFile(file)
   }
 
-  /**
-   * 导入用户
-   */
-  @Post('import')
-  @Log({ title: '用户管理', operType: OperType.IMPORT })
-  @RequirePermissions('system:user:import')
-  @UseInterceptors(FileInterceptor('file'))
-  async import(@UploadedFile() file: Express.Multer.File) {
-    return AjaxResult.success(await this.userService.import(file.buffer))
-  }
+  //Tam comment
+  // /**
+  //  * 导入用户
+  //  */
+  // @Post('import')
+  // @Log({ title: '用户管理', operType: OperType.IMPORT })
+  // @RequirePermissions('system:user:import')
+  // @UseInterceptors(FileInterceptor('file'))
+  // async import(@UploadedFile() file: Express.Multer.File) {
+  //   return AjaxResult.success(await this.userService.import(file.buffer))
+  // }
 }

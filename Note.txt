@@ -1,0 +1,9 @@
+mysql -u root -p
+=>ALTER USER 'root'@'localhost' IDENTIFIED BY 'Aa@123456'
+
+Xoa cac node module
+find /Users/mithang/Downloads/ProjectEcosystems/vivy-nest-admin -name "node_modules" -type d -exec rm -rf {} +
+
+Neu bi loi brypt thi xoa pnpm-lock.yaml
+pnpm i
+pnpm build:common

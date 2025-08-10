@@ -340,19 +340,20 @@ export class UserService {
     return buffer
   }
 
-  /**
-   * 导入用户
-   * @param buffer 导入文件
-   */
-  async import(buffer: Buffer) {
-    const data = await this.excelService.import(SysUser, buffer)
-    const password = await this.configService.value('sys.user.initPassword')
+  //Tam comment
+  // /**
+  //  * 导入用户
+  //  * @param buffer 导入文件
+  //  */
+  // async import(buffer: Buffer) {
+  //   const data = await this.excelService.import(SysUser, buffer)
+  //   const password = await this.configService.value('sys.user.initPassword')
 
-    // TODO: Data validation
-    for (const user of data) {
-      user.password = await PasswordUtils.create(password)
-    }
+  //   // TODO: Data validation
+  //   for (const user of data) {
+  //     user.password = await PasswordUtils.create(password)
+  //   }
 
-    await this.userRepository.insert(data)
-  }
+  //   await this.userRepository.insert(data)
+  // }
 }
