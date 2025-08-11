@@ -76,25 +76,24 @@ const User = () => {
    */
   const columns: ProColumns<UserModel>[] = [
     {
-      title: '用户编号',
+      title: 'User ID',
       dataIndex: 'userId',
       search: false,
     },
     {
-      title: '用户名称',
+      title: 'User Name',
       dataIndex: 'userName',
     },
     {
-      title: '用户昵称',
+      title: 'User Nickname',
       dataIndex: 'nickName',
     },
     {
-      title: '手机号码',
+      title: 'Phone Number',
       dataIndex: 'phonenumber',
-      search: false,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
@@ -103,7 +102,7 @@ const User = () => {
       },
     },
     {
-      title: '操作',
+      title: 'Actions',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -116,13 +115,13 @@ const User = () => {
                 setUpdateOpen(true)
               }}
             >
-              编辑
+              Edit
             </Button>
           </Access>
           <Access key="delete" accessible={hasPermission('system:user:delete')}>
-            <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.userId)}>
+            <Popconfirm title="Are you sure you want to delete?" onConfirm={() => handleDelete(record.userId)}>
               <Button type="link" danger>
-                删除
+                Delete
               </Button>
             </Popconfirm>
           </Access>
@@ -145,7 +144,7 @@ const User = () => {
         <ProTable
           className="flex-1 pl-4"
           rowKey="userId"
-          headerTitle="用户列表"
+          headerTitle="User List"
           bordered
           columns={columns}
           actionRef={actionRef}
@@ -181,17 +180,17 @@ const User = () => {
                     setUpdateOpen(true)
                   }}
                 >
-                  新增
+                  Add
                 </Button>
               </Access>,
               <Access key="delete" accessible={hasPermission('system:user:delete')}>
                 <Popconfirm
-                  title="是否确认删除？"
+                  title="Are you sure you want to delete?"
                   disabled={!selectedRowKeys.length}
                   onConfirm={() => handleDelete(selectedRowKeys.join(','))}
                 >
                   <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                    删除
+                    Delete
                   </Button>
                 </Popconfirm>
               </Access>,
@@ -202,7 +201,7 @@ const User = () => {
                     setImportOpen(true)
                   }}
                 >
-                  导入
+                  Import
                 </Button>
               </Access>,
               <Access key="export" accessible={hasPermission('system:user:export')}>
@@ -213,7 +212,7 @@ const User = () => {
                     runExportUserList()
                   }}
                 >
-                  导出
+                  Export
                 </Button>
               </Access>,
             ],

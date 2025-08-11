@@ -56,7 +56,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑字典` : `新增字典`}
+      title={record ? `Edit Dictionary` : `Add Dictionary`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -67,12 +67,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         props.onOpenChange?.(open)
       }}
     >
-      <ProFormText name="dictName" label="字典名称" rules={[{ required: true, max: 100 }]} />
-      <ProFormText name="dictType" label="字典类型" rules={[{ required: true, max: 100 }]} />
-      <ProFormDigit name="dictSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormText name="dictName" label="Dictionary Name" rules={[{ required: true, max: 100 }]} />
+      <ProFormText name="dictType" label="Dictionary Type" rules={[{ required: true, max: 100 }]} />
+      <ProFormDigit name="dictSort" label="Display Order" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"
-        label="状态"
+        label="Status"
         initialValue={'0'}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />

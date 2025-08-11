@@ -72,7 +72,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑用户` : `新增用户`}
+      title={record ? `Edit User` : `Add User`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -83,29 +83,31 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         props.onOpenChange?.(open)
       }}
     >
-      <ProFormText name="nickName" label="用户昵称" rules={[{ required: true, max: 50 }]} />
-      <ProFormText name="userName" label="用户名称" rules={[{ required: true, max: 50 }]} />
-      {record ? null : <ProFormText.Password name="password" label="用户密码" rules={[{ required: true, max: 36 }]} />}
+      <ProFormText name="nickName" label="User Nickname" rules={[{ required: true, max: 50 }]} />
+      <ProFormText name="userName" label="User Name" rules={[{ required: true, max: 50 }]} />
+      {record ? null : (
+        <ProFormText.Password name="password" label="User Password" rules={[{ required: true, max: 36 }]} />
+      )}
       <ProFormTreeSelect
         name="deptId"
-        label="归属部门"
+        label="Department"
         request={deptTreeOptions}
         fieldProps={{
           fieldNames: { label: 'deptName', value: 'deptId' },
         }}
       />
-      <ProFormText name="phonenumber" label="手机号码" rules={[{ max: 11 }]} />
-      <ProFormText name="email" label="邮箱" rules={[{ max: 50 }]} />
-      <ProFormSelect name="sex" label="用户性别" fieldProps={{ options: toSelect(sysUserSex) }} />
+      <ProFormText name="phonenumber" label="Phone Number" rules={[{ max: 11 }]} />
+      <ProFormText name="email" label="Email" rules={[{ max: 50 }]} />
+      <ProFormSelect name="sex" label="Gender" fieldProps={{ options: toSelect(sysUserSex) }} />
       <ProFormRadio.Group
         name="status"
-        label="状态"
+        label="Status"
         initialValue={'0'}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />
       <ProFormSelect
         name="roleIds"
-        label="角色"
+        label="Role"
         request={roleOptions}
         fieldProps={{
           mode: 'multiple',
@@ -114,7 +116,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       />
       <ProFormSelect
         name="postIds"
-        label="岗位"
+        label="Post"
         request={postOptions}
         fieldProps={{
           mode: 'multiple',

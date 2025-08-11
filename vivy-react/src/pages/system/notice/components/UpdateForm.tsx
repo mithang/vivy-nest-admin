@@ -59,7 +59,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑通知公告` : `新增通知公告`}
+      title={record ? `Edit Notice Announcement` : `Add Notice Announcement`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -70,20 +70,25 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         props.onOpenChange?.(open)
       }}
     >
-      <ProFormText name="noticeTitle" label="公告标题" rules={[{ required: true }]} fieldProps={{ maxLength: 50 }} />
+      <ProFormText
+        name="noticeTitle"
+        label="Notice Title"
+        rules={[{ required: true }]}
+        fieldProps={{ maxLength: 50 }}
+      />
       <ProFormSelect
         name="noticeType"
-        label="公告类型"
+        label="Notice Type"
         rules={[{ required: true }]}
         fieldProps={{ options: toSelect(sysNoticeType) }}
       />
       <ProFormRadio.Group
         name="status"
-        label="公告状态"
+        label="Notice Status"
         rules={[{ required: true }]}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />
-      <ProFormWangEditor name="noticeContent" label="公告内容" rules={[{ required: true }]} />
+      <ProFormWangEditor name="noticeContent" label="Notice Content" rules={[{ required: true }]} />
     </DrawerForm>
   )
 }

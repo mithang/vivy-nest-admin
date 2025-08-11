@@ -15,7 +15,7 @@ const ImportForm: React.FC<ModalFormProps> = (props) => {
   const { loading: loadingExport, run: runExportUserTemplate } = useRequest(exportUserTemplate, {
     manual: true,
     onSuccess({ data }) {
-      saveAs(data, `用户导入模板.xlsx`)
+      saveAs(data, `User Import Template.xlsx`)
     },
   })
 
@@ -36,7 +36,7 @@ const ImportForm: React.FC<ModalFormProps> = (props) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title="用户导入"
+      title="User Import"
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -52,13 +52,13 @@ const ImportForm: React.FC<ModalFormProps> = (props) => {
           runExportUserTemplate()
         }}
       >
-        下载模板
+        Download Template
       </Button>
       <ProFormUploadDragger
         name="files"
-        description="仅允许导入xls、xlsx格式文件"
+        description="Only xls and xlsx format files are allowed for import"
         required
-        rules={[{ required: true, message: '请上传xls、xlsx格式文件' }]}
+        rules={[{ required: true, message: 'Please upload xls or xlsx format files' }]}
         fieldProps={{ multiple: false, maxCount: 1, accept: '.xls, .xlsx' }}
       />
     </ModalForm>

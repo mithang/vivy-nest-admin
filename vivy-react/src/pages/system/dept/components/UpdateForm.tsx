@@ -60,7 +60,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑部门` : `新增部门`}
+      title={record ? `Edit Department` : `Add Department`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -73,17 +73,17 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     >
       <ProFormTreeSelect
         name="parentId"
-        label="上级部门"
+        label="Parent Department"
         request={deptTreeOptions}
         fieldProps={{
           fieldNames: { label: 'deptName', value: 'deptId' },
         }}
       />
-      <ProFormText name="deptName" label="部门名称" rules={[{ required: true, max: 50 }]} />
-      <ProFormDigit name="deptSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormText name="deptName" label="Department Name" rules={[{ required: true, max: 50 }]} />
+      <ProFormDigit name="deptSort" label="Display Order" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"
-        label="状态"
+        label="Status"
         initialValue={'0'}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />

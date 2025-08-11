@@ -49,7 +49,7 @@ const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={`分配数据权限`}
+      title={`Assign Data Permissions`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -60,17 +60,17 @@ const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
         props.onOpenChange?.(open)
       }}
     >
-      <ProFormText name="roleName" label="角色名称" disabled={true} />
+      <ProFormText name="roleName" label="Role Name" disabled={true} />
       <ProFormSelect
         name="dataScope"
-        label="权限范围"
+        label="Permission Scope"
         fieldProps={{
           options: [
-            { label: '全部数据权限', value: '1' },
-            { label: '自定数据权限', value: '2' },
-            { label: '本部门数据权限', value: '3' },
-            { label: '本部门及以下数据权限', value: '4' },
-            { label: '仅本人数据权限', value: '5' },
+            { label: 'All Data Permissions', value: '1' },
+            { label: 'Custom Data Permissions', value: '2' },
+            { label: 'Department Data Permissions', value: '3' },
+            { label: 'Department and Sub-department Data Permissions', value: '4' },
+            { label: 'Personal Data Permissions Only', value: '5' },
           ],
         }}
       />
@@ -79,7 +79,7 @@ const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
           dataScope === '2' ? (
             <ProFormTreeSelect
               name="deptIds"
-              label="部门权限"
+              label="Department Permissions"
               request={deptTreeOptions}
               fieldProps={{
                 fieldNames: { label: 'deptName', value: 'deptId' },

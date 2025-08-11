@@ -48,28 +48,25 @@ const Config = () => {
    */
   const columns: ProColumns<ConfigModel>[] = [
     {
-      title: '参数编号',
+      title: 'Parameter ID',
       dataIndex: 'configId',
       search: false,
     },
     {
-      title: '参数名称',
+      title: 'Parameter Name',
       dataIndex: 'configName',
-      ellipsis: true,
     },
     {
-      title: '参数键名',
+      title: 'Parameter Key',
       dataIndex: 'configKey',
-      ellipsis: true,
     },
     {
-      title: '参数键值',
+      title: 'Parameter Value',
       dataIndex: 'configValue',
       search: false,
-      ellipsis: true,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
@@ -78,13 +75,13 @@ const Config = () => {
       },
     },
     {
-      title: '备注',
+      title: 'Remarks',
       dataIndex: 'remark',
       search: false,
       ellipsis: true,
     },
     {
-      title: '操作',
+      title: 'Actions',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -96,13 +93,13 @@ const Config = () => {
               setUpdateOpen(true)
             }}
           >
-            编辑
+            Edit
           </Button>
         </Access>,
         <Access key="delete" accessible={hasPermission('system:config:delete')}>
-          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.configId)}>
+          <Popconfirm title="Are you sure you want to delete?" onConfirm={() => handleDelete(record.configId)}>
             <Button type="link" danger>
-              删除
+              Delete
             </Button>
           </Popconfirm>
         </Access>,
@@ -114,7 +111,7 @@ const Config = () => {
     <>
       <ProTable
         rowKey="configId"
-        headerTitle="参数配置列表"
+        headerTitle="Parameter Configuration List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -144,7 +141,7 @@ const Config = () => {
                   setUpdateOpen(true)
                 }}
               >
-                新增
+                Add
               </Button>
             </Access>,
             <Access key="delete" accessible={hasPermission('system:config:delete')}>

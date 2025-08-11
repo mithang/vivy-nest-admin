@@ -17,9 +17,9 @@ import { IconPicker } from '@/components/Icon'
 
 type MenuType = { label: string; value: 'M' | 'C' | 'F' }
 const menuTypeOptions: MenuType[] = [
-  { label: '目录', value: 'M' },
-  { label: '菜单', value: 'C' },
-  { label: '按钮', value: 'F' },
+  { label: 'Directory', value: 'M' },
+  { label: 'Menu', value: 'C' },
+  { label: 'Button', value: 'F' },
 ]
 
 interface UpdateFormProps extends DrawerFormProps {
@@ -71,7 +71,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑菜单` : `新增菜单`}
+      title={record ? `Edit Menu` : `Add Menu`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -84,7 +84,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     >
       <ProFormTreeSelect
         name="parentId"
-        label="上级菜单"
+        label="Parent Menu"
         request={menuTreeOptions}
         fieldProps={{
           fieldNames: { label: 'menuName', value: 'menuId' },
@@ -92,15 +92,15 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       />
       <ProFormRadio.Group
         name="menuType"
-        label="菜单类型"
+        label="Menu Type"
         rules={[{ required: true }]}
         radioType="button"
         fieldProps={{
           options: menuTypeOptions,
         }}
       />
-      <ProFormText name="menuName" label="菜单名称" rules={[{ required: true, max: 50 }]} />
-      <ProFormDigit name="menuSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormText name="menuName" label="Menu Name" rules={[{ required: true, max: 50 }]} />
+      <ProFormDigit name="menuSort" label="Display Order" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormDependency name={['menuType']}>
         {({ menuType }: Record<string, MenuType['value']>) => (
           <>
@@ -108,7 +108,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'M' || menuType === 'C' ? (
               <ProFormText
                 name="icon"
-                label="菜单图标"
+                label="Menu Icon"
                 rules={[{ max: 100 }]}
                 fieldProps={{
                   addonBefore: (
@@ -127,8 +127,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'M' || menuType === 'C' ? (
               <ProFormText
                 name="path"
-                label="路由地址"
-                tooltip="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头"
+                label="Route Address"
+                tooltip="The route address to access, such as: `user`. For external links that need to be accessed internally, start with `http(s)://`"
                 rules={[{ max: 255 }]}
               />
             ) : null}
@@ -136,8 +136,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'C' ? (
               <ProFormText
                 name="component"
-                label="组件路径"
-                tooltip="访问的组件路径，如：`system/user/index`，默认在`pages`目录下"
+                label="Component Path"
+                tooltip="The component path to access, such as: `system/user/index`, defaults to the `pages` directory"
                 rules={[{ max: 255 }]}
               />
             ) : null}
@@ -145,8 +145,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'C' ? (
               <ProFormText
                 name="query"
-                label="路由参数"
-                tooltip='访问路由的默认传递参数，如：`{"id": 1, "name": "vivy"}`'
+                label="Route Parameters"
+                tooltip='Default parameters passed when accessing the route, such as: `{"id": 1, "name": "vivy"}`'
                 rules={[{ max: 255 }]}
               />
             ) : null}
@@ -154,8 +154,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'C' || menuType === 'F' ? (
               <ProFormText
                 name="permission"
-                label="权限字符"
-                tooltip="控制器中定义的权限字符，如：@RequirePermissions('system:operlog:remove')"
+                label="Permission Character"
+                tooltip="Permission character defined in the controller, such as: @RequirePermissions('system:operlog:remove')"
                 rules={[{ max: 100 }]}
               />
             ) : null}
@@ -163,8 +163,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'M' || menuType === 'C' ? (
               <ProFormRadio.Group
                 name="isVisible"
-                label="是否显示"
-                tooltip="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问"
+                label="Is Visible"
+                tooltip="If hidden is selected, the route will not appear in the sidebar, but can still be accessed"
                 initialValue={'1'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
@@ -173,8 +173,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'C' ? (
               <ProFormRadio.Group
                 name="isLink"
-                label="是否外链"
-                tooltip="选择是外链则路由地址需要以`http(s)://`开头"
+                label="Is External Link"
+                tooltip="If external link is selected, the route address needs to start with `http(s)://`"
                 initialValue={'0'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
@@ -183,8 +183,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'C' ? (
               <ProFormRadio.Group
                 name="isFrame"
-                label="是否内嵌"
-                tooltip="选择是内嵌则路由地址需要以`http(s)://`开头"
+                label="Is Embedded"
+                tooltip="If embedded is selected, the route address needs to start with `http(s)://`"
                 initialValue={'0'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
@@ -193,8 +193,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             {menuType === 'C' ? (
               <ProFormRadio.Group
                 name="isCache"
-                label="是否缓存"
-                tooltip="选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致"
+                label="Is Cached"
+                tooltip="If selected, it will be cached by `keep-alive`, and the component's `name` needs to match the address"
                 initialValue={'0'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
@@ -204,7 +204,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       </ProFormDependency>
       <ProFormRadio.Group
         name="status"
-        label="状态"
+        label="Status"
         initialValue={'0'}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />

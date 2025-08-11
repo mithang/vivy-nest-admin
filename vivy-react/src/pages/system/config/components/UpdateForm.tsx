@@ -56,7 +56,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑参数配置` : `新增参数配置`}
+      title={record ? `Edit Parameter Configuration` : `Add Parameter Configuration`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -67,17 +67,32 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         props.onOpenChange?.(open)
       }}
     >
-      <ProFormText name="configName" label="参数名称" rules={[{ required: true }]} fieldProps={{ maxLength: 100 }} />
-      <ProFormText name="configKey" label="参数键名" rules={[{ required: true }]} fieldProps={{ maxLength: 100 }} />
-      <ProFormText name="configValue" label="参数键值" rules={[{ required: true }]} fieldProps={{ maxLength: 500 }} />
+      <ProFormText
+        name="configName"
+        label="Parameter Name"
+        rules={[{ required: true }]}
+        fieldProps={{ maxLength: 100 }}
+      />
+      <ProFormText
+        name="configKey"
+        label="Parameter Key"
+        rules={[{ required: true }]}
+        fieldProps={{ maxLength: 100 }}
+      />
+      <ProFormText
+        name="configValue"
+        label="Parameter Value"
+        rules={[{ required: true }]}
+        fieldProps={{ maxLength: 500 }}
+      />
       <ProFormRadio.Group
         name="status"
-        label="状态"
+        label="Status"
         initialValue={'0'}
         rules={[{ required: true }]}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />
-      <ProFormTextArea name="remark" label="备注" fieldProps={{ maxLength: 500, showCount: true }} />
+      <ProFormTextArea name="remark" label="Remarks" fieldProps={{ maxLength: 500, showCount: true }} />
     </DrawerForm>
   )
 }

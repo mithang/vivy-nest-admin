@@ -37,25 +37,25 @@ const Post = () => {
    */
   const columns: ProColumns<PostModel>[] = [
     {
-      title: '岗位编号',
+      title: 'Post ID',
       dataIndex: 'postId',
       search: false,
     },
     {
-      title: '岗位名称',
+      title: 'Post Name',
       dataIndex: 'postName',
     },
     {
-      title: '岗位编码',
+      title: 'Post Code',
       dataIndex: 'postCode',
     },
     {
-      title: '显示顺序',
+      title: 'Display Order',
       dataIndex: 'postSort',
       search: false,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
@@ -64,12 +64,12 @@ const Post = () => {
       },
     },
     {
-      title: '创建时间',
+      title: 'Creation Time',
       dataIndex: 'createTime',
       search: false,
     },
     {
-      title: '操作',
+      title: 'Actions',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -81,13 +81,13 @@ const Post = () => {
               setUpdateOpen(true)
             }}
           >
-            编辑
+            Edit
           </Button>
         </Access>,
         <Access key="delete" accessible={hasPermission('system:post:delete')}>
-          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.postId)}>
+          <Popconfirm title="Are you sure you want to delete?" onConfirm={() => handleDelete(record.postId)}>
             <Button type="link" danger>
-              删除
+              Delete
             </Button>
           </Popconfirm>
         </Access>,
@@ -99,7 +99,7 @@ const Post = () => {
     <>
       <ProTable
         rowKey="postId"
-        headerTitle="岗位列表"
+        headerTitle="Post List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -129,17 +129,17 @@ const Post = () => {
                   setUpdateOpen(true)
                 }}
               >
-                新增
+                Add
               </Button>
             </Access>,
             <Access key="delete" accessible={hasPermission('system:post:delete')}>
               <Popconfirm
-                title="是否确认删除？"
+                title="Are you sure you want to delete?"
                 disabled={!selectedRowKeys.length}
                 onConfirm={() => handleDelete(selectedRowKeys.join(','))}
               >
                 <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                  删除
+                  Delete
                 </Button>
               </Popconfirm>
             </Access>,

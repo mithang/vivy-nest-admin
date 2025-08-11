@@ -59,7 +59,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑角色` : `新增角色`}
+      title={record ? `Edit Role` : `Add Role`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -70,18 +70,18 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         props.onOpenChange?.(open)
       }}
     >
-      <ProFormText name="roleName" label="角色名称" rules={[{ required: true, max: 50 }]} />
-      <ProFormText name="roleCode" label="权限字符" rules={[{ required: true, max: 50 }]} />
-      <ProFormDigit name="roleSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormText name="roleName" label="Role Name" rules={[{ required: true, max: 50 }]} />
+      <ProFormText name="roleCode" label="Permission Character" rules={[{ required: true, max: 50 }]} />
+      <ProFormDigit name="roleSort" label="Display Order" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"
-        label="状态"
+        label="Status"
         initialValue={'0'}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />
       <ProFormTreeSelect
         name="menuIds"
-        label="菜单权限"
+        label="Menu Permissions"
         request={menuTreeOptions}
         fieldProps={{
           fieldNames: { label: 'menuName', value: 'menuId' },

@@ -56,7 +56,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑岗位` : `新增岗位`}
+      title={record ? `Edit Post` : `Add Post`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -67,12 +67,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         props.onOpenChange?.(open)
       }}
     >
-      <ProFormText name="postName" label="岗位名称" rules={[{ required: true, max: 50 }]} />
-      <ProFormText name="postCode" label="岗位编码" rules={[{ required: true, max: 50 }]} />
-      <ProFormDigit name="postSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormText name="postName" label="Post Name" rules={[{ required: true, max: 50 }]} />
+      <ProFormText name="postCode" label="Post Code" rules={[{ required: true, max: 50 }]} />
+      <ProFormDigit name="postSort" label="Display Order" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"
-        label="状态"
+        label="Status"
         initialValue={'0'}
         fieldProps={{ options: toSelect(sysNormalDisable) }}
       />

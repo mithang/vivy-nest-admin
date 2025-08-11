@@ -56,26 +56,28 @@ const Dept = () => {
    */
   const columns: ProColumns<DeptTreeResult>[] = [
     {
-      title: '部门名称',
+      title: 'Department Name',
       dataIndex: 'deptName',
     },
     {
-      title: '显示顺序',
+      title: 'Display Order',
       dataIndex: 'deptSort',
+      search: false,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       render: (_, record) => {
         return <DictTag options={sysNormalDisable} value={record.status} />
       },
     },
     {
-      title: '创建时间',
+      title: 'Creation Time',
       dataIndex: 'createTime',
+      search: false,
     },
     {
-      title: '操作',
+      title: 'Actions',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -83,17 +85,17 @@ const Dept = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecord({ ...record, parentId: undefined })
+              setRecord(record)
               setUpdateOpen(true)
             }}
           >
-            编辑
+            Edit
           </Button>
         </Access>,
         <Access key="delete" accessible={hasPermission('system:dept:delete')}>
-          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.deptId)}>
+          <Popconfirm title="Are you sure you want to delete?" onConfirm={() => handleDelete(record.deptId)}>
             <Button type="link" danger>
-              删除
+              Delete
             </Button>
           </Popconfirm>
         </Access>,
@@ -105,7 +107,7 @@ const Dept = () => {
     <>
       <ProTable
         rowKey="deptId"
-        headerTitle="部门列表"
+        headerTitle="Department List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -132,7 +134,7 @@ const Dept = () => {
                   setUpdateOpen(true)
                 }}
               >
-                新增
+                Add
               </Button>
             </Access>,
           ],

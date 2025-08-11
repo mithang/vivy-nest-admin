@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
-import { useModel, Access, useAccess, Icon } from '@umijs/max'
+import { useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { isEmpty } from 'lodash-es'
 import { useRef, useState } from 'react'
@@ -37,45 +37,43 @@ const Menu = () => {
    */
   const columns: ProColumns<MenuTreeResult>[] = [
     {
-      title: '菜单名称',
+      title: 'Menu Name',
       dataIndex: 'menuName',
     },
     {
-      title: '菜单图标',
+      title: 'Menu Icon',
       dataIndex: 'icon',
-      render: (node, record) => {
-        if (record.icon) {
-          return <Icon icon={record.icon as any} />
-        } else {
-          return node
-        }
-      },
+      search: false,
     },
     {
-      title: '显示顺序',
+      title: 'Display Order',
       dataIndex: 'menuSort',
+      search: false,
     },
     {
-      title: '权限标识',
+      title: 'Permission Identifier',
       dataIndex: 'permission',
+      search: false,
     },
     {
-      title: '组件路径',
+      title: 'Component Path',
       dataIndex: 'component',
+      search: false,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       render: (_, record) => {
         return <DictTag options={sysNormalDisable} value={record.status} />
       },
     },
     {
-      title: '创建时间',
+      title: 'Creation Time',
       dataIndex: 'createTime',
+      search: false,
     },
     {
-      title: '操作',
+      title: 'Actions',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -87,13 +85,13 @@ const Menu = () => {
               setUpdateOpen(true)
             }}
           >
-            编辑
+            Edit
           </Button>
         </Access>,
         <Access key="delete" accessible={hasPermission('system:menu:delete')}>
-          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.menuId)}>
+          <Popconfirm title="Are you sure you want to delete?" onConfirm={() => handleDelete(record.menuId)}>
             <Button type="link" danger>
-              删除
+              Delete
             </Button>
           </Popconfirm>
         </Access>,
@@ -105,7 +103,7 @@ const Menu = () => {
     <>
       <ProTable
         rowKey="menuId"
-        headerTitle="菜单列表"
+        headerTitle="Menu List"
         bordered
         search={false}
         columns={columns}
@@ -130,7 +128,7 @@ const Menu = () => {
                   setUpdateOpen(true)
                 }}
               >
-                新增
+                Add
               </Button>
             </Access>,
           ],
