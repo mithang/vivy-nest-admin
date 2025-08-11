@@ -15,14 +15,14 @@ const OperationLog = () => {
   const [openDrawer, setOpenDrawer] = useState(false)
 
   /**
-   * 注册字典数据
+   * Register dictionary data
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysOperType = loadDict('sys_oper_type')
   const sysSuccessFailure = loadDict('sys_success_failure')
 
   /**
-   * 清空操作日志
+   * Clear operation log
    */
   const handleClearLog = async () => {
     await clearOperLog()
@@ -30,20 +30,20 @@ const OperationLog = () => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<OperLogModel>[] = [
     {
-      title: '日志编号',
+      title: 'Log ID',
       dataIndex: 'operId',
       search: false,
     },
     {
-      title: '系统模块',
+      title: 'System Module',
       dataIndex: 'title',
     },
     {
-      title: '操作类型',
+      title: 'Operation Type',
       dataIndex: 'operType',
       valueType: 'select',
       fieldProps: { options: toSelect(sysOperType) },
@@ -52,21 +52,21 @@ const OperationLog = () => {
       },
     },
     {
-      title: '操作人员',
+      title: 'Operator',
       dataIndex: 'operName',
     },
     {
-      title: '请求方式',
+      title: 'Request Method',
       dataIndex: 'requestMethod',
       search: false,
     },
     {
-      title: '请求地址',
+      title: 'Request URL',
       dataIndex: 'requestUrl',
       hideInTable: true,
     },
     {
-      title: '操作状态',
+      title: 'Operation Status',
       dataIndex: 'operStatus',
       valueType: 'select',
       fieldProps: { options: toSelect(sysSuccessFailure) },
@@ -75,7 +75,7 @@ const OperationLog = () => {
       },
     },
     {
-      title: '操作日期',
+      title: 'Operation Date',
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       render: (_, record) => {
@@ -83,7 +83,7 @@ const OperationLog = () => {
       },
     },
     {
-      title: '操作',
+      title: 'Operation',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -95,7 +95,7 @@ const OperationLog = () => {
             setOpenDrawer(true)
           }}
         >
-          详情
+          Details
         </Button>,
       ],
     },
@@ -105,7 +105,7 @@ const OperationLog = () => {
     <>
       <ProTable
         rowKey="operId"
-        headerTitle="操作日志"
+        headerTitle="Operation Log"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -123,42 +123,42 @@ const OperationLog = () => {
         toolbar={{
           actions: [
             <Access key="clean" accessible={hasPermission('monitor:loginLog:delete')}>
-              <Popconfirm title="是否确认清空？" onConfirm={handleClearLog}>
+              <Popconfirm title="Are you sure to clear?" onConfirm={handleClearLog}>
                 <Button icon={<DeleteOutlined />} type="primary" danger>
-                  清空
+                  Clear
                 </Button>
               </Popconfirm>
             </Access>,
           ],
         }}
       />
-      <Drawer title="操作日志详情" width={1000} open={openDrawer} onClose={() => setOpenDrawer(false)}>
+      <Drawer title="Operation Log Details" width={1000} open={openDrawer} onClose={() => setOpenDrawer(false)}>
         {record ? (
           <Descriptions column={2}>
-            <Descriptions.Item label="操作模块">
+            <Descriptions.Item label="Operation Module">
               {record.title} / <DictText options={sysOperType} value={record.operType} />
             </Descriptions.Item>
-            <Descriptions.Item label="登录信息">
+            <Descriptions.Item label="Login Information">
               {record.operName} / {record.operIp} / {record.operLocation}
             </Descriptions.Item>
-            <Descriptions.Item label="请求方式">{record.requestMethod}</Descriptions.Item>
-            <Descriptions.Item label="请求地址">{record.requestUrl}</Descriptions.Item>
-            <Descriptions.Item label="操作方法" span={2}>
+            <Descriptions.Item label="Request Method">{record.requestMethod}</Descriptions.Item>
+            <Descriptions.Item label="Request URL">{record.requestUrl}</Descriptions.Item>
+            <Descriptions.Item label="Operation Method" span={2}>
               {record.operMethod}
             </Descriptions.Item>
-            <Descriptions.Item label="请求参数" span={2}>
+            <Descriptions.Item label="Request Parameters" span={2}>
               {record.requestParam}
             </Descriptions.Item>
-            <Descriptions.Item label="返回参数" span={2}>
+            <Descriptions.Item label="Return Parameters" span={2}>
               {record.requestResult}
             </Descriptions.Item>
-            <Descriptions.Item label="错误消息" span={2}>
+            <Descriptions.Item label="Error Message" span={2}>
               {record.requestErrmsg}
             </Descriptions.Item>
-            <Descriptions.Item label="操作状态" span={2}>
+            <Descriptions.Item label="Operation Status" span={2}>
               <DictText options={sysSuccessFailure} value={record.operStatus} />
             </Descriptions.Item>
-            <Descriptions.Item label="操作时间">{record.createTime}</Descriptions.Item>
+            <Descriptions.Item label="Operation Time">{record.createTime}</Descriptions.Item>
           </Descriptions>
         ) : null}
       </Drawer>

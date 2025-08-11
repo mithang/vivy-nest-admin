@@ -54,7 +54,7 @@ const Cache = () => {
     <Row gutter={16}>
       <Col span={8}>
         <Card
-          title="缓存列表"
+          title="Cache List"
           size="small"
           extra={
             <Button type="link" onClick={runGetCaches}>
@@ -69,28 +69,31 @@ const Cache = () => {
             pagination={false}
             rowSelection={{
               type: 'radio',
-              columnTitle: '序号',
+              columnTitle: 'No.',
               columnWidth: 80,
               renderCell: (_, __, index) => index + 1,
               selectedRowKeys: cacheName ? [cacheName] : [],
             }}
             columns={[
               {
-                title: '缓存名称',
+                title: 'Cache Name',
                 dataIndex: 'name',
               },
               {
-                title: '备注',
+                title: 'Remark',
                 dataIndex: 'remark',
               },
               {
-                title: '操作',
+                title: 'Operation',
                 dataIndex: 'option',
                 align: 'center',
                 width: 80,
                 render: (_, record) => [
                   <Access key="delete" accessible={hasPermission('monitor:cache:delete')}>
-                    <Popconfirm title="是否确认清除缓存？" onConfirm={() => runDeleteCacheByName(record.name)}>
+                    <Popconfirm
+                      title="Are you sure to clear cache?"
+                      onConfirm={() => runDeleteCacheByName(record.name)}
+                    >
                       <Button type="link">
                         <DeleteOutlined />
                       </Button>
@@ -113,7 +116,7 @@ const Cache = () => {
       </Col>
       <Col span={8}>
         <Card
-          title="键名列表"
+          title="Key List"
           size="small"
           extra={
             <Button type="link" disabled={!cacheName} onClick={() => runGetCacheKeys(cacheName!)}>
@@ -128,26 +131,26 @@ const Cache = () => {
             pagination={false}
             rowSelection={{
               type: 'radio',
-              columnTitle: '序号',
+              columnTitle: 'No.',
               columnWidth: 80,
               renderCell: (_, __, index) => index + 1,
               selectedRowKeys: cacheKey ? [cacheKey] : [],
             }}
             columns={[
               {
-                title: '缓存键名',
+                title: 'Cache Key',
                 dataIndex: 'key',
                 ellipsis: true,
               },
               {
-                title: '操作',
+                title: 'Operation',
                 dataIndex: 'option',
                 align: 'center',
                 width: 80,
                 render: (_, record) => [
                   <Access key="delete" accessible={hasPermission('monitor:cache:delete')}>
                     <Popconfirm
-                      title="是否确认清除缓存？"
+                      title="Are you sure to clear cache?"
                       onConfirm={() => runDeleteCacheByNameAndKey(record.name, record.key)}
                     >
                       <Button type="link">
@@ -170,7 +173,7 @@ const Cache = () => {
       </Col>
       <Col span={8}>
         <Card
-          title="缓存内容"
+          title="Cache Content"
           size="small"
           extra={
             <Button type="link" disabled={!cacheKey} onClick={() => runGetCacheValue(cacheName!, cacheKey!)}>
@@ -179,13 +182,13 @@ const Cache = () => {
           }
         >
           <Form layout="vertical">
-            <Form.Item label="缓存名称">
+            <Form.Item label="Cache Name">
               <Input readOnly value={cacheValueDataSource?.name} />
             </Form.Item>
-            <Form.Item label="缓存键名">
+            <Form.Item label="Cache Key">
               <Input readOnly value={cacheValueDataSource?.key} />
             </Form.Item>
-            <Form.Item label="缓存内容">
+            <Form.Item label="Cache Content">
               <Input.TextArea rows={5} readOnly value={cacheValueDataSource?.value} />
             </Form.Item>
           </Form>

@@ -13,13 +13,13 @@ const LoginLog = () => {
   const actionRef = useRef<ActionType>()
 
   /**
-   * 注册字典数据
+   * Register dictionary data
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysSuccessFailure = loadDict('sys_success_failure')
 
   /**
-   * 清空登录日志
+   * Clear login log
    */
   const handleClearLog = async () => {
     await clearLoginLog()
@@ -27,40 +27,40 @@ const LoginLog = () => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<LoginLogModel>[] = [
     {
-      title: '日志编号',
+      title: 'Log ID',
       dataIndex: 'loginId',
       search: false,
     },
     {
-      title: '用户名称',
+      title: 'Username',
       dataIndex: 'loginName',
     },
     {
-      title: '登录地址',
+      title: 'Login IP',
       dataIndex: 'loginIp',
       search: false,
     },
     {
-      title: '登录地点',
+      title: 'Login Location',
       dataIndex: 'loginLocation',
       search: false,
     },
     {
-      title: '浏览器',
+      title: 'Browser',
       dataIndex: 'browser',
       search: false,
     },
     {
-      title: '操作系统',
+      title: 'Operating System',
       dataIndex: 'os',
       search: false,
     },
     {
-      title: '登录状态',
+      title: 'Login Status',
       dataIndex: 'loginStatus',
       valueType: 'select',
       fieldProps: { options: toSelect(sysSuccessFailure) },
@@ -69,7 +69,7 @@ const LoginLog = () => {
       },
     },
     {
-      title: '登录日期',
+      title: 'Login Date',
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       render: (_, record) => {
@@ -81,7 +81,7 @@ const LoginLog = () => {
   return (
     <ProTable
       rowKey="loginId"
-      headerTitle="登录日志"
+      headerTitle="Login Log"
       bordered
       columns={columns}
       actionRef={actionRef}
@@ -99,9 +99,9 @@ const LoginLog = () => {
       toolbar={{
         actions: [
           <Access key="clean" accessible={hasPermission('monitor:loginLog:delete')}>
-            <Popconfirm title="是否确认清空？" onConfirm={handleClearLog}>
+            <Popconfirm title="Are you sure to clear?" onConfirm={handleClearLog}>
               <Button icon={<DeleteOutlined />} type="primary" danger>
-                清空
+                Clear
               </Button>
             </Popconfirm>
           </Access>,

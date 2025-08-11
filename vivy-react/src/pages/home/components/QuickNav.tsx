@@ -3,32 +3,32 @@ import { Card } from 'antd'
 
 export const items = [
   {
-    title: '首页',
+    title: 'Home',
     icon: 'ion:home-outline',
     color: '#1fdaca',
   },
   {
-    title: '仪表盘',
+    title: 'Dashboard',
     icon: 'ion:grid-outline',
     color: '#bf0c2c',
   },
   {
-    title: '组件',
+    title: 'Components',
     icon: 'ion:layers-outline',
     color: '#e18525',
   },
   {
-    title: '系统管理',
+    title: 'System Management',
     icon: 'ion:settings-outline',
     color: '#3fb27f',
   },
   {
-    title: '权限管理',
+    title: 'Permission Management',
     icon: 'ion:key-outline',
     color: '#4daf1bc9',
   },
   {
-    title: '图表',
+    title: 'Charts',
     icon: 'ion:bar-chart-outline',
     color: '#00d8ff',
   },
@@ -36,7 +36,7 @@ export const items = [
 
 export default () => {
   return (
-    <Card title="快捷导航" className="w-full">
+    <Card title="Quick Navigation" className="w-full">
       {items.map((item) => (
         <Card.Grid key={item.title}>
           <span className="flex flex-col items-center">

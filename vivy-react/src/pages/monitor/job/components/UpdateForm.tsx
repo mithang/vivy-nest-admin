@@ -22,14 +22,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   const formRef = useRef<ProFormInstance>()
 
   /**
-   * 注册字典数据
+   * Register dictionary data
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysJobGroup = loadDict('sys_job_group')
   const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
-   * 获取初始化数据
+   * Get initialization data
    */
   const { run: runInfoJob } = useRequest(infoJob, {
     manual: true,
@@ -43,14 +43,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   }
 
   /**
-   * Cron 表达式生成
+   * Cron expression generation
    */
   const [cronOpen, setCronOpen] = useState(false)
   const [cronValue, setCronValue] = useState('')
 
   /**
-   * 提交表单
-   * @param values 表单值
+   * Submit form
+   * @param values Form values
    */
   const handleSubmit = async (values: CreateJobParams) => {
     if (record) {
@@ -67,7 +67,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         layout="horizontal"
         labelCol={{ flex: '100px' }}
         formRef={formRef}
-        title={record ? `编辑定时任务` : `新增定时任务`}
+        title={record ? `Edit Scheduled Task` : `Add Scheduled Task`}
         onFinish={async (values: any) => {
           await handleSubmit(values)
           props.onFinish?.(values)
@@ -78,24 +78,24 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           props.onOpenChange?.(open)
         }}
       >
-        <ProFormText name="jobName" label="任务名称" rules={[{ required: true }]} fieldProps={{ maxLength: 100 }} />
+        <ProFormText name="jobName" label="Task Name" rules={[{ required: true }]} fieldProps={{ maxLength: 100 }} />
         <ProFormSelect
           name="jobGroup"
-          label="任务组名"
+          label="Task Group"
           rules={[{ required: true }]}
           fieldProps={{ options: toSelect(sysJobGroup) }}
         />
         <ProFormText
           name="invokeTarget"
-          label="调用目标"
+          label="Invoke Target"
           rules={[{ required: true }]}
           fieldProps={{ maxLength: 500 }}
         />
-        <ProFormText name="invokeParams" label="调用参数" fieldProps={{ maxLength: 500 }} />
+        <ProFormText name="invokeParams" label="Invoke Parameters" fieldProps={{ maxLength: 500 }} />
         <Space.Compact style={{ width: '100%', display: 'flex' }}>
           <ProFormText
             name="cronExpression"
-            label="Cron表达式"
+            label="Cron Expression"
             rules={[
               { required: true },
               {
@@ -103,7 +103,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                   if (cronValidate(value)) {
                     return Promise.resolve()
                   }
-                  return Promise.reject(new Error('Cron表达式格式不正确'))
+                  return Promise.reject(new Error('Cron expression format is incorrect'))
                 },
               },
             ]}
@@ -111,18 +111,18 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             formItemProps={{ style: { flex: 1 } }}
           />
           <Button type="primary" onClick={() => setCronOpen(true)}>
-            生成表达式
+            Generate Expression
           </Button>
         </Space.Compact>
         <ProFormRadio.Group
           name="status"
-          label="状态"
+          label="Status"
           fieldProps={{ options: toSelect(sysNormalDisable) }}
           initialValue={'0'}
         />
-        <ProFormTextArea name="remark" label="备注" fieldProps={{ maxLength: 500, showCount: true }} />
+        <ProFormTextArea name="remark" label="Remark" fieldProps={{ maxLength: 500, showCount: true }} />
         <Modal
-          title="Cron表达式生成器"
+          title="Cron Expression Generator"
           width={1000}
           open={cronOpen}
           onCancel={() => setCronOpen(false)}

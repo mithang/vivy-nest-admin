@@ -13,33 +13,33 @@ const JobLog = () => {
   const actionRef = useRef<ActionType>()
 
   /**
-   * 注册字典数据
+   * Register dictionary data
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysJobGroup = loadDict('sys_job_group')
   const sysSuccessFailure = loadDict('sys_success_failure')
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<JobLogModel>[] = [
     {
-      title: '日志编号',
+      title: 'Log ID',
       dataIndex: 'jobLogId',
       search: false,
     },
     {
-      title: '任务ID',
+      title: 'Task ID',
       dataIndex: 'jobId',
       hideInTable: true,
       initialValue: searchParams.get('jobId'),
     },
     {
-      title: '任务名称',
+      title: 'Task Name',
       dataIndex: 'jobName',
     },
     {
-      title: '任务组名',
+      title: 'Task Group',
       dataIndex: 'jobGroup',
       valueType: 'select',
       fieldProps: { options: toSelect(sysJobGroup) },
@@ -48,17 +48,17 @@ const JobLog = () => {
       },
     },
     {
-      title: '调用目标',
+      title: 'Invoke Target',
       dataIndex: 'invokeTarget',
       search: false,
     },
     {
-      title: '调用参数',
+      title: 'Invoke Parameters',
       dataIndex: 'invokeParams',
       search: false,
     },
     {
-      title: '执行状态',
+      title: 'Execution Status',
       dataIndex: 'status',
       valueType: 'select',
       fieldProps: { options: toSelect(sysSuccessFailure) },
@@ -67,7 +67,7 @@ const JobLog = () => {
       },
     },
     {
-      title: '执行时间',
+      title: 'Execution Time',
       dataIndex: 'createTime',
       search: false,
     },
@@ -77,7 +77,7 @@ const JobLog = () => {
     <>
       <ProTable
         rowKey="jobLogId"
-        headerTitle="任务日志列表"
+        headerTitle="Task Log List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -94,9 +94,9 @@ const JobLog = () => {
         }}
         toolbar={{
           actions: [
-            <Popconfirm key="clear" title="是否确认清空？" onConfirm={() => clearJobLog()}>
+            <Popconfirm key="clear" title="Are you sure to clear?" onConfirm={() => clearJobLog()}>
               <Button icon={<DeleteOutlined />} type="primary" danger>
-                清空
+                Clear
               </Button>
             </Popconfirm>,
           ],

@@ -34,17 +34,17 @@ const Login = () => {
       })
       setToken(token.access_token)
       await fetchUserInfo()
-      Message.loading('登录中...')
+      Message.loading('Logging in...')
       window.location.href = PageEnum.BASE_HOME
     } catch (error: any) {
-      Message.error(error.message || '登录失败，请重试！')
+      Message.error(error.message || 'Login failed, please try again!')
     }
   }
 
   return (
     <div className="flex flex-col justify-center h-[100vh]">
       <div>
-        <LoginForm title="Vivy" subTitle="基于 Nest & React 权限管理系统" onFinish={handleLogin}>
+        <LoginForm title="Vivy" subTitle="Permission Management System Based on Nest & React" onFinish={handleLogin}>
           <ProFormText
             name="username"
             initialValue={'admin'}
@@ -52,11 +52,11 @@ const Login = () => {
               size: 'large',
               prefix: <UserOutlined className={'prefixIcon'} />,
             }}
-            placeholder={'用户名'}
+            placeholder={'Username'}
             rules={[
               {
                 required: true,
-                message: '请输入用户名!',
+                message: 'Please enter username!',
               },
             ]}
           />
@@ -67,11 +67,11 @@ const Login = () => {
               size: 'large',
               prefix: <LockOutlined className={'prefixIcon'} />,
             }}
-            placeholder={'密码'}
+            placeholder={'Password'}
             rules={[
               {
                 required: true,
-                message: '请输入密码！',
+                message: 'Please enter password!',
               },
             ]}
           />
@@ -84,11 +84,11 @@ const Login = () => {
                   prefix: <KeyOutlined className={'prefixIcon'} />,
                   autoFocus: true,
                 }}
-                placeholder={'验证码'}
+                placeholder={'Verification Code'}
                 rules={[
                   {
                     required: true,
-                    message: '请输入验证码!',
+                    message: 'Please enter verification code!',
                   },
                 ]}
               />
@@ -101,9 +101,9 @@ const Login = () => {
           ) : null}
           <div className="mb-5">
             <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
+              Auto Login
             </ProFormCheckbox>
-            <a className="float-right">忘记密码</a>
+            <a className="float-right">Forgot Password</a>
           </div>
         </LoginForm>
       </div>

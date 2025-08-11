@@ -11,7 +11,7 @@ const OnlineUser = () => {
   const actionRef = useRef<ActionType>()
 
   /**
-   * 强退用户
+   * Force logout user
    */
   const handleLogout = async (key: string) => {
     await logoutOnlineUser(key)
@@ -19,42 +19,42 @@ const OnlineUser = () => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<OnlineUserResult>[] = [
     {
-      title: '会话编号',
+      title: 'Session ID',
       dataIndex: 'userSk',
       search: false,
       width: 400,
     },
     {
-      title: '用户名称',
+      title: 'Username',
       dataIndex: 'userName',
     },
     {
-      title: '用户昵称',
+      title: 'Nickname',
       dataIndex: 'nickName',
       search: false,
     },
     {
-      title: '登录地址',
+      title: 'Login IP',
       dataIndex: 'loginIp',
     },
     {
-      title: '登录时间',
+      title: 'Login Time',
       dataIndex: 'loginTime',
       search: false,
     },
     {
-      title: '操作',
+      title: 'Operation',
       valueType: 'option',
       key: 'option',
       hideInTable: !hasPermission('monitor:onlineUser:logout'),
       render: (_, record) => [
-        <Popconfirm key="logout" title="是否确认强退？" onConfirm={() => handleLogout(record.userSk)}>
+        <Popconfirm key="logout" title="Are you sure to force logout?" onConfirm={() => handleLogout(record.userSk)}>
           <Button type="link" danger>
-            强退
+            Force Logout
           </Button>
         </Popconfirm>,
       ],
@@ -64,7 +64,7 @@ const OnlineUser = () => {
   return (
     <ProTable
       rowKey="userSk"
-      headerTitle="在线用户"
+      headerTitle="Online Users"
       bordered
       columns={columns}
       actionRef={actionRef}

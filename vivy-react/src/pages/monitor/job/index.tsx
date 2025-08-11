@@ -19,15 +19,15 @@ const Job = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
-   * 注册字典数据
+   * Register dictionary data
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysJobGroup = loadDict('sys_job_group')
   const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
-   * 删除定时任务
-   * @param jobIds 定时任务ID
+   * Delete scheduled task
+   * @param jobIds Scheduled task ID
    */
   const handleDelete = async (jobIds: number | string) => {
     await deleteJob(jobIds)
@@ -36,11 +36,11 @@ const Job = () => {
   }
 
   /**
-   * 预览执行计划
+   * Preview execution plan
    */
   const handleCronPreview = (record: JobModel) => {
     Modal.confirm({
-      title: `执行计划：${record.jobName}`,
+      title: `Execution Plan: ${record.jobName}`,
       icon: null,
       width: 600,
       footer: false,
@@ -54,20 +54,20 @@ const Job = () => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<JobModel>[] = [
     {
-      title: '任务编号',
+      title: 'Task ID',
       dataIndex: 'jobId',
       search: false,
     },
     {
-      title: '任务名称',
+      title: 'Task Name',
       dataIndex: 'jobName',
     },
     {
-      title: '任务组名',
+      title: 'Task Group',
       dataIndex: 'jobGroup',
       valueType: 'select',
       fieldProps: { options: toSelect(sysJobGroup) },
@@ -76,16 +76,16 @@ const Job = () => {
       },
     },
     {
-      title: '调用目标',
+      title: 'Invoke Target',
       dataIndex: 'invokeTarget',
     },
     {
-      title: 'Cron表达式',
+      title: 'Cron Expression',
       dataIndex: 'cronExpression',
       search: false,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
@@ -94,7 +94,7 @@ const Job = () => {
       },
     },
     {
-      title: '操作',
+      title: 'Operation',
       valueType: 'option',
       key: 'option',
       width: 300,
@@ -107,26 +107,26 @@ const Job = () => {
               setUpdateOpen(true)
             }}
           >
-            编辑
+            Edit
           </Button>
         </Access>,
         <Access key="delete" accessible={hasPermission('monitor:job:delete')}>
-          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.jobId)}>
+          <Popconfirm title="Are you sure to delete?" onConfirm={() => handleDelete(record.jobId)}>
             <Button type="link" danger>
-              删除
+              Delete
             </Button>
           </Popconfirm>
         </Access>,
         <Access key="once" accessible={hasPermission('monitor:job:update')}>
-          <Popconfirm title="是否确认执行？" onConfirm={() => onceJob(record.jobId)}>
-            <Button type="link">执行一次</Button>
+          <Popconfirm title="Are you sure to execute?" onConfirm={() => onceJob(record.jobId)}>
+            <Button type="link">Execute Once</Button>
           </Popconfirm>
         </Access>,
         <Button key="eval" type="link" onClick={() => handleCronPreview(record)}>
-          执行计划
+          Execution Plan
         </Button>,
         <Link key="log" to={`/monitor/job/log?jobId=${record.jobId}`}>
-          调度日志
+          Schedule Log
         </Link>,
       ],
     },
@@ -136,7 +136,7 @@ const Job = () => {
     <>
       <ProTable
         rowKey="jobId"
-        headerTitle="定时任务列表"
+        headerTitle="Scheduled Task List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -166,22 +166,22 @@ const Job = () => {
                   setUpdateOpen(true)
                 }}
               >
-                新增
+                Add
               </Button>
             </Access>,
             <Access key="delete" accessible={hasPermission('monitor:job:delete')}>
               <Popconfirm
-                title="是否确认删除？"
+                title="Are you sure to delete?"
                 disabled={!selectedRowKeys.length}
                 onConfirm={() => handleDelete(selectedRowKeys.join(','))}
               >
                 <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                  删除
+                  Delete
                 </Button>
               </Popconfirm>
             </Access>,
             <Link key="log" to={`/monitor/job/log`}>
-              <Button icon={<HistoryOutlined />}>调度日志</Button>
+              <Button icon={<HistoryOutlined />}>Schedule Log</Button>
             </Link>,
           ],
         }}
