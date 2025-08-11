@@ -6,7 +6,7 @@ export const RootRoute: AppRouteMenu[] = [
     redirect: '/home',
   },
   {
-    name: '首页',
+    name: 'Home',
     path: '/home',
     component: 'home/index',
     icon: 'ant-design:home-outlined',
@@ -14,7 +14,7 @@ export const RootRoute: AppRouteMenu[] = [
 ]
 
 export const LoginRoute: AppRouteMenu = {
-  name: '登录',
+  name: 'Login',
   path: '/login',
   component: 'login/index',
   layout: false,
@@ -28,12 +28,12 @@ export const NotFoundRoute: AppRouteMenu = {
 }
 
 export const AccountRoute: AppRouteMenu = {
-  name: '账号管理',
+  name: 'Account Management',
   path: '/account',
   hideInMenu: true,
   children: [
     {
-      name: '个人中心',
+      name: 'Personal Center',
       path: 'center',
       component: 'account/center/index',
     },

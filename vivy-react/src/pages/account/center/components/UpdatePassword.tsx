@@ -8,13 +8,13 @@ const UpdatePassword: React.FC = () => {
   const formRef = useRef<ProFormInstance>()
 
   /**
-   * 提交表单
-   * @param values 表单值
+   * Submit form
+   * @param values Form values
    */
   const handleSubmit = async (values: UpdatePasswordParams) => {
     await updatePassword(values)
     formRef.current?.resetFields()
-    Message.success('修改成功')
+    Message.success('Updated successfully')
   }
 
   return (
@@ -26,23 +26,23 @@ const UpdatePassword: React.FC = () => {
       onFinish={handleSubmit}
     >
       <ProFormText.Password
-        label="旧密码"
+        label="Old Password"
         name="oldPassword"
-        placeholder="请输入旧密码"
+        placeholder="Please enter old password"
         rules={[{ required: true, max: 36 }]}
       />
       <ProFormText.Password
-        label="新密码"
+        label="New Password"
         name="newPassword"
-        placeholder="请输入新密码"
+        placeholder="Please enter new password"
         rules={[{ required: true, max: 36 }]}
       />
       <ProFormDependency name={['newPassword']}>
         {({ newPassword }) => (
           <ProFormText.Password
-            label="确认密码"
+            label="Confirm Password"
             name="confirmPassword"
-            placeholder="请确认新密码"
+            placeholder="Please confirm new password"
             rules={[
               { required: true, max: 36 },
               {
@@ -50,7 +50,7 @@ const UpdatePassword: React.FC = () => {
                   if (value === newPassword) {
                     return Promise.resolve()
                   } else {
-                    return Promise.reject(new Error('两次密码输入不匹配'))
+                    return Promise.reject(new Error('Password confirmation does not match'))
                   }
                 },
               },

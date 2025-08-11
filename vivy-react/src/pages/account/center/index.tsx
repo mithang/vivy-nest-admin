@@ -12,23 +12,23 @@ const Center = () => {
   return (
     <Row>
       <Col span={8}>
-        <Card title="基本信息" styles={{ body: { paddingTop: '0px' } }} loading={loading}>
+        <Card title="Basic Information" styles={{ body: { paddingTop: '0px' } }} loading={loading}>
           <UserInfo profile={data} />
         </Card>
       </Col>
       <Col span={15} className="ml-4">
-        <Card title="基本资料" styles={{ body: { paddingTop: '0px' } }} loading={loading}>
+        <Card title="Basic Profile" styles={{ body: { paddingTop: '0px' } }} loading={loading}>
           <Tabs
             defaultActiveKey="info"
             items={[
               {
                 key: 'info',
-                label: '基本资料',
+                label: 'Basic Profile',
                 children: <UpdateInfo profile={data} />,
               },
               {
                 key: 'password',
-                label: '修改密码',
+                label: 'Change Password',
                 children: <UpdatePassword />,
               },
             ]}

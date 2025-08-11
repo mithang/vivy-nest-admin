@@ -19,7 +19,7 @@ const UpdateAvatar: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => 
   }
 
   /**
-   * 图片操作
+   * Image operations
    */
   const [image, setImage] = useState(profile.avatar)
   const [avatar, setAvatar] = useState(profile.avatar)
@@ -40,7 +40,7 @@ const UpdateAvatar: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => 
   }
 
   /**
-   * 提交表单
+   * Submit form
    */
   const handleSubmit = async () => {
     const cropper = cropperRef.current?.cropper
@@ -71,7 +71,7 @@ const UpdateAvatar: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => 
       </div>
       <Modal
         open={isModalOpen}
-        title="修改头像"
+        title="Update Avatar"
         width={1000}
         confirmLoading={confirmLoading}
         onCancel={hideModal}

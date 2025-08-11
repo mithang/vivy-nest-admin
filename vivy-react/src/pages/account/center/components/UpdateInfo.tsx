@@ -9,12 +9,12 @@ const UpdateInfo: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => {
   const sysUserSex = loadDict('sys_user_sex')
 
   /**
-   * 提交表单
-   * @param values 表单值
+   * Submit form
+   * @param values Form values
    */
   const handleSubmit = async (values: UpdateProfileParams) => {
     await updateProfile(values)
-    Message.success('修改成功')
+    Message.success('Updated successfully')
   }
 
   return (
@@ -26,19 +26,19 @@ const UpdateInfo: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => {
       onFinish={handleSubmit}
     >
       <ProFormText
-        label="用户昵称"
+        label="Nickname"
         name="nickName"
-        placeholder="请输入用户昵称"
+        placeholder="Please enter nickname"
         rules={[{ required: true, max: 50 }]}
       />
       <ProFormText
-        label="手机号码"
+        label="Phone Number"
         name="phonenumber"
-        placeholder="请输入手机号码"
+        placeholder="Please enter phone number"
         rules={[{ required: true, max: 11 }]}
       />
-      <ProFormText label="用户邮箱" name="email" placeholder="请输入用户邮箱" rules={[{ required: true, max: 50 }]} />
-      <ProFormRadio.Group label="性别" name="sex" options={toSelect(sysUserSex)} />
+      <ProFormText label="Email" name="email" placeholder="Please enter email" rules={[{ required: true, max: 50 }]} />
+      <ProFormRadio.Group label="Gender" name="sex" options={toSelect(sysUserSex)} />
     </ProForm>
   )
 }

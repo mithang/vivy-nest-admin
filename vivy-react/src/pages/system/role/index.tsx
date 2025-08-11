@@ -19,14 +19,14 @@ const Role = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
-   * 注册字典数据
+   * Register dictionary data
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
-   * 删除角色
-   * @param roleIds 角色ID
+   * Delete role
+   * @param roleIds Role ID
    */
   const handleDelete = async (roleIds: number | string) => {
     await deleteRole(roleIds)
@@ -35,29 +35,28 @@ const Role = () => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<RoleModel>[] = [
     {
-      title: '角色编号',
+      title: 'Role ID',
       dataIndex: 'roleId',
       search: false,
     },
     {
-      title: '角色名称',
+      title: 'Role Name',
       dataIndex: 'roleName',
     },
     {
-      title: '权限字符',
+      title: 'Permission Character',
       dataIndex: 'roleCode',
     },
     {
-      title: '显示顺序',
+      title: 'Display Order',
       dataIndex: 'roleSort',
-      search: false,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
@@ -66,13 +65,13 @@ const Role = () => {
       },
     },
     {
-      title: '创建时间',
+      title: 'Create Time',
       dataIndex: 'createTime',
       search: false,
     },
     {
-      title: '操作',
-      valueType: 'option',
+      title: 'Actions',
+      dataIndex: 'option',
       key: 'option',
       render: (_, record) => [
         <Access key="admin" accessible={record.roleId !== 1}>
@@ -84,7 +83,7 @@ const Role = () => {
                 setUpdateOpen(true)
               }}
             >
-              编辑
+              Edit
             </Button>
           </Access>
           <Access key="dataScope" accessible={hasPermission('system:role:update')}>
@@ -95,14 +94,12 @@ const Role = () => {
                 setDataScopeOpen(true)
               }}
             >
-              数据权限
+              Data Permission
             </Button>
           </Access>
           <Access key="delete" accessible={hasPermission('system:role:delete')}>
-            <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.roleId)}>
-              <Button type="link" danger>
-                删除
-              </Button>
+            <Popconfirm title="Are you sure to delete?" onConfirm={() => handleDelete(record.roleId)}>
+              <Button type="link">Delete</Button>
             </Popconfirm>
           </Access>
         </Access>,
@@ -112,9 +109,8 @@ const Role = () => {
 
   return (
     <>
-      <ProTable
-        rowKey="roleId"
-        headerTitle="角色列表"
+      <ProTable<RoleModel>
+        headerTitle="Role List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -149,22 +145,47 @@ const Role = () => {
                   setUpdateOpen(true)
                 }}
               >
-                新增
+                Add
               </Button>
             </Access>,
             <Access key="delete" accessible={hasPermission('system:role:delete')}>
               <Popconfirm
-                title="是否确认删除？"
+                title="Are you sure to delete?"
                 disabled={!selectedRowKeys.length}
                 onConfirm={() => handleDelete(selectedRowKeys.join(','))}
               >
                 <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                  删除
+                  Delete
                 </Button>
               </Popconfirm>
             </Access>,
           ],
         }}
+        toolBarRender={() => [
+          <Access key="add" accessible={hasPermission('system:role:add')}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                setRecord(undefined)
+                setUpdateOpen(true)
+              }}
+            >
+              Add
+            </Button>
+          </Access>,
+        ]}
+        tableAlertOptionRender={() => [
+          <Popconfirm
+            key="batchDelete"
+            title="Are you sure to delete?"
+            onConfirm={() => handleDelete(selectedRowKeys.join(','))}
+          >
+            <Button type="link" icon={<DeleteOutlined />}>
+              Delete
+            </Button>
+          </Popconfirm>,
+        ]}
       />
 
       <UpdateForm

@@ -17,15 +17,15 @@ const Notice = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
-   * 注册字典数据
+   * Register dictionary data
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysNoticeType = loadDict('sys_notice_type')
   const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
-   * 删除通知公告
-   * @param noticeIds 通知公告ID
+   * Delete notice announcement
+   * @param noticeIds Notice announcement ID
    */
   const handleDelete = async (noticeIds: number | string) => {
     await deleteNotice(noticeIds)
@@ -34,20 +34,20 @@ const Notice = () => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<NoticeModel>[] = [
     {
-      title: '公告ID',
+      title: 'Notice ID',
       dataIndex: 'noticeId',
       search: false,
     },
     {
-      title: '公告标题',
+      title: 'Notice Title',
       dataIndex: 'noticeTitle',
     },
     {
-      title: '公告类型',
+      title: 'Notice Type',
       dataIndex: 'noticeType',
       valueType: 'select',
       fieldProps: { options: toSelect(sysNoticeType) },
@@ -56,12 +56,12 @@ const Notice = () => {
       },
     },
     {
-      title: '公告内容',
+      title: 'Notice Content',
       dataIndex: 'noticeContent',
       search: false,
     },
     {
-      title: '公告状态',
+      title: 'Notice Status',
       dataIndex: 'status',
       search: false,
       valueType: 'select',
@@ -71,7 +71,7 @@ const Notice = () => {
       },
     },
     {
-      title: '操作',
+      title: 'Actions',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -83,13 +83,13 @@ const Notice = () => {
               setUpdateOpen(true)
             }}
           >
-            编辑
+            Edit
           </Button>
         </Access>,
         <Access key="delete" accessible={hasPermission('system:notice:delete')}>
-          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.noticeId)}>
+          <Popconfirm title="Are you sure to delete?" onConfirm={() => handleDelete(record.noticeId)}>
             <Button type="link" danger>
-              删除
+              Delete
             </Button>
           </Popconfirm>
         </Access>,
@@ -101,7 +101,7 @@ const Notice = () => {
     <>
       <ProTable
         rowKey="noticeId"
-        headerTitle="通知公告列表"
+        headerTitle="Notice Announcement List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -131,17 +131,17 @@ const Notice = () => {
                   setUpdateOpen(true)
                 }}
               >
-                新增
+                Add
               </Button>
             </Access>,
             <Access key="delete" accessible={hasPermission('system:notice:delete')}>
               <Popconfirm
-                title="是否确认删除？"
+                title="Are you sure to delete?"
                 disabled={!selectedRowKeys.length}
                 onConfirm={() => handleDelete(selectedRowKeys.join(','))}
               >
                 <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                  删除
+                  Delete
                 </Button>
               </Popconfirm>
             </Access>,

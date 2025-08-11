@@ -9,27 +9,27 @@ const UserInfo: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => {
         <UpdateAvatar profile={profile} />
       </List.Item>
       <List.Item>
-        <span>用户名称</span>
+        <span>Username</span>
         <span>{profile.userName}</span>
       </List.Item>
       <List.Item>
-        <span>手机号码</span>
+        <span>Phone Number</span>
         <span>{profile.phonenumber}</span>
       </List.Item>
       <List.Item>
-        <span>用户邮箱</span>
+        <span>User Email</span>
         <span>{profile.email}</span>
       </List.Item>
       <List.Item>
-        <span>所属部门</span>
+        <span>Department</span>
         <span>{profile.dept?.deptName}</span>
       </List.Item>
       <List.Item>
-        <span>所属角色</span>
+        <span>Roles</span>
         <span>{profile.roles?.map((role) => role.roleName).join(',')}</span>
       </List.Item>
       <List.Item>
-        <span>所属岗位</span>
+        <span>Positions</span>
         <span>{profile.posts?.map((post) => post.postName).join(',')}</span>
       </List.Item>
     </List>

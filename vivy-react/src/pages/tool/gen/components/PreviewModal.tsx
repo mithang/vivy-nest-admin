@@ -16,7 +16,7 @@ const removePrefix = (str: string) => {
 
 const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
-   * 查询预览
+   * Query preview
    */
   const [codeInfo, setCodeInfo] = useState<GenPreviewResult[]>([])
   const getCodeData = async () => {
@@ -25,12 +25,12 @@ const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   }
 
   /**
-   * 复制代码
+   * Copy code
    */
   useEffect(() => {
     const clipboard = new Clipboard('.copy')
     clipboard.on('success', () => {
-      Message.success('复制成功')
+      Message.success('Copy successful')
     })
     return () => {
       clipboard.destroy()
@@ -40,7 +40,7 @@ const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <Modal
       {...props}
-      title="代码预览"
+      title="Code Preview"
       footer={null}
       width={1000}
       afterOpenChange={(open) => {
@@ -67,7 +67,7 @@ const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                       type="link"
                       icon={<CopyOutlined />}
                     >
-                      复制
+                      Copy
                     </Button>
                   </div>
                 ),
