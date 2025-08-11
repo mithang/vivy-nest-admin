@@ -19,16 +19,16 @@ const Gen = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
-   * 同步表结构
-   * @param tableName 表名称
+   * Sync table structure
+   * @param tableName Table name
    */
   const handleSync = async (tableName: React.Key) => {
     await syncDbTable(tableName)
   }
 
   /**
-   * 删除记录表
-   * @param tableIds 表ID
+   * Delete record table
+   * @param tableIds Table IDs
    */
   const handleDelete = async (tableIds: React.Key) => {
     await deleteGenTable(tableIds)
@@ -37,8 +37,8 @@ const Gen = () => {
   }
 
   /**
-   * 下载代码
-   * @param tableName 表名称
+   * Download code
+   * @param tableName Table name
    */
   const handleDownload = async (tableName: React.Key) => {
     const { data } = await downloadCode(tableName)
@@ -46,29 +46,29 @@ const Gen = () => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<GenTableModel>[] = [
     {
-      title: '表名称',
+      title: 'Table Name',
       dataIndex: 'tableName',
     },
     {
-      title: '表描述',
+      title: 'Table Description',
       dataIndex: 'tableComment',
     },
     {
-      title: '实体',
+      title: 'Entity',
       dataIndex: 'className',
       search: false,
     },
     {
-      title: '创建时间',
+      title: 'Create Time',
       dataIndex: 'createTime',
       search: false,
     },
     {
-      title: '操作',
+      title: 'Action',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
@@ -80,7 +80,7 @@ const Gen = () => {
             setPreviewOpen(true)
           }}
         >
-          预览
+          Preview
         </Button>,
         <Button
           key="update"
@@ -90,16 +90,24 @@ const Gen = () => {
             setUpdateOpen(true)
           }}
         >
-          编辑
+          Edit
         </Button>,
-        <Popconfirm key="delete" title="是否确认删除？" onConfirm={() => handleDelete(record.tableId)}>
-          <Button type="link">删除</Button>
+        <Popconfirm
+          key="delete"
+          title="Are you sure you want to delete?"
+          onConfirm={() => handleDelete(record.tableId)}
+        >
+          <Button type="link">Delete</Button>
         </Popconfirm>,
-        <Popconfirm key="sync" title="是否确认强制同步表结构？" onConfirm={() => handleSync(record.tableName)}>
-          <Button type="link">同步</Button>
+        <Popconfirm
+          key="sync"
+          title="Are you sure you want to force sync table structure?"
+          onConfirm={() => handleSync(record.tableName)}
+        >
+          <Button type="link">Sync</Button>
         </Popconfirm>,
         <Button key="gen" type="link" onClick={() => handleDownload(record.tableName)}>
-          生成
+          Generate
         </Button>,
       ],
     },
@@ -109,7 +117,7 @@ const Gen = () => {
     <>
       <ProTable
         rowKey="tableId"
-        headerTitle="生成列表"
+        headerTitle="Generation List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -138,16 +146,16 @@ const Gen = () => {
                 setImportOpen(true)
               }}
             >
-              导入
+              Import
             </Button>,
             <Popconfirm
               key="delete"
-              title="是否确认删除？"
+              title="Are you sure you want to delete?"
               disabled={!selectedRowKeys.length}
               onConfirm={() => handleDelete(selectedRowKeys.join(','))}
             >
               <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                删除
+                Delete
               </Button>
             </Popconfirm>,
           ],

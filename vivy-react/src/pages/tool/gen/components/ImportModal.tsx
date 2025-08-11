@@ -9,7 +9,7 @@ const ImportModal: React.FC<ModalProps> = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
-   * 提交导入
+   * Submit import
    */
   const [confirmLoading, setConfirmLoading] = useState(false)
   const handleSubmit = async (e: any) => {
@@ -24,15 +24,15 @@ const ImportModal: React.FC<ModalProps> = (props) => {
   }
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<GenTableModel>[] = [
     {
-      title: '表名称',
+      title: 'Table Name',
       dataIndex: 'tableName',
     },
     {
-      title: '表描述',
+      title: 'Table Description',
       dataIndex: 'tableComment',
     },
   ]
@@ -40,7 +40,7 @@ const ImportModal: React.FC<ModalProps> = (props) => {
   return (
     <Modal
       {...props}
-      title="导入列表"
+      title="Import List"
       width={1000}
       confirmLoading={confirmLoading}
       onOk={handleSubmit}

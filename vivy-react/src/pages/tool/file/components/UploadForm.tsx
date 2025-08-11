@@ -9,7 +9,7 @@ const UploadForm: React.FC<DrawerFormProps> = (props) => {
   const formRef = useRef<ProFormInstance>()
 
   /**
-   * 获取用途选项
+   * Get usage options
    */
   const [useOptions, setUseOptions] = useState<string[]>([])
   useRequest(fileUseOptions, {
@@ -19,8 +19,8 @@ const UploadForm: React.FC<DrawerFormProps> = (props) => {
   })
 
   /**
-   * 提交表单
-   * @param values 表单值
+   * Submit form
+   * @param values Form values
    */
   const handleSubmit = async (values: { fileUse: string; files: UploadFile[] }) => {
     const data = new FormData()
@@ -44,7 +44,7 @@ const UploadForm: React.FC<DrawerFormProps> = (props) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={`新增文件`}
+      title={`Add File`}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -58,10 +58,10 @@ const UploadForm: React.FC<DrawerFormProps> = (props) => {
       <UseSelect options={useOptions} onChange={setUseOptions} />
       <ProFormUploadButton
         name="files"
-        label="上传文件"
+        label="Upload File"
         max={1}
         required
-        rules={[{ required: true, message: '请上传文件' }]}
+        rules={[{ required: true, message: 'Please upload file' }]}
         fieldProps={{ multiple: false, maxCount: 1 }}
       />
     </DrawerForm>

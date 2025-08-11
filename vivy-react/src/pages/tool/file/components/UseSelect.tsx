@@ -26,7 +26,7 @@ const UseSelect: React.FC<{
   return (
     <ProFormSelect
       name="fileUse"
-      label="文件用途"
+      label="File Usage"
       required
       rules={[{ required: true }]}
       fieldProps={{
@@ -37,7 +37,7 @@ const UseSelect: React.FC<{
             <>
               <Space style={{ padding: '0px 2px' }}>
                 <Input
-                  placeholder="新增文件用途"
+                  placeholder="Add new file usage"
                   ref={inputRef}
                   value={name}
                   onChange={onNameChange}
@@ -49,7 +49,7 @@ const UseSelect: React.FC<{
                   disabled={!name || options.includes(name)}
                   onClick={addOption}
                 >
-                  添加
+                  Add
                 </Button>
               </Space>
               <Divider style={{ margin: '4px' }} />

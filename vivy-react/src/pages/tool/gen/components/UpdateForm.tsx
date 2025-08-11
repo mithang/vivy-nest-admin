@@ -14,7 +14,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   const formRef = useRef<ProFormInstance>()
 
   /**
-   * 获取初始化数据
+   * Get initialization data
    */
   const [tableInfo, setTableInfo] = useState<GenTableModel>()
   const getTableColumnData = async () => {
@@ -25,8 +25,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   }
 
   /**
-   * 提交表单
-   * @param values 表单值
+   * Submit form
+   * @param values Form values
    */
   const handleSubmit = async (values: UpdateGenParams) => {
     if (tableInfo) {
@@ -47,7 +47,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       labelCol={{ flex: '120px' }}
       drawerProps={{ styles: { body: { paddingTop: 0 } } }}
       formRef={formRef}
-      title={record ? `编辑表` : `新增表`}
+      title={record ? `Edit Table` : `Add Table`}
       onOpenChange={(open) => {
         open && getTableColumnData()
         props.onOpenChange?.(open)
@@ -63,12 +63,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         items={[
           {
             key: '1',
-            label: `基础信息`,
+            label: `Basic Information`,
             children: <UpdateFormBase />,
           },
           {
             key: '2',
-            label: '字段信息',
+            label: 'Field Information',
             children: (
               <UpdateFormColumn
                 value={tableInfo?.columns || []}

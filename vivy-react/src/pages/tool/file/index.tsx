@@ -18,28 +18,28 @@ const File = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
-   * 文件用途选项
+   * File usage options
    */
   const { data: fileUseData } = useRequest(fileUseOptions)
 
   /**
-   * 表格列配置
+   * Table column configuration
    */
   const columns: ProColumns<FileModel>[] = [
     {
-      title: '文件用途',
+      title: 'File Usage',
       dataIndex: 'fileUse',
       valueType: 'select',
       fieldProps: { options: fileUseData },
     },
     {
-      title: '文件路径',
+      title: 'File Path',
       dataIndex: 'fileUrl',
       width: 300,
       ellipsis: true,
     },
     {
-      title: '文件大小',
+      title: 'File Size',
       dataIndex: 'fileSize',
       search: false,
       render: (_, record) => {
@@ -47,34 +47,34 @@ const File = () => {
       },
     },
     {
-      title: '文件类型',
+      title: 'File Type',
       dataIndex: 'fileType',
       search: false,
     },
     {
-      title: '创建时间',
+      title: 'Create Time',
       dataIndex: 'createTime',
       search: false,
     },
     {
-      title: '操作',
+      title: 'Action',
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
         <Button key="copy" type="link" className="copy" data-clipboard-text={record.fileUrl}>
-          复制地址
+          Copy Address
         </Button>,
       ],
     },
   ]
 
   /**
-   * 复制地址
+   * Copy address
    */
   useEffect(() => {
     const clipboard = new Clipboard('.copy')
     clipboard.on('success', () => {
-      message.success('复制成功')
+      message.success('Copy successful')
     })
     return () => {
       clipboard.destroy()
@@ -85,7 +85,7 @@ const File = () => {
     <>
       <ProTable
         rowKey="fileId"
-        headerTitle="文件列表"
+        headerTitle="File List"
         bordered
         columns={columns}
         actionRef={actionRef}
@@ -114,7 +114,7 @@ const File = () => {
                 setUploadOpen(true)
               }}
             >
-              单个上传
+              Single Upload
             </Button>,
             <Button
               key="uploads"
@@ -124,7 +124,7 @@ const File = () => {
                 setUploadsOpen(true)
               }}
             >
-              多个上传
+              Multiple Upload
             </Button>,
           ],
         }}

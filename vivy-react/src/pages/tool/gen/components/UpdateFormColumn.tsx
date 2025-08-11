@@ -35,15 +35,15 @@ const queryTypeOptions: DefaultOptionType[] = [
 ]
 
 const htmlTypeOptions: DefaultOptionType[] = [
-  { label: '文本框', value: 'input' },
-  { label: '数字框', value: 'number' },
-  { label: '文本域', value: 'textarea' },
-  { label: '下拉框', value: 'select' },
-  { label: '单选框', value: 'radio' },
-  { label: '复选框', value: 'checkbox' },
-  { label: '日期控件', value: 'datetime' },
-  { label: '上传控件', value: 'upload' },
-  { label: '富文本控件', value: 'editor' },
+  { label: 'Text Box', value: 'input' },
+  { label: 'Number Box', value: 'number' },
+  { label: 'Text Area', value: 'textarea' },
+  { label: 'Select Box', value: 'select' },
+  { label: 'Radio Button', value: 'radio' },
+  { label: 'Checkbox', value: 'checkbox' },
+  { label: 'Date Control', value: 'datetime' },
+  { label: 'Upload Control', value: 'upload' },
+  { label: 'Rich Text Control', value: 'editor' },
 ]
 
 const checkboxOptions: DefaultOptionType[] = [{ label: '', value: '1' }]

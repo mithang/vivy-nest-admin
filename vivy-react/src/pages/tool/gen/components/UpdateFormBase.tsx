@@ -4,11 +4,11 @@ import type { DefaultOptionType } from 'antd/es/select'
 const templateOptions: DefaultOptionType[] = [
   {
     value: '1',
-    label: '单表（增删改查）',
+    label: 'Single Table (CRUD)',
   },
   {
     value: '2',
-    label: '树表（增删改查）',
+    label: 'Tree Table (CRUD)',
     disabled: true,
   },
 ]
@@ -16,29 +16,34 @@ const templateOptions: DefaultOptionType[] = [
 const UpdateFormBase: React.FC = () => {
   return (
     <>
-      <ProFormText name="tableName" label="表名称" rules={[{ required: true, max: 100 }]} />
-      <ProFormText name="tableComment" label="表描述" rules={[{ required: true, max: 100 }]} />
-      <ProFormText name="className" label="实体类名称" rules={[{ required: true, max: 100 }]} />
-      <ProFormSelect name="templateCategory" label="生成模板" rules={[{ required: true }]} options={templateOptions} />
+      <ProFormText name="tableName" label="Table Name" rules={[{ required: true, max: 100 }]} />
+      <ProFormText name="tableComment" label="Table Description" rules={[{ required: true, max: 100 }]} />
+      <ProFormText name="className" label="Entity Class Name" rules={[{ required: true, max: 100 }]} />
+      <ProFormSelect
+        name="templateCategory"
+        label="Generation Template"
+        rules={[{ required: true }]}
+        options={templateOptions}
+      />
       <ProFormText
         name="moduleName"
-        label="生成模块名"
-        tooltip="可理解为子系统名，例如 `system`"
+        label="Generation Module Name"
+        tooltip="Can be understood as subsystem name, e.g. `system`"
         rules={[{ required: true, max: 100 }]}
       />
       <ProFormText
         name="businessName"
-        label="生成业务名"
-        tooltip="可理解为功能英文名，例如 `user`"
+        label="Generation Business Name"
+        tooltip="Can be understood as function English name, e.g. `user`"
         rules={[{ required: true, max: 100 }]}
       />
       <ProFormText
         name="functionName"
-        label="生成功能名"
-        tooltip="用作代码的备注描述，例如 `用户`"
+        label="Generation Function Name"
+        tooltip="Used as code comment description, e.g. `User`"
         rules={[{ required: true, max: 100 }]}
       />
-      <ProFormText name="functionAuthor" label="生成作者名" rules={[{ required: true, max: 100 }]} />
+      <ProFormText name="functionAuthor" label="Generation Author Name" rules={[{ required: true, max: 100 }]} />
     </>
   )
 }
