@@ -7,3 +7,7 @@ find /Users/mithang/Downloads/ProjectEcosystems/vivy-nest-admin -name "node_modu
 Neu bi loi brypt thi xoa pnpm-lock.yaml
 pnpm i
 pnpm build:common
+
+Account default: admin/Aa@123456
+Bat dau capcha: disable-captcha.cjs, tu dong admin react se an luon
+

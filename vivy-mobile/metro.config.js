@@ -1,10 +1,12 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
-import { getDefaultConfig } from 'expo/metro-config'
+import { getDefaultConfig } from '@expo/metro-config'
 
-/** @type {import('expo/metro-config').MetroConfig} */
-const config = getDefaultConfig(__dirname, {
-  // [Web-only]: Enables CSS support in Metro.
+const config = getDefaultConfig(__dirname)
+
+// Enable CSS support (web-only)
+config.transformer = {
+  ...config.transformer,
   isCSSEnabled: true,
-})
+}
 
 export default config

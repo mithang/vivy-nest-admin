@@ -1,12 +1,36 @@
 import { Feather, Ionicons } from '@expo/vector-icons'
 import React from 'react'
-import { Pressable, SafeAreaView, TouchableOpacity } from 'react-native'
+import { Pressable, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import SwitchComponent from '../../components/Switch'
 import SwitchComponentNoti from '../../components/SwitchNoti'
 import { Text, View } from '../../components/Themed'
 import { defaultStyles } from '../../constants/styles'
+import { useAuth } from '../../context/auth.context'
 
 const Page = () => {
+  const { logout } = useAuth()
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            await logout()
+          },
+        },
+      ],
+      { cancelable: true }
+    )
+  }
+
   return (
     <SafeAreaView style={defaultStyles.container}>
       <View style={{ marginTop: 50, padding: 10, flex: 1 }}>
@@ -106,6 +130,29 @@ const Page = () => {
           <TouchableOpacity>
             <Text>
               <Ionicons name="chevron-forward" size={20} />
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Logout Button */}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderBottomColor: '#ddd',
+            borderBottomWidth: 0.5,
+            paddingBottom: 25,
+            justifyContent: 'space-between',
+            marginTop: 20,
+          }}
+        >
+          <View>
+            <Text style={{ fontSize: 20, fontFamily: 'medium' }}>Logout</Text>
+            <Text style={{ color: '#808080' }}>Sign out of your account</Text>
+          </View>
+          <TouchableOpacity onPress={handleLogout}>
+            <Text>
+              <Ionicons name="log-out-outline" size={20} color="#FC6A03" />
             </Text>
           </TouchableOpacity>
         </View>

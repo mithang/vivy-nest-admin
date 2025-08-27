@@ -45,6 +45,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 
@@ -67,7 +69,7 @@ const Page = () => {
           <Text style={styles.hero}>Inspired</Text>
           <Text style={styles.ptag}>Discover the best product for fashion</Text>
         </View>
-        <TouchableOpacity style={styles.btn} onRoute={onRoute}>
+        <TouchableOpacity style={styles.btn} onPress={onRoute}>
           <Text style={styles.text}>Get Started</Text>
         </TouchableOpacity>
       </ImageBackground>
