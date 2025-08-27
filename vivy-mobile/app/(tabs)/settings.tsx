@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import SwitchComponent from '../../components/Switch'
@@ -9,6 +10,7 @@ import { useAuth } from '../../context/auth.context'
 
 const Page = () => {
   const { logout } = useAuth()
+  const router = useRouter()
 
   const handleLogout = () => {
     Alert.alert(
@@ -50,7 +52,7 @@ const Page = () => {
           <View style={{ backgroundColor: '#fff', borderRadius: 25, justifyContent: 'center', width: 45, padding: 10 }}>
             <Ionicons name="person-circle-outline" size={24} color={'#111'} />
           </View>
-          <Pressable>
+          <Pressable onPress={() => router.push('/(tabs)/profile')}>
             <Text style={{ fontSize: 22, fontFamily: 'medium', color: '#111' }}>John Doe</Text>
             <Text style={{ fontSize: 14, fontFamily: 'regular', color: '#808080' }}>Personal Information</Text>
           </Pressable>
@@ -162,5 +164,3 @@ const Page = () => {
 }
 
 export default Page
-
-// Remove unused styles

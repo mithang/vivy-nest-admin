@@ -1,10 +1,11 @@
 // This is the product details page
+import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import { Image, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native'
-
 import Animated, { FadeInDown } from 'react-native-reanimated'
 import SwiperFlatList from 'react-native-swiper-flatlist'
+
 import { Text, View } from '../../components/Themed'
 import Colors from '../../constants/Colors'
 import { defaultStyles } from '../../constants/styles'
@@ -132,7 +133,6 @@ const Page = () => {
             padding: 10,
             borderRadius: 10,
           }}
-          onScroll={({ index }) => setActiveIndex(index)}
         />
 
         <View style={{ padding: 20 }}>

@@ -9,4 +9,4 @@ config.transformer = {
   isCSSEnabled: true,
 }
 
-export default config
+module.exports = config
