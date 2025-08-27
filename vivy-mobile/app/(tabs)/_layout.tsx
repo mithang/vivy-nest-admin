@@ -1,5 +1,4 @@
-import { Entypo, Ionicons } from '@expo/vector-icons'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
+import { Ionicons } from '@expo/vector-icons'
 import { Link, Tabs } from 'expo-router'
 import { Pressable, Text, View, useColorScheme } from 'react-native'
 
@@ -9,8 +8,8 @@ import { useCartStore } from '../../context/context'
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>['name']; color: string }) {
-  return <FontAwesome size={24} style={{ marginBottom: -3 }} {...props} />
+function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
+  return <Ionicons size={24} style={{ marginBottom: -3 }} {...props} />
 }
 
 export default function TabLayout() {
@@ -69,7 +68,7 @@ export default function TabLayout() {
               <Pressable style={{ paddingHorizontal: 10 }}>
                 {({ pressed }) => (
                   <Ionicons
-                    name="search"
+                    name="search-outline"
                     size={22}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -84,7 +83,7 @@ export default function TabLayout() {
         name="shop"
         options={{
           title: 'Shop',
-          tabBarIcon: ({ color }) => <Entypo name="shop" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="storefront-outline" size={24} color={color} />,
           headerRight: () => (
             <Link href="/(modals)/cart" asChild>
               <Pressable>
@@ -122,7 +121,7 @@ export default function TabLayout() {
               <Pressable style={{ paddingHorizontal: 10 }}>
                 {({ pressed }) => (
                   <Ionicons
-                    name="search"
+                    name="search-outline"
                     size={22}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}

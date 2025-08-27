@@ -1,4 +1,4 @@
-import { Feather, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { Pressable, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import SwitchComponent from '../../components/Switch'
@@ -48,7 +48,7 @@ const Page = () => {
           }}
         >
           <View style={{ backgroundColor: '#fff', borderRadius: 25, justifyContent: 'center', width: 45, padding: 10 }}>
-            <Feather name="user" size={24} color={'#111'} />
+            <Ionicons name="person-circle-outline" size={24} color={'#111'} />
           </View>
           <Pressable>
             <Text style={{ fontSize: 22, fontFamily: 'medium', color: '#111' }}>John Doe</Text>

@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack, useRouter } from 'expo-router'
@@ -38,7 +37,6 @@ export default function RootLayout() {
     medium: AuthorMedium,
     semibold: AuthorSemibold,
     bold: AuthorBold,
-    ...FontAwesome.font,
   })
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.

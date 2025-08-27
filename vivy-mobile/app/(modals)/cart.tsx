@@ -1,4 +1,4 @@
-import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { FlatList, Image, StyleSheet, TouchableOpacity, Pressable } from 'react-native'
 
@@ -66,7 +66,7 @@ const Page = () => {
                             {item.name}
                           </Text>
                           <TouchableOpacity onPress={() => deleteFromCart(item.id)}>
-                            <Ionicons name="trash" size={20} color={Colors.orange} />
+                            <Ionicons name="trash-outline" size={20} color={Colors.orange} />
                           </TouchableOpacity>
                         </View>
                         <Text style={{ color: '#808080', fontFamily: 'medium', fontSize: 16, marginVertical: 12 }}>
@@ -89,7 +89,7 @@ const Page = () => {
                               }}
                             >
                               <Text style={{ textAlign: 'center' }}>
-                                <AntDesign name="minus" size={24} />
+                                <Ionicons name="remove" size={24} />
                               </Text>
                             </TouchableOpacity>
 
@@ -152,7 +152,7 @@ const Page = () => {
         <>
           <View style={styles.container}>
             <Text>
-              <MaterialIcons name="remove-shopping-cart" size={44} />
+              <Ionicons name="cart-outline" size={44} />
             </Text>
             <Text style={styles.title}>No Item In the cart.</Text>
           </View>

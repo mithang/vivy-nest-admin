@@ -5,7 +5,6 @@ import Ripple from 'react-native-material-ripple'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  // Remove unused withTiming
   interpolate,
   Extrapolate,
   withSpring,
@@ -15,7 +14,6 @@ import Animated, {
 const isAndroid = Platform.OS === 'android'
 const { width } = Dimensions.get('window')
 
-// Move styles to top
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -49,7 +47,6 @@ const style = StyleSheet.create({
   },
 })
 
-// Move AnimatedCircle definition to top
 const AnimatedCircleMemo = ({ onRotateEnd, index, onInit }: any) => {
   const addToCartAnim = useSharedValue(0)
   const animatedStyle = useAnimatedStyle(() => {
@@ -139,7 +136,7 @@ const AddToCart = () => {
           ]}
         >
           <Animated.View style={[{ position: 'relative' }, cartStyle]}>
-            <Ionicons name="ios-cart-outline" color="black" size={30} />
+            <Ionicons name="cart-outline" color="black" size={30} />
             <Animated.View
               style={[
                 style.circle,
