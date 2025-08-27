@@ -1,12 +1,12 @@
 import { SysUser } from '../entities/sys-user.entity'
 
 /**
- * 用户详情
+ * User details
  */
 export class UserInfoVo extends SysUser {
-  /** 用户角色 */
+  /** User roles */
   roleIds: number[]
 
-  /** 用户岗位 */
+  /** User posts */
   postIds: number[]
 }

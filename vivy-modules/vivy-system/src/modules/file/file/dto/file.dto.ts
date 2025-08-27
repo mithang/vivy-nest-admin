@@ -4,24 +4,24 @@ import { Allow } from 'class-validator'
 import { SysFile } from '../entities/sys-file.entity'
 
 /**
- * 查询文件
+ * Query files
  */
 export class ListFileDto extends PaginateDto {
-  /** 文件用途 */
+  /** File usage */
   @Allow()
   fileUse?: string
 
-  /** 文件路径 */
+  /** File path */
   @Allow()
   fileUrl?: string
 }
 
 /**
- * 添加文件
+ * Add file
  */
 export class CreateFileDto extends OmitType(SysFile, ['fileId'] as const) {}
 
 /**
- * 更新文件
+ * Update file
  */
 export class UpdateFileDto extends OmitType(SysFile, ['fileId'] as const) {}

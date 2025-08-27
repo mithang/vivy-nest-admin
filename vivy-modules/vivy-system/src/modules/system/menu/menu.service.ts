@@ -8,7 +8,7 @@ import { SysMenu } from './entities/sys-menu.entity'
 import { MenuTreeVo } from './vo/menu.vo'
 
 /**
- * 菜单管理
+ * Menu management
  * @author vivy
  */
 @Injectable()
@@ -22,7 +22,7 @@ export class MenuService {
   ) {}
 
   /**
-   * 查询菜单树结构
+   * Query menu tree structure
    */
   async tree(): Promise<MenuTreeVo[]> {
     const list = await this.menuRepository.find({
@@ -37,43 +37,43 @@ export class MenuService {
   }
 
   /**
-   * 添加菜单
-   * @param menu 菜单信息
+   * Add menu
+   * @param menu Menu information
    */
   async add(menu: CreateMenuDto): Promise<void> {
     await this.menuRepository.insert(menu)
   }
 
   /**
-   * 更新菜单
-   * @param menuId 菜单ID
-   * @param menu 菜单信息
+   * Update menu
+   * @param menuId Menu ID
+   * @param menu Menu information
    */
   async update(menuId: number, menu: UpdateMenuDto): Promise<void> {
     await this.menuRepository.update(menuId, menu)
   }
 
   /**
-   * 删除菜单
-   * @param menuId 菜单ID
+   * Delete menu
+   * @param menuId Menu ID
    */
   async delete(menuId: number): Promise<void> {
     await this.menuRepository.delete(menuId)
   }
 
   /**
-   * 菜单详情
-   * @param menuId 菜单ID
-   * @returns 菜单详情
+   * Menu details
+   * @param menuId Menu ID
+   * @returns Menu details
    */
   async info(menuId: number): Promise<SysMenu> {
     return this.menuRepository.findOneBy({ menuId })
   }
 
   /**
-   * 是否存在子节点
-   * @param menuId 菜单ID
-   * @return true 存在 / false 不存在
+   * Check if child nodes exist
+   * @param menuId Menu ID
+   * @return true exists / false does not exist
    */
   async checkMenuExistChild(deptId: number): Promise<boolean> {
     const count = await this.menuRepository.countBy({ parentId: deptId })
@@ -81,9 +81,9 @@ export class MenuService {
   }
 
   /**
-   * 检查是否存在角色
-   * @param menuId 菜单ID
-   * @return true 存在 / false 不存在
+   * Check if role exists
+   * @param menuId Menu ID
+   * @return true exists / false does not exist
    */
   async checkMenuExistRole(menuId: number): Promise<boolean> {
     const count = await this.roleMenuRepository.countBy({ menuId })
@@ -91,8 +91,8 @@ export class MenuService {
   }
 
   /**
-   * 查询菜单选项树
-   * @returns 菜单选项树
+   * Query menu option tree
+   * @returns Menu option tree
    */
   async treeOptions(): Promise<MenuTreeVo[]> {
     const list = await this.menuRepository.find({
@@ -111,9 +111,9 @@ export class MenuService {
   }
 
   /**
-   * 根据用户ID查询菜单列表
-   * @param userId 用户ID
-   * @returns 用户菜单列表
+   * Query menu list by user ID
+   * @param userId User ID
+   * @returns User menu list
    */
   async selectMenuByUserId(userId: number): Promise<SysMenu[]> {
     return this.menuRepository
@@ -129,9 +129,9 @@ export class MenuService {
   }
 
   /**
-   * 查询用户菜单信息
-   * @param userId 用户ID
-   * @returns 用户菜单信息
+   * Query user menu information
+   * @param userId User ID
+   * @returns User menu information
    */
   async selectUserMenuTree(userId: number): Promise<MenuTreeVo[]> {
     let menus: SysMenu[] = []

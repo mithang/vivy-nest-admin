@@ -10,7 +10,7 @@ import { SysDept } from './entities/sys-dept.entity'
 import { DeptTreeVo } from './vo/dept.vo'
 
 /**
- * 部门管理
+ * Department management
  * @author vivy
  */
 @Injectable()
@@ -27,7 +27,7 @@ export class DeptService {
   ) {}
 
   /**
-   * 数据范围部门列表查询构造
+   * Data scope department list query construction
    */
   @DataScope({ deptAlias: 'd' })
   private dsDeptQueryBuilder() {
@@ -36,7 +36,7 @@ export class DeptService {
   }
 
   /**
-   * 查询部门树结构
+   * Query department tree structure
    */
   async tree(): Promise<DeptTreeVo[]> {
     const list = await this.dsDeptQueryBuilder().getMany()
@@ -47,8 +47,8 @@ export class DeptService {
   }
 
   /**
-   * 添加部门
-   * @param dept 部门信息
+   * Add department
+   * @param dept Department information
    */
   async add(dept: CreateDeptDto): Promise<void> {
     dept.ancestors = `0`
@@ -61,9 +61,9 @@ export class DeptService {
   }
 
   /**
-   * 更新部门
-   * @param dept 部门信息
-   * @param deptId 部门ID
+   * Update department
+   * @param dept Department information
+   * @param deptId Department ID
    */
   async update(deptId: number, dept: UpdateDeptDto): Promise<void> {
     dept.ancestors = `0`
@@ -76,38 +76,38 @@ export class DeptService {
   }
 
   /**
-   * 删除部门
-   * @param deptId 部门ID
+   * Delete department
+   * @param deptId Department ID
    */
   async delete(deptId: number): Promise<void> {
     await this.deptRepository.delete(deptId)
   }
 
   /**
-   * 部门详情
-   * @param deptId 部门ID
-   * @returns 部门详情
+   * Department details
+   * @param deptId Department ID
+   * @returns Department details
    */
   async info(deptId: number): Promise<SysDept> {
     return this.deptRepository.findOneBy({ deptId })
   }
 
   /**
-   * 校验是否有部门数据权限，检验失败抛出错误
-   * @param deptId 部门ID
+   * Check if there is department data permission, throw error on failure
+   * @param deptId Department ID
    */
   async checkDeptDataScope(deptId: number) {
     if (isEmpty(deptId)) return
     if (IdentityUtils.isAdmin(this.securityContext.getUserId())) return
 
     const count = await this.dsDeptQueryBuilder().andWhere({ deptId }).getCount()
-    if (count <= 0) throw new ServiceException('没有权限访问部门数据')
+    if (count <= 0) throw new ServiceException('No permission to access department data')
   }
 
   /**
-   * 是否存在子节点
-   * @param deptId 部门ID
-   * @return true 存在 / false 不存在
+   * Check if child nodes exist
+   * @param deptId Department ID
+   * @return true exists / false does not exist
    */
   async checkDeptExistChild(deptId: number): Promise<boolean> {
     const count = await this.deptRepository.countBy({ parentId: deptId })
@@ -115,9 +115,9 @@ export class DeptService {
   }
 
   /**
-   * 检查是否存在用户
-   * @param deptId 部门ID
-   * @return true 存在 / false 不存在
+   * Check if user exists
+   * @param deptId Department ID
+   * @return true exists / false does not exist
    */
   async checkDeptExistUser(deptId: number): Promise<boolean> {
     const count = await this.userRepository.countBy({ deptId })
@@ -125,8 +125,8 @@ export class DeptService {
   }
 
   /**
-   * 查询部门选项树
-   * @returns 部门选项树
+   * Query department option tree
+   * @returns Department option tree
    */
   async treeOptions(): Promise<DeptTreeVo[]> {
     const list = await this.dsDeptQueryBuilder()

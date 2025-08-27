@@ -8,10 +8,10 @@ import { DictTypeService } from './dict-type.service'
 import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto'
 
 /**
- * 字典类型管理
+ * Dictionary type management
  * @author vivy
  */
-@ApiTags('字典类型管理')
+@ApiTags('Dictionary type management')
 @ApiBearerAuth()
 @Controller('dict/types')
 export class DictTypeController {
@@ -22,9 +22,9 @@ export class DictTypeController {
   ) {}
 
   /**
-   * 查询字典类型列表
-   * @param dictType 字典类型信息
-   * @returns 字典类型列表
+   * Query dictionary type list
+   * @param dictType Dictionary type information
+   * @returns Dictionary type list
    */
   @Get()
   @RequirePermissions('system:dict:list')
@@ -33,19 +33,19 @@ export class DictTypeController {
   }
 
   /**
-   * 添加字典类型
-   * @param dictType 字典类型信息
+   * Add dictionary type
+   * @param dictType Dictionary type information
    */
   @Post()
-  @Log({ title: '字典类型管理', operType: OperType.INSERT })
+  @Log({ title: 'Dictionary type management', operType: OperType.INSERT })
   @RequirePermissions('system:dict:add')
   async add(@Body() dictType: CreateDictTypeDto): Promise<AjaxResult> {
     if (!(await this.dictTypeService.checkDictTypeUnique(dictType.dictType))) {
-      return AjaxResult.error(`新增字典${dictType.dictName}失败，字典类型已存在`)
+      return AjaxResult.error(`Failed to add dictionary ${dictType.dictName}, dictionary type already exists`)
     }
 
     if (!(await this.dictTypeService.checkDictNameUnique(dictType.dictName))) {
-      return AjaxResult.error(`新增字典${dictType.dictName}失败，字典名称已存在`)
+      return AjaxResult.error(`Failed to add dictionary ${dictType.dictName}, dictionary name already exists`)
     }
 
     dictType.createBy = this.securityContext.getUserName()
@@ -53,20 +53,20 @@ export class DictTypeController {
   }
 
   /**
-   * 更新字典类型
-   * @param dictId 字典类型ID
-   * @param dictType 字典类型信息
+   * Update dictionary type
+   * @param dictId Dictionary type ID
+   * @param dictType Dictionary type information
    */
   @Put(':dictId')
-  @Log({ title: '字典类型管理', operType: OperType.UPDATE })
+  @Log({ title: 'Dictionary type management', operType: OperType.UPDATE })
   @RequirePermissions('system:dict:update')
   async update(@Param('dictId') dictId: number, @Body() dictType: UpdateDictTypeDto): Promise<AjaxResult> {
     if (!(await this.dictTypeService.checkDictTypeUnique(dictType.dictType, dictId))) {
-      return AjaxResult.error(`修改字典${dictType.dictName}失败，字典类型已存在`)
+      return AjaxResult.error(`Failed to update dictionary ${dictType.dictName}, dictionary type already exists`)
     }
 
     if (!(await this.dictTypeService.checkDictNameUnique(dictType.dictName, dictId))) {
-      return AjaxResult.error(`修改字典${dictType.dictName}失败，字典名称已存在`)
+      return AjaxResult.error(`Failed to update dictionary ${dictType.dictName}, dictionary name already exists`)
     }
 
     dictType.updateBy = this.securityContext.getUserName()
@@ -74,29 +74,29 @@ export class DictTypeController {
   }
 
   /**
-   * 刷新字典缓存
+   * Refresh dictionary cache
    */
   @Delete('refresh-cache')
-  @Log({ title: '参数配置', operType: OperType.DELETE })
+  @Log({ title: 'Parameter configuration', operType: OperType.DELETE })
   @RequirePermissions('system:dict:delete')
   async refreshCache(): Promise<AjaxResult> {
     return AjaxResult.success(await this.dictCacheService.reset())
   }
 
   /**
-   * 删除字典类型
-   * @param dictIds 字典类型ID
+   * Delete dictionary type
+   * @param dictIds Dictionary type ID
    */
   @Delete(':dictIds')
-  @Log({ title: '字典类型管理', operType: OperType.DELETE })
+  @Log({ title: 'Dictionary type management', operType: OperType.DELETE })
   @RequirePermissions('system:dict:delete')
   async delete(@Param('dictIds', new ParseArrayPipe({ items: Number })) dictIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.dictTypeService.delete(dictIds))
   }
 
   /**
-   * 字典类型选项列表
-   * @returns 字典类型选项列表
+   * Dictionary type options list
+   * @returns Dictionary type options list
    */
   @Get('options')
   async options(): Promise<AjaxResult> {
@@ -104,9 +104,9 @@ export class DictTypeController {
   }
 
   /**
-   * 字典类型详情
-   * @param dictId 字典类型ID
-   * @returns 字典类型详情
+   * Dictionary type details
+   * @param dictId Dictionary type ID
+   * @returns Dictionary type details
    */
   @Get(':dictId')
   @RequirePermissions('system:dict:query')

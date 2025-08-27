@@ -4,28 +4,28 @@ import { Allow } from 'class-validator'
 import { SysDictData } from '../entities/sys-dict-data.entity'
 
 /**
- * 查询字典数据
+ * Query dictionary data
  */
 export class ListDictDataDto extends PaginateDto {
-  /** 字典类型 */
+  /** Dictionary type */
   @Allow()
   dictType?: string
 
-  /** 字典标签 */
+  /** Dictionary label */
   @Allow()
   dictLabel?: string
 
-  /** 字典状态（0正常 1停用） */
+  /** Dictionary status (0 normal 1 disabled) */
   @Allow()
   status?: string
 }
 
 /**
- * 添加字典数据
+ * Add dictionary data
  */
 export class CreateDictDataDto extends OmitType(SysDictData, ['dictId'] as const) {}
 
 /**
- * 更新字典数据
+ * Update dictionary data
  */
 export class UpdateDictDataDto extends OmitType(SysDictData, ['dictId'] as const) {}

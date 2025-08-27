@@ -5,10 +5,10 @@ import { Public } from '@vivy-common/security'
 import { HealthService } from './health.service'
 
 /**
- * 健康检查
+ * Health check
  * @author vivy
  */
-@ApiTags('健康检查')
+@ApiTags('Health check')
 @Controller('health')
 export class HealthController {
   constructor(
@@ -17,7 +17,7 @@ export class HealthController {
   ) {}
 
   /**
-   * 健康检查
+   * Health check
    */
   @Get()
   @Public()

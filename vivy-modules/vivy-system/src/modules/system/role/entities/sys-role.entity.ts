@@ -4,14 +4,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 角色信息表
+ * Role information table
  */
 @Entity({ name: 'sys_role' })
 export class SysRole extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'role_id',
     type: 'bigint',
-    comment: '角色ID',
+    comment: 'Role ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class SysRole extends BaseBusinessEntity {
     name: 'role_name',
     type: 'varchar',
     length: 50,
-    comment: '角色名称',
+    comment: 'Role name',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -31,7 +31,7 @@ export class SysRole extends BaseBusinessEntity {
     name: 'role_code',
     type: 'varchar',
     length: 50,
-    comment: '角色编码',
+    comment: 'Role code',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -41,7 +41,7 @@ export class SysRole extends BaseBusinessEntity {
     name: 'role_sort',
     type: 'int',
     default: 0,
-    comment: '显示顺序',
+    comment: 'Display order',
   })
   @IsInt()
   @IsOptional()
@@ -52,7 +52,8 @@ export class SysRole extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '1',
-    comment: '数据范围（1全部数据权限 2自定数据权限 3本部门数据权限 4本部门及以下数据权限 5仅本人数据权限）',
+    comment:
+      'Data scope (1 all data permissions 2 custom data permissions 3 department data permissions 4 department and below data permissions 5 personal data permissions only)',
   })
   @IsEnum(DataScopeType)
   @IsOptional()
@@ -63,7 +64,7 @@ export class SysRole extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '角色状态（0正常 1停用）',
+    comment: 'Role status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()

@@ -4,28 +4,28 @@ import { Allow } from 'class-validator'
 import { SysPost } from '../entities/sys-post.entity'
 
 /**
- * 查询岗位
+ * Query posts
  */
 export class ListPostDto extends PaginateDto {
-  /** 岗位名称 */
+  /** Post name */
   @Allow()
   postName?: string
 
-  /** 岗位编码 */
+  /** Post code */
   @Allow()
   postCode?: string
 
-  /** 岗位状态（0正常 1停用） */
+  /** Post status (0 normal 1 disabled) */
   @Allow()
   status?: string
 }
 
 /**
- * 添加岗位
+ * Add post
  */
 export class CreatePostDto extends OmitType(SysPost, ['postId'] as const) {}
 
 /**
- * 更新岗位
+ * Update post
  */
 export class UpdatePostDto extends OmitType(SysPost, ['postId'] as const) {}

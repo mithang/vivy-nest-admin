@@ -7,10 +7,10 @@ import { ListJobDto, CreateJobDto, UpdateJobDto } from './dto/job.dto'
 import { JobService } from './job.service'
 
 /**
- * 定时任务
+ * Scheduled tasks
  * @author vivy
  */
-@ApiTags('定时任务')
+@ApiTags('Scheduled tasks')
 @ApiBearerAuth()
 @Controller('jobs')
 export class JobController {
@@ -20,9 +20,9 @@ export class JobController {
   ) {}
 
   /**
-   * 定时任务列表
-   * @param job 定时任务信息
-   * @returns 定时任务列表
+   * Scheduled task list
+   * @param job Scheduled task information
+   * @returns Scheduled task list
    */
   @Get()
   @RequirePermissions('monitor:job:list')
@@ -31,11 +31,11 @@ export class JobController {
   }
 
   /**
-   * 添加定时任务
-   * @param job 定时任务信息
+   * Add scheduled task
+   * @param job Scheduled task information
    */
   @Post()
-  @Log({ title: '定时任务', operType: OperType.INSERT })
+  @Log({ title: 'Scheduled tasks', operType: OperType.INSERT })
   @RequirePermissions('monitor:job:add')
   async add(@Body() job: CreateJobDto): Promise<AjaxResult> {
     await this.jobService.checkInvokeTargetAllowed(job.invokeTarget)
@@ -45,12 +45,12 @@ export class JobController {
   }
 
   /**
-   * 更新定时任务
-   * @param jobId 定时任务ID
-   * @param job 定时任务信息
+   * Update scheduled task
+   * @param jobId Scheduled task ID
+   * @param job Scheduled task information
    */
   @Put(':jobId')
-  @Log({ title: '定时任务', operType: OperType.UPDATE })
+  @Log({ title: 'Scheduled tasks', operType: OperType.UPDATE })
   @RequirePermissions('monitor:job:update')
   async update(@Param('jobId') jobId: number, @Body() job: UpdateJobDto): Promise<AjaxResult> {
     await this.jobService.checkInvokeTargetAllowed(job.invokeTarget)
@@ -60,20 +60,20 @@ export class JobController {
   }
 
   /**
-   * 删除定时任务
-   * @param jobIds 定时任务ID
+   * Delete scheduled task
+   * @param jobIds Scheduled task IDs
    */
   @Delete(':jobIds')
-  @Log({ title: '定时任务', operType: OperType.DELETE })
+  @Log({ title: 'Scheduled tasks', operType: OperType.DELETE })
   @RequirePermissions('monitor:job:delete')
   async delete(@Param('jobIds', new ParseArrayPipe({ items: Number })) jobIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.jobService.delete(jobIds))
   }
 
   /**
-   * 定时任务详情
-   * @param jobId 定时任务ID
-   * @returns 定时任务详情
+   * Scheduled task details
+   * @param jobId Scheduled task ID
+   * @returns Scheduled task details
    */
   @Get(':jobId')
   @RequirePermissions('monitor:job:query')
@@ -82,12 +82,12 @@ export class JobController {
   }
 
   /**
-   * 执行一次定时任务
-   * @param jobId 定时任务ID
+   * Execute scheduled task once
+   * @param jobId Scheduled task ID
    */
   @Post(':jobId/once')
   @RequirePermissions('monitor:job:add')
-  @Log({ title: '定时任务', operType: OperType.INSERT })
+  @Log({ title: 'Scheduled tasks', operType: OperType.INSERT })
   async once(@Param('jobId') jobId: number): Promise<AjaxResult> {
     return AjaxResult.success(await this.jobService.once(jobId))
   }

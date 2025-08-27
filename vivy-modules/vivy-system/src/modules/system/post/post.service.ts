@@ -9,7 +9,7 @@ import { ListPostDto, CreatePostDto, UpdatePostDto } from './dto/post.dto'
 import { SysPost } from './entities/sys-post.entity'
 
 /**
- * 岗位管理
+ * Post management
  * @author vivy
  */
 @Injectable()
@@ -23,9 +23,9 @@ export class PostService {
   ) {}
 
   /**
-   * 岗位列表
-   * @param post 岗位信息
-   * @returns 岗位列表
+   * Post list
+   * @param post Post information
+   * @returns Post list
    */
   async list(post: ListPostDto): Promise<Pagination<SysPost>> {
     return paginate<SysPost>(
@@ -48,32 +48,32 @@ export class PostService {
   }
 
   /**
-   * 添加岗位
-   * @param post 岗位信息
+   * Add post
+   * @param post Post information
    */
   async add(post: CreatePostDto): Promise<void> {
     await this.postRepository.insert(post)
   }
 
   /**
-   * 更新岗位
-   * @param postId 岗位ID
-   * @param post 岗位信息
+   * Update post
+   * @param postId Post ID
+   * @param post Post information
    */
   async update(postId: number, post: UpdatePostDto): Promise<void> {
     await this.postRepository.update(postId, post)
   }
 
   /**
-   * 删除岗位
-   * @param postIds 岗位ID
+   * Delete post
+   * @param postIds Post ID
    */
   async delete(postIds: number[]): Promise<void> {
     for (const postId of postIds) {
       const count = await this.userPostRepository.countBy({ postId })
       if (count > 0) {
         const post = await this.postRepository.findOneBy({ postId })
-        throw new ServiceException(`${post.postName}已分配,不能删除`)
+        throw new ServiceException(`${post.postName} has been assigned, cannot delete`)
       }
     }
 
@@ -81,19 +81,19 @@ export class PostService {
   }
 
   /**
-   * 岗位详情
-   * @param postId 岗位ID
-   * @returns 岗位详情
+   * Post details
+   * @param postId Post ID
+   * @returns Post details
    */
   async info(postId: number): Promise<SysPost> {
     return this.postRepository.findOneBy({ postId })
   }
 
   /**
-   * 校验岗位名称是否唯一
-   * @param postName 岗位名称
-   * @param postId 岗位ID
-   * @returns true 唯一 / false 不唯一
+   * Check if post name is unique
+   * @param postName Post name
+   * @param postId Post ID
+   * @returns true unique / false not unique
    */
   async checkPostNameUnique(postName: string, postId?: number): Promise<boolean> {
     const info = await this.postRepository.findOneBy({ postName })
@@ -105,10 +105,10 @@ export class PostService {
   }
 
   /**
-   * 校验岗位编码是否唯一
-   * @param postCode 岗位编码
-   * @param postId 岗位ID
-   * @returns true 唯一 / false 不唯一
+   * Check if post code is unique
+   * @param postCode Post code
+   * @param postId Post ID
+   * @returns true unique / false not unique
    */
   async checkPostCodeUnique(postCode: string, postId?: number): Promise<boolean> {
     const info = await this.postRepository.findOneBy({ postCode })
@@ -120,8 +120,8 @@ export class PostService {
   }
 
   /**
-   * 岗位选项列表
-   * @returns 岗位选项列表
+   * Post options list
+   * @returns Post options list
    */
   async options(): Promise<SysPost[]> {
     return this.postRepository.find({
@@ -136,9 +136,9 @@ export class PostService {
   }
 
   /**
-   * 根据用户ID查询岗位列表
-   * @param userId 用户用户ID
-   * @returns 用户岗位列表
+   * Query post list by user ID
+   * @param userId User ID
+   * @returns User post list
    */
   async selectPostByUserId(userId: number): Promise<SysPost[]> {
     return this.postRepository

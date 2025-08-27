@@ -9,7 +9,7 @@ import { ListConfigDto, CreateConfigDto, UpdateConfigDto } from './dto/config.dt
 import { SysConfig } from './entities/sys-config.entity'
 
 /**
- * 参数配置
+ * Parameter configuration
  * @author vivy
  */
 @Injectable()
@@ -21,9 +21,9 @@ export class ConfigService {
   ) {}
 
   /**
-   * 参数配置列表
-   * @param config 参数配置信息
-   * @returns 参数配置列表
+   * Parameter configuration list
+   * @param config Parameter configuration information
+   * @returns Parameter configuration list
    */
   async list(config: ListConfigDto): Promise<Pagination<SysConfig>> {
     return paginate<SysConfig>(
@@ -43,8 +43,8 @@ export class ConfigService {
   }
 
   /**
-   * 添加参数配置
-   * @param config 参数配置信息
+   * Add parameter configuration
+   * @param config Parameter configuration information
    */
   async add(config: CreateConfigDto): Promise<void> {
     await this.configRepository.insert(config)
@@ -54,9 +54,9 @@ export class ConfigService {
   }
 
   /**
-   * 更新参数配置
-   * @param configId 参数配置ID
-   * @param config 参数配置信息
+   * Update parameter configuration
+   * @param configId Parameter configuration ID
+   * @param config Parameter configuration information
    */
   async update(configId: number, config: UpdateConfigDto): Promise<void> {
     const oldConfig = await this.configRepository.findOneBy({ configId })
@@ -69,8 +69,8 @@ export class ConfigService {
   }
 
   /**
-   * 删除参数配置
-   * @param configIds 参数配置ID
+   * Delete parameter configuration
+   * @param configIds Parameter configuration ID
    */
   async delete(configIds: number[]): Promise<void> {
     for (const configId of configIds) {
@@ -81,18 +81,18 @@ export class ConfigService {
   }
 
   /**
-   * 参数配置详情
-   * @param configId 参数配置ID
-   * @returns 参数配置详情
+   * Parameter configuration details
+   * @param configId Parameter configuration ID
+   * @returns Parameter configuration details
    */
   async info(configId: number): Promise<SysConfig> {
     return this.configRepository.findOneBy({ configId })
   }
 
   /**
-   * 获取参数配置值
-   * @param configKey 参数配置键名
-   * @returns 参数配置键值
+   * Get parameter configuration value
+   * @param configKey Parameter configuration key
+   * @returns Parameter configuration value
    */
   async value(configKey: string): Promise<string> {
     const config = await this.configCacheService.get(configKey)
@@ -100,10 +100,10 @@ export class ConfigService {
   }
 
   /**
-   * 校验参数键名是否唯一
-   * @param configKey 参数配置键名
-   * @param configId 参数配置ID
-   * @returns true 唯一 / false 不唯一
+   * Check if parameter key is unique
+   * @param configKey Parameter configuration key
+   * @param configId Parameter configuration ID
+   * @returns true unique / false not unique
    */
   async checkConfigKeyUnique(configKey: string, configId?: number): Promise<boolean> {
     const info = await this.configRepository.findOneBy({ configKey })

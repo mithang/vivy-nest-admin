@@ -8,10 +8,10 @@ import { ConfigService } from './config.service'
 import { ListConfigDto, CreateConfigDto, UpdateConfigDto } from './dto/config.dto'
 
 /**
- * 参数配置
+ * Parameter configuration
  * @author vivy
  */
-@ApiTags('参数配置')
+@ApiTags('Parameter configuration')
 @ApiBearerAuth()
 @Controller('configs')
 export class ConfigController {
@@ -22,9 +22,9 @@ export class ConfigController {
   ) {}
 
   /**
-   * 参数配置列表
-   * @param config 参数配置信息
-   * @returns 参数配置列表
+   * Parameter configuration list
+   * @param config Parameter configuration information
+   * @returns Parameter configuration list
    */
   @Get()
   @RequirePermissions('system:config:list')
@@ -33,15 +33,15 @@ export class ConfigController {
   }
 
   /**
-   * 添加参数配置
-   * @param config 参数配置信息
+   * Add parameter configuration
+   * @param config Parameter configuration information
    */
   @Post()
-  @Log({ title: '参数配置', operType: OperType.INSERT })
+  @Log({ title: 'Parameter configuration', operType: OperType.INSERT })
   @RequirePermissions('system:config:add')
   async add(@Body() config: CreateConfigDto): Promise<AjaxResult> {
     if (!(await this.configService.checkConfigKeyUnique(config.configKey))) {
-      return AjaxResult.error(`新增参数配置${config.configName}失败，参数键名已存在`)
+      return AjaxResult.error(`Add parameter configuration ${config.configName} failed, parameter key already exists`)
     }
 
     config.createBy = this.securityContext.getUserName()
@@ -49,16 +49,18 @@ export class ConfigController {
   }
 
   /**
-   * 更新参数配置
-   * @param configId 参数配置ID
-   * @param config 参数配置信息
+   * Update parameter configuration
+   * @param configId Parameter configuration ID
+   * @param config Parameter configuration information
    */
   @Put(':configId')
-  @Log({ title: '参数配置', operType: OperType.UPDATE })
+  @Log({ title: 'Parameter configuration', operType: OperType.UPDATE })
   @RequirePermissions('system:config:update')
   async update(@Param('configId') configId: number, @Body() config: UpdateConfigDto): Promise<AjaxResult> {
     if (!(await this.configService.checkConfigKeyUnique(config.configKey, configId))) {
-      return AjaxResult.error(`修改参数配置${config.configName}失败，参数键名已存在`)
+      return AjaxResult.error(
+        `Update parameter configuration ${config.configName} failed, parameter key already exists`
+      )
     }
 
     config.updateBy = this.securityContext.getUserName()
@@ -66,30 +68,30 @@ export class ConfigController {
   }
 
   /**
-   * 刷新参数配置缓存
+   * Refresh parameter configuration cache
    */
   @Delete('refresh-cache')
-  @Log({ title: '参数配置', operType: OperType.DELETE })
+  @Log({ title: 'Parameter configuration', operType: OperType.DELETE })
   @RequirePermissions('system:config:delete')
   async refreshCache(): Promise<AjaxResult> {
     return AjaxResult.success(await this.configCacheService.reset())
   }
 
   /**
-   * 删除参数配置
-   * @param configIds 参数配置ID
+   * Delete parameter configuration
+   * @param configIds Parameter configuration ID
    */
   @Delete(':configIds')
-  @Log({ title: '参数配置', operType: OperType.DELETE })
+  @Log({ title: 'Parameter configuration', operType: OperType.DELETE })
   @RequirePermissions('system:config:delete')
   async delete(@Param('configIds', new ParseArrayPipe({ items: Number })) configIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.configService.delete(configIds))
   }
 
   /**
-   * 参数配置详情
-   * @param configId 参数配置ID
-   * @returns 参数配置详情
+   * Parameter configuration details
+   * @param configId Parameter configuration ID
+   * @returns Parameter configuration details
    */
   @Get(':configId')
   @RequirePermissions('system:config:query')
@@ -98,9 +100,9 @@ export class ConfigController {
   }
 
   /**
-   * 获取参数配置值
-   * @param configKey 参数配置键名
-   * @returns 参数配置键值
+   * Get parameter configuration value
+   * @param configKey Parameter configuration key
+   * @returns Parameter configuration value
    */
   @Get(':configKey/value')
   @RequirePermissions('system:config:query')

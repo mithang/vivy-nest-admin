@@ -4,14 +4,14 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 import { LoginType } from '@/common/enums/login-type.enum'
 
 /**
- * 登录日志表
+ * Login log table
  */
 @Entity({ name: 'sys_login_log' })
 export class SysLoginLog extends BaseTimeEntity {
   @PrimaryGeneratedColumn({
     name: 'login_id',
     type: 'bigint',
-    comment: '登录ID',
+    comment: 'Login ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class SysLoginLog extends BaseTimeEntity {
     name: 'login_name',
     type: 'varchar',
     length: 50,
-    comment: '用户账号',
+    comment: 'User account',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -31,7 +31,7 @@ export class SysLoginLog extends BaseTimeEntity {
     name: 'login_type',
     type: 'char',
     length: 1,
-    comment: '登录类型',
+    comment: 'Login type',
   })
   @IsEnum(LoginType)
   @IsNotEmpty()
@@ -41,7 +41,7 @@ export class SysLoginLog extends BaseTimeEntity {
     name: 'login_status',
     type: 'char',
     length: 1,
-    comment: '登录状态',
+    comment: 'Login status',
   })
   @IsEnum(BaseStatusEnum)
   @IsNotEmpty()
@@ -52,7 +52,7 @@ export class SysLoginLog extends BaseTimeEntity {
     type: 'varchar',
     length: 128,
     nullable: true,
-    comment: '主机地址',
+    comment: 'Host address',
   })
   @MaxLength(128)
   @IsOptional()
@@ -63,7 +63,7 @@ export class SysLoginLog extends BaseTimeEntity {
     type: 'varchar',
     length: 255,
     nullable: true,
-    comment: '登录地点',
+    comment: 'Login location',
   })
   @MaxLength(255)
   @IsOptional()
@@ -74,7 +74,7 @@ export class SysLoginLog extends BaseTimeEntity {
     type: 'varchar',
     length: 255,
     nullable: true,
-    comment: '登录信息',
+    comment: 'Login message',
   })
   @MaxLength(255)
   @IsOptional()
@@ -85,7 +85,7 @@ export class SysLoginLog extends BaseTimeEntity {
     type: 'varchar',
     length: 500,
     nullable: true,
-    comment: '用户代理',
+    comment: 'User agent',
   })
   @MaxLength(500)
   @IsOptional()

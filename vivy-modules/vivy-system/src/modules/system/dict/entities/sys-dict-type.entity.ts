@@ -3,14 +3,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 字典类型表
+ * Dictionary type table
  */
 @Entity({ name: 'sys_dict_type' })
 export class SysDictType extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'dict_id',
     type: 'bigint',
-    comment: '字典ID',
+    comment: 'Dictionary ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysDictType extends BaseBusinessEntity {
     name: 'dict_name',
     type: 'varchar',
     length: 100,
-    comment: '字典名称',
+    comment: 'Dictionary name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class SysDictType extends BaseBusinessEntity {
     name: 'dict_type',
     type: 'varchar',
     length: 100,
-    comment: '字典类型',
+    comment: 'Dictionary type',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class SysDictType extends BaseBusinessEntity {
     name: 'dict_sort',
     type: 'int',
     default: 0,
-    comment: '显示顺序',
+    comment: 'Display order',
   })
   @IsInt()
   @IsOptional()
@@ -51,7 +51,7 @@ export class SysDictType extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '字典状态（0正常 1停用）',
+    comment: 'Dictionary status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()

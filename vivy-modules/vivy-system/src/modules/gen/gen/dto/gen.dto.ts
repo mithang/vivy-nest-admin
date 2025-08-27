@@ -4,24 +4,24 @@ import { Allow } from 'class-validator'
 import { GenTable } from '../entities/gen-table.entity'
 
 /**
- * 查询代码生成
+ * Query code generation
  */
 export class ListGenDto extends PaginateDto {
-  /** 表名称 */
+  /** Table name */
   @Allow()
   tableName?: string
 
-  /** 表注释 */
+  /** Table comment */
   @Allow()
   tableComment?: string
 }
 
 /**
- * 添加代码生成
+ * Add code generation
  */
 export class CreateGenDto extends OmitType(GenTable, ['tableId'] as const) {}
 
 /**
- * 更新代码生成
+ * Update code generation
  */
 export class UpdateGenDto extends OmitType(GenTable, [] as const) {}

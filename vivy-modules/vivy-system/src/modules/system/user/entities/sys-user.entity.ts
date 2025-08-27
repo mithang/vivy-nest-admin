@@ -4,11 +4,11 @@ import { IsEmail, IsEnum, IsIn, IsInt, IsMobilePhone, IsNotEmpty, IsOptional, Ma
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 用户信息表
+ * User information table
  */
 @Entity({ name: 'sys_user' })
 @ExcelSheet({
-  name: '用户信息',
+  name: 'User information',
   rowHeight: 30,
   colWidth: 30,
   colStyle: { alignment: { vertical: 'middle' } },
@@ -21,7 +21,7 @@ export class SysUser extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'user_id',
     type: 'bigint',
-    comment: '用户ID',
+    comment: 'User ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -31,7 +31,7 @@ export class SysUser extends BaseBusinessEntity {
     name: 'dept_id',
     type: 'bigint',
     nullable: true,
-    comment: '部门ID',
+    comment: 'Department ID',
   })
   @IsInt()
   @IsOptional()
@@ -42,10 +42,10 @@ export class SysUser extends BaseBusinessEntity {
     type: 'varchar',
     length: 50,
     unique: true,
-    comment: '用户账号',
+    comment: 'User account',
   })
   @ExcelColumn({
-    name: '用户账号',
+    name: 'User account',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -55,10 +55,10 @@ export class SysUser extends BaseBusinessEntity {
     name: 'nick_name',
     type: 'varchar',
     length: 50,
-    comment: '用户昵称',
+    comment: 'User nickname',
   })
   @ExcelColumn({
-    name: '用户昵称',
+    name: 'User nickname',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -69,7 +69,7 @@ export class SysUser extends BaseBusinessEntity {
     type: 'char',
     length: 2,
     default: '00',
-    comment: '用户类型（00系统用户）',
+    comment: 'User type (00 system user)',
   })
   @IsOptional()
   userType: string
@@ -79,7 +79,7 @@ export class SysUser extends BaseBusinessEntity {
     type: 'varchar',
     length: 50,
     nullable: true,
-    comment: '用户邮箱',
+    comment: 'User email',
   })
   @IsEmail()
   @MaxLength(50)
@@ -91,10 +91,10 @@ export class SysUser extends BaseBusinessEntity {
     type: 'varchar',
     length: 11,
     nullable: true,
-    comment: '手机号码',
+    comment: 'Phone number',
   })
   @ExcelColumn({
-    name: '用户手机',
+    name: 'User phone',
     width: 30,
     cellConfig({ cell }) {
       if (typeof cell.value === 'string') {
@@ -112,15 +112,15 @@ export class SysUser extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '2',
-    comment: '用户性别（1男 2女 3保密）',
+    comment: 'User gender (1 male 2 female 3 confidential)',
   })
   @ExcelColumn({
-    name: '用户性别',
+    name: 'User gender',
     dictType: 'sys_user_sex',
     dictOptions: [
-      { label: '男', value: '1' },
-      { label: '女', value: '2' },
-      { label: '保密', value: '3' },
+      { label: 'Male', value: '1' },
+      { label: 'Female', value: '2' },
+      { label: 'Confidential', value: '3' },
     ],
   })
   @IsIn(['1', '2', '3'])
@@ -132,10 +132,10 @@ export class SysUser extends BaseBusinessEntity {
     type: 'varchar',
     length: 255,
     nullable: true,
-    comment: '头像地址',
+    comment: 'Avatar address',
   })
   @ExcelColumn({
-    name: '用户头像',
+    name: 'User avatar',
     type: 'image',
     imageOptions: {
       width: 30,
@@ -152,7 +152,7 @@ export class SysUser extends BaseBusinessEntity {
     type: 'varchar',
     length: 255,
     select: false,
-    comment: '密码',
+    comment: 'Password',
   })
   @MaxLength(36) // bcrypt max 72 bytes
   @IsNotEmpty()
@@ -163,7 +163,7 @@ export class SysUser extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '用户状态（0正常 1停用 2删除）',
+    comment: 'User status (0 normal 1 disabled 2 deleted)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()

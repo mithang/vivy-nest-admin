@@ -4,14 +4,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 操作日志表
+ * Operation log table
  */
 @Entity({ name: 'sys_oper_log' })
 export class SysOperLog extends BaseTimeEntity {
   @PrimaryGeneratedColumn({
     name: 'oper_id',
     type: 'bigint',
-    comment: '操作ID',
+    comment: 'Operation ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class SysOperLog extends BaseTimeEntity {
     name: 'title',
     type: 'varchar',
     length: 50,
-    comment: '模块标题',
+    comment: 'Module title',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -31,7 +31,7 @@ export class SysOperLog extends BaseTimeEntity {
     name: 'oper_type',
     type: 'char',
     length: 2,
-    comment: '操作类型',
+    comment: 'Operation type',
   })
   @IsEnum(OperType)
   @IsNotEmpty()
@@ -41,7 +41,7 @@ export class SysOperLog extends BaseTimeEntity {
     name: 'oper_name',
     type: 'varchar',
     length: 50,
-    comment: '操作人员',
+    comment: 'Operator',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -51,7 +51,7 @@ export class SysOperLog extends BaseTimeEntity {
     name: 'oper_method',
     type: 'varchar',
     length: 100,
-    comment: '方法名称',
+    comment: 'Method name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -62,7 +62,7 @@ export class SysOperLog extends BaseTimeEntity {
     type: 'varchar',
     length: 128,
     nullable: true,
-    comment: '主机地址',
+    comment: 'Host address',
   })
   @MaxLength(128)
   @IsOptional()
@@ -73,7 +73,7 @@ export class SysOperLog extends BaseTimeEntity {
     type: 'varchar',
     length: 255,
     nullable: true,
-    comment: '操作地点',
+    comment: 'Operation location',
   })
   @MaxLength(255)
   @IsOptional()
@@ -83,7 +83,7 @@ export class SysOperLog extends BaseTimeEntity {
     name: 'oper_status',
     type: 'char',
     length: 1,
-    comment: '操作状态',
+    comment: 'Operation status',
   })
   @IsEnum(BaseStatusEnum)
   @IsNotEmpty()
@@ -93,7 +93,7 @@ export class SysOperLog extends BaseTimeEntity {
     name: 'request_url',
     type: 'varchar',
     length: 1000,
-    comment: '请求URL',
+    comment: 'Request URL',
   })
   @MaxLength(1000)
   @IsNotEmpty()
@@ -103,7 +103,7 @@ export class SysOperLog extends BaseTimeEntity {
     name: 'request_method',
     type: 'varchar',
     length: 10,
-    comment: '请求方式',
+    comment: 'Request method',
   })
   @MaxLength(10)
   @IsNotEmpty()
@@ -114,7 +114,7 @@ export class SysOperLog extends BaseTimeEntity {
     type: 'varchar',
     length: 2000,
     nullable: true,
-    comment: '请求参数',
+    comment: 'Request parameters',
   })
   @MaxLength(2000)
   @IsOptional()
@@ -125,7 +125,7 @@ export class SysOperLog extends BaseTimeEntity {
     type: 'varchar',
     length: 2000,
     nullable: true,
-    comment: '请求返回结果',
+    comment: 'Request result',
   })
   @MaxLength(2000)
   @IsOptional()
@@ -136,7 +136,7 @@ export class SysOperLog extends BaseTimeEntity {
     type: 'varchar',
     length: 2000,
     nullable: true,
-    comment: '请求错误消息',
+    comment: 'Request error message',
   })
   @MaxLength(2000)
   @IsOptional()

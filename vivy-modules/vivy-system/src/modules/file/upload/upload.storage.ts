@@ -7,18 +7,18 @@ import * as multer from 'multer'
 import { UploadOptions, UploadClientOptions, UPLOAD_FILE_URL } from './upload.config'
 
 /**
- * 拼接路径
- * @param paths 路径
- * @returns 路径
+ * Join paths
+ * @param paths Paths
+ * @returns Path
  */
 export const joinPath = (...paths: string[]) => {
   return path.join(...paths.map((p) => p || ''))
 }
 
 /**
- * 标准化名称
- * @param file 文件信息
- * @returns 文件名称
+ * Normalize name
+ * @param file File information
+ * @returns File name
  */
 export const formatName = (file: Express.Multer.File) => {
   const originalname = file.originalname
@@ -30,9 +30,9 @@ export const formatName = (file: Express.Multer.File) => {
 }
 
 /**
- * 生成随机名称
- * @param filename 文件名称
- * @returns 随机名称
+ * Generate random name
+ * @param filename File name
+ * @returns Random name
  */
 export const randomName = (filename: string) => {
   const now = Date.now()
@@ -41,7 +41,7 @@ export const randomName = (filename: string) => {
 }
 
 /**
- * 自定义 Multer 存储器
+ * Custom Multer storage
  */
 export const uploadStorage = (options: UploadOptions) => {
   return multer.diskStorage({

@@ -4,15 +4,15 @@ import { SysRole } from '@/modules/system/role/entities/sys-role.entity'
 import { SysUser } from '@/modules/system/user/entities/sys-user.entity'
 
 /**
- * 个人信息
+ * Personal information
  */
 export class ProfileInfoVo extends SysUser {
-  /** 部门信息 */
+  /** Department information */
   dept?: SysDept
 
-  /** 角色信息 */
+  /** Role information */
   roles?: SysRole[]
 
-  /** 岗位信息 */
+  /** Post information */
   posts?: SysPost[]
 }

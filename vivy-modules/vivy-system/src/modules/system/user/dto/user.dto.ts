@@ -4,51 +4,51 @@ import { Allow, IsArray, IsOptional } from 'class-validator'
 import { SysUser } from '../entities/sys-user.entity'
 
 /**
- * 查询用户
+ * Query users
  */
 export class ListUserDto extends PaginateDto {
-  /** 部门ID */
+  /** Department ID */
   @Allow()
   deptId?: number
 
-  /** 用户账号 */
+  /** User account */
   @Allow()
   userName?: string
 
-  /** 用户昵称 */
+  /** User nickname */
   @Allow()
   nickName?: string
 
-  /** 用户状态（0正常 1停用 2删除） */
+  /** User status (0 normal 1 disabled 2 deleted) */
   @Allow()
   status?: string
 }
 
 /**
- * 添加用户
+ * Add user
  */
 export class CreateUserDto extends OmitType(SysUser, ['userId'] as const) {
-  /** 用户角色 */
+  /** User roles */
   @IsArray()
   @IsOptional()
   roleIds?: number[]
 
-  /** 用户岗位 */
+  /** User posts */
   @IsArray()
   @IsOptional()
   postIds?: number[]
 }
 
 /**
- * 更新用户
+ * Update user
  */
 export class UpdateUserDto extends OmitType(SysUser, ['userId', 'password']) {
-  /** 用户角色 */
+  /** User roles */
   @IsArray()
   @IsOptional()
   roleIds?: number[]
 
-  /** 用户岗位 */
+  /** User posts */
   @IsArray()
   @IsOptional()
   postIds?: number[]

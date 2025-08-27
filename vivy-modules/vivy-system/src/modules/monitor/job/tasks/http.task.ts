@@ -5,6 +5,6 @@ import { Taskable } from '../utils/taskable.decorator'
 @Injectable()
 export class HttpTask {
   calc() {
-    console.log('计算大数据')
+    console.log('Calculate big data')
   }
 }

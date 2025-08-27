@@ -8,19 +8,19 @@ import { CreateFileDto, ListFileDto } from './dto/file.dto'
 import { FileService } from './file.service'
 
 /**
- * 文件管理
+ * File management
  * @author vivy
  */
-@ApiTags('文件管理')
+@ApiTags('File management')
 @ApiBearerAuth()
 @Controller('files')
 export class FileController {
   constructor(private fileService: FileService) {}
 
   /**
-   * 文件列表
-   * @param file 文件信息
-   * @returns 文件列表
+   * File list
+   * @param file File information
+   * @returns File list
    */
   @Get()
   async list(@Query() file: ListFileDto): Promise<AjaxResult> {
@@ -28,18 +28,18 @@ export class FileController {
   }
 
   /**
-   * 添加文件
-   * @param file 文件信息
+   * Add file
+   * @param file File information
    */
   @Post()
-  @Log({ title: '文件管理', operType: OperType.INSERT })
+  @Log({ title: 'File management', operType: OperType.INSERT })
   async add(@Body() file: CreateFileDto | CreateFileDto[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.fileService.add(file))
   }
 
   /**
-   * 文件用途选项
-   * @returns 文件用途选项列表
+   * File usage options
+   * @returns File usage options list
    */
   @Get('use-options')
   async useOptions(): Promise<AjaxResult> {
@@ -47,7 +47,7 @@ export class FileController {
   }
 
   /**
-   * 单个文件上传
+   * Single file upload
    */
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
@@ -57,7 +57,7 @@ export class FileController {
   }
 
   /**
-   * 多个文件上传
+   * Multiple files upload
    */
   @Post('uploads')
   @UseInterceptors(FilesInterceptor('files'))

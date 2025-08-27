@@ -8,7 +8,7 @@ import { JOB_BULL_NAME } from '@/common/constants/bull.constants'
 import { SysJob } from './entities/sys-job.entity'
 
 /**
- * 定时任务队列
+ * Scheduled task queue
  * @author vivy
  */
 @Injectable()
@@ -26,20 +26,20 @@ export class JobQueueService implements OnModuleInit {
   }
 
   /**
-   * 初始化任务
+   * Initialize tasks
    */
   async init(): Promise<void> {
-    // 停止所有的任务
+    // Stop all tasks
     const oldJobs = await this.queue.getRepeatableJobs()
     await Promise.all(oldJobs.map((job) => this.queue.removeRepeatableByKey(job.key)))
 
-    // 需要执行的任务
+    // Tasks to be executed
     const newJobs = await this.jobRepository.findBy({ status: BaseStatusEnum.NORMAL })
     await Promise.all(newJobs.map((job) => this.start(job)))
   }
 
   /**
-   * 执行一次
+   * Execute once
    * @param job
    */
   async once(job: SysJob): Promise<void> {
@@ -51,7 +51,7 @@ export class JobQueueService implements OnModuleInit {
   }
 
   /**
-   * 启动定时任务
+   * Start scheduled task
    * @param job
    */
   async start(job: SysJob): Promise<void> {
@@ -64,7 +64,7 @@ export class JobQueueService implements OnModuleInit {
   }
 
   /**
-   * 停止定时任务
+   * Stop scheduled task
    * @param job
    */
   async stop(job: SysJob): Promise<void> {

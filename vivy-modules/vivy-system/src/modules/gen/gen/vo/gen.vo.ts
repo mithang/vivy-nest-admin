@@ -1,16 +1,16 @@
 /**
- * 生成预览
+ * Code generation preview
  */
 export class GenPreviewVo {
-  /** 分类名称 */
+  /** Category name */
   name: string
 
-  /** 文件列表 */
+  /** File list */
   files: Array<{
-    /** 文件名称 */
+    /** File name */
     name: string
 
-    /** 文件代码 */
+    /** File code */
     code: string
   }>
 }

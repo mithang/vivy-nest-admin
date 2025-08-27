@@ -7,7 +7,7 @@ import { ListFileDto, CreateFileDto } from './dto/file.dto'
 import { SysFile } from './entities/sys-file.entity'
 
 /**
- * 文件管理
+ * File management
  * @author vivy
  */
 @Injectable()
@@ -18,9 +18,9 @@ export class FileService {
   ) {}
 
   /**
-   * 文件列表
-   * @param file 文件信息
-   * @returns 文件列表
+   * File list
+   * @param file File information
+   * @returns File list
    */
   async list(file: ListFileDto): Promise<Pagination<SysFile>> {
     return paginate<SysFile>(
@@ -42,16 +42,16 @@ export class FileService {
   }
 
   /**
-   * 添加文件
-   * @param file 文件信息
+   * Add file
+   * @param file File information
    */
   async add(file: CreateFileDto | CreateFileDto[]): Promise<void> {
     await this.fileRepository.insert(file)
   }
 
   /**
-   * 文件用途选项
-   * @returns 文件用途选项列表
+   * File usage options
+   * @returns File usage options list
    */
   async useOptions(): Promise<string[]> {
     const data = await this.fileRepository.find({ select: ['fileUse'] })

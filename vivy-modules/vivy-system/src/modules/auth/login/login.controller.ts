@@ -8,10 +8,10 @@ import { LogService } from './log.service'
 import { LoginService } from './login.service'
 
 /**
- * 登录管理
+ * Login management
  * @author vivy
  */
-@ApiTags('登录管理')
+@ApiTags('Login management')
 @ApiBearerAuth()
 @Controller('auth')
 export class LoginController {
@@ -22,8 +22,8 @@ export class LoginController {
   ) {}
 
   /**
-   * 用户登录
-   * @param form 登录账户信息
+   * User login
+   * @param form Login account information
    */
   @Post('login')
   @Public()
@@ -35,8 +35,8 @@ export class LoginController {
       const user = await this.loginService.login(form)
       const token = await this.tokenService.createToken(user)
 
-      this.logService.ok(LoginType.ACCOUNT_PASSWORD, form.username, '登录成功')
-      return AjaxResult.success(token, '登录成功')
+      this.logService.ok(LoginType.ACCOUNT_PASSWORD, form.username, 'Login successful')
+      return AjaxResult.success(token, 'Login successful')
     } catch (error) {
       this.logService.fail(LoginType.ACCOUNT_PASSWORD, form.username, error?.message)
       throw error
@@ -44,7 +44,7 @@ export class LoginController {
   }
 
   /**
-   * 用户退出
+   * User logout
    */
   @Post('logout')
   async logout(): Promise<AjaxResult> {
@@ -52,11 +52,11 @@ export class LoginController {
     if (token) {
       await this.tokenService.delLoginUser(token)
     }
-    return AjaxResult.success(null, '退出成功')
+    return AjaxResult.success(null, 'Logout successful')
   }
 
   /**
-   * 刷新 Token
+   * Refresh Token
    */
   @Post('refresh')
   async refresh(): Promise<AjaxResult> {
@@ -67,11 +67,11 @@ export class LoginController {
         await this.tokenService.refreshToken(loginUser)
       }
     }
-    return AjaxResult.success(null, '刷新成功')
+    return AjaxResult.success(null, 'Refresh successful')
   }
 
   /**
-   * 获取验证码
+   * Get verification code
    */
   @Get('captcha')
   @Public()
@@ -84,7 +84,7 @@ export class LoginController {
   }
 
   /**
-   * 查询用户缓存信息
+   * Query user cache information
    */
   @Get('user/info')
   async getUserInfo(): Promise<AjaxResult> {
@@ -94,8 +94,8 @@ export class LoginController {
   }
 
   /**
-   * 查询用户路由信息
-   * @returns 用户路由信息
+   * Query user route information
+   * @returns User route information
    */
   @Get('user/routers')
   async getUserRouters(@UserId() userId: number): Promise<AjaxResult> {

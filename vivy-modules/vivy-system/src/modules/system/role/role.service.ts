@@ -20,7 +20,7 @@ import { SysRole } from './entities/sys-role.entity'
 import { RoleInfoVo } from './vo/role.vo'
 
 /**
- * 角色管理
+ * Role management
  * @author vivy
  */
 @Injectable()
@@ -46,7 +46,7 @@ export class RoleService {
   ) {}
 
   /**
-   * 数据范围角色列表查询构造
+   * Data scope role list query construction
    */
   @DataScope({ deptAlias: 'd' })
   private dsRoleQueryBuilder() {
@@ -62,9 +62,9 @@ export class RoleService {
   }
 
   /**
-   * 角色列表
-   * @param role 角色信息
-   * @returns 角色列表
+   * Role list
+   * @param role Role information
+   * @returns Role list
    */
   async list(role: ListRoleDto): Promise<Pagination<SysRole>> {
     const queryBuilder = this.dsRoleQueryBuilder().andWhere(
@@ -82,18 +82,18 @@ export class RoleService {
   }
 
   /**
-   * 添加角色
-   * @param role 角色信息
+   * Add role
+   * @param role Role information
    */
   async add(role: CreateRoleDto): Promise<void> {
     const { menuIds, ...roleInfo } = role
 
     await this.dataSource.transaction(async (manager) => {
-      // 新增角色信息
+      // Add role information
       const result = await manager.insert(SysRole, roleInfo)
       const roleId = result.identifiers[0].roleId
 
-      // 新增角色与菜单关联
+      // Add role-menu association
       if (!isEmpty(menuIds)) {
         await manager.insert(
           SysRoleMenu,
@@ -101,7 +101,7 @@ export class RoleService {
         )
       }
 
-      // 新增角色与部门关联
+      // Add role-department association
       // if (!isEmpty(deptIds)) {
       //   await manager.insert(
       //     SysRoleDept,
@@ -112,18 +112,18 @@ export class RoleService {
   }
 
   /**
-   * 更新角色
-   * @param roleId 角色ID
-   * @param role 角色信息
+   * Update role
+   * @param roleId Role ID
+   * @param role Role information
    */
   async update(roleId: number, role: UpdateRoleDto): Promise<void> {
     const { menuIds, ...roleInfo } = role
 
     await this.dataSource.transaction(async (manager) => {
-      // 修改角色信息
+      // Update role information
       await manager.update(SysRole, roleId, roleInfo)
 
-      // 删除并新增角色与菜单关联
+      // Delete and add role-menu association
       await manager.delete(SysRoleMenu, { roleId })
       if (!isEmpty(menuIds)) {
         await manager.insert(
@@ -132,7 +132,7 @@ export class RoleService {
         )
       }
 
-      // 删除并新增角色与部门关联
+      // Delete and add role-department association
       // await manager.delete(SysRoleDept, { roleId })
       // if (!isEmpty(deptIds)) {
       //   await manager.insert(
@@ -144,15 +144,15 @@ export class RoleService {
   }
 
   /**
-   * 删除角色
-   * @param roleIds 角色ID
+   * Delete role
+   * @param roleIds Role ID
    */
   async delete(roleIds: number[]): Promise<void> {
     for (const roleId of roleIds) {
       const count = await this.userRoleRepository.countBy({ roleId })
       if (count > 0) {
         const role = await this.roleRepository.findOneBy({ roleId })
-        throw new ServiceException(`${role.roleName}已分配,不能删除`)
+        throw new ServiceException(`${role.roleName} has been assigned, cannot delete`)
       }
     }
 
@@ -164,9 +164,9 @@ export class RoleService {
   }
 
   /**
-   * 角色详情
-   * @param roleId 角色ID
-   * @returns 角色详情
+   * Role details
+   * @param roleId Role ID
+   * @returns Role details
    */
   async info(roleId: number): Promise<RoleInfoVo> {
     const role = await this.roleRepository.findOneBy({ roleId })
@@ -180,21 +180,21 @@ export class RoleService {
   }
 
   /**
-   * 校验角色是否允许操作，检验失败抛出错误
-   * @param roleId 角色ID
+   * Check if role operation is allowed, throw error on failure
+   * @param roleId Role ID
    */
   checkRoleAllowed(roleId: number | number[]) {
     const roleIds = isArray(roleId) ? roleId : [roleId]
     for (const roleId of roleIds) {
       if (IdentityUtils.isAdminRole(roleId)) {
-        throw new ServiceException('不允许操作超级管理员角色')
+        throw new ServiceException('Not allowed to operate super administrator role')
       }
     }
   }
 
   /**
-   * 校验是否有角色数据权限，检验失败抛出错误
-   * @param roleId 角色ID
+   * Check if there is role data permission, throw error on failure
+   * @param roleId Role ID
    */
   async checkRoleDataScope(roleId: number | number[]) {
     if (isEmpty(roleId)) return
@@ -203,15 +203,15 @@ export class RoleService {
     const roleIds = isArray(roleId) ? roleId : [roleId]
     for (const roleId of roleIds) {
       const count = await this.dsRoleQueryBuilder().andWhere({ roleId }).getCount()
-      if (count <= 0) throw new ServiceException('没有权限访问角色数据')
+      if (count <= 0) throw new ServiceException('No permission to access role data')
     }
   }
 
   /**
-   * 校验角色名称是否唯一
-   * @param roleName 角色名称
-   * @param roleId 角色ID
-   * @returns true 唯一 / false 不唯一
+   * Check if role name is unique
+   * @param roleName Role name
+   * @param roleId Role ID
+   * @returns true unique / false not unique
    */
   async checkRoleNameUnique(roleName: string, roleId?: number): Promise<boolean> {
     const info = await this.roleRepository.findOneBy({ roleName })
@@ -223,10 +223,10 @@ export class RoleService {
   }
 
   /**
-   * 校验角色编码是否唯一
-   * @param roleCode 角色编码
-   * @param roleId 角色ID
-   * @returns true 唯一 / false 不唯一
+   * Check if role code is unique
+   * @param roleCode Role code
+   * @param roleId Role ID
+   * @returns true unique / false not unique
    */
   async checkRoleCodeUnique(roleCode: string, roleId?: number): Promise<boolean> {
     const info = await this.roleRepository.findOneBy({ roleCode })
@@ -238,8 +238,8 @@ export class RoleService {
   }
 
   /**
-   * 角色选项列表
-   * @returns 角色选项列表
+   * Role options list
+   * @returns Role options list
    */
   async options(): Promise<SysRole[]> {
     return this.dsRoleQueryBuilder()
@@ -251,18 +251,18 @@ export class RoleService {
   }
 
   /**
-   * 更新数据权限
-   * @param roleId 角色ID
-   * @param dataScopeDto 数据权限范围信息
+   * Update data scope
+   * @param roleId Role ID
+   * @param dataScopeDto Data scope information
    */
   async updateDataScope(roleId: number, dataScopeDto: UpdateDataScopeDto): Promise<void> {
     const { deptIds, dataScope } = dataScopeDto
 
     await this.dataSource.transaction(async (manager) => {
-      // 修改角色信息
+      // Update role information
       await manager.update(SysRole, roleId, { dataScope })
 
-      // 删除并新增角色与部门关联(数据权限)
+      // Delete and add role-department association (data scope)
       await manager.delete(SysRoleDept, { roleId })
       if (!isEmpty(deptIds)) {
         await manager.insert(
@@ -274,9 +274,9 @@ export class RoleService {
   }
 
   /**
-   * 根据用户ID查询角色列表
-   * @param userId 用户用户ID
-   * @returns 用户角色列表
+   * Query role list by user ID
+   * @param userId User ID
+   * @returns User role list
    */
   async selectRoleByUserId(userId: number): Promise<SysRole[]> {
     return this.roleRepository

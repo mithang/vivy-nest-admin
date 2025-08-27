@@ -7,19 +7,19 @@ import { ListJobLogDto, CreateJobLogDto } from './dto/job-log.dto'
 import { JobLogService } from './job-log.service'
 
 /**
- * 定时任务日志
+ * Scheduled task logs
  * @author vivy
  */
-@ApiTags('定时任务日志')
+@ApiTags('Scheduled task logs')
 @ApiBearerAuth()
 @Controller('job/logs')
 export class JobLogController {
   constructor(private jobLogService: JobLogService) {}
 
   /**
-   * 任务日志列表
-   * @param jobLog 任务日志信息
-   * @returns 任务日志列表
+   * Task log list
+   * @param jobLog Task log information
+   * @returns Task log list
    */
   @Get()
   @RequirePermissions('monitor:job:list')
@@ -28,20 +28,20 @@ export class JobLogController {
   }
 
   /**
-   * 添加任务日志
-   * @param jobLog 任务日志信息
+   * Add task log
+   * @param jobLog Task log information
    */
   @Post()
-  @Log({ title: '任务日志', operType: OperType.INSERT })
+  @Log({ title: 'Task logs', operType: OperType.INSERT })
   @RequirePermissions('monitor:job:list')
   async add(@Body() jobLog: CreateJobLogDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.jobLogService.add(jobLog))
   }
 
   /**
-   * 任务日志详情
-   * @param jobLogId 任务日志ID
-   * @returns 任务日志详情
+   * Task log details
+   * @param jobLogId Task log ID
+   * @returns Task log details
    */
   @Get(':jobLogId')
   @RequirePermissions('monitor:job:list')
@@ -50,10 +50,10 @@ export class JobLogController {
   }
 
   /**
-   * 清空任务日志列表
+   * Clear task log list
    */
   @Delete('clear')
-  @Log({ title: '任务日志', operType: OperType.CLEAN })
+  @Log({ title: 'Task logs', operType: OperType.CLEAN })
   @RequirePermissions('monitor:job:list')
   async clear(): Promise<AjaxResult> {
     return AjaxResult.success(await this.jobLogService.clear())

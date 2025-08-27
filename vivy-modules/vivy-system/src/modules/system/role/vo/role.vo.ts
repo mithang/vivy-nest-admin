@@ -1,12 +1,12 @@
 import { SysRole } from '../entities/sys-role.entity'
 
 /**
- * 角色详情
+ * Role details
  */
 export class RoleInfoVo extends SysRole {
-  /** 菜单权限 */
+  /** Menu permissions */
   menuIds: number[]
 
-  /** 部门权限 */
+  /** Department permissions */
   deptIds: number[]
 }

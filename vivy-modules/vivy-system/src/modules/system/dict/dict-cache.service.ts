@@ -8,7 +8,7 @@ import { SYS_DICT_KEY } from '@/common/constants/cache.constants'
 import { SysDictData } from './entities/sys-dict-data.entity'
 
 /**
- * 字典数据缓存
+ * Dictionary data cache
  * @author vivy
  */
 @Injectable()
@@ -26,7 +26,7 @@ export class DictCacheService implements OnModuleInit {
   }
 
   /**
-   * 加载字典数据缓存
+   * Load dictionary data cache
    */
   async init(): Promise<void> {
     const datas = await this.dictDataRepository.find({ order: { dictSort: 'ASC' } })
@@ -38,7 +38,7 @@ export class DictCacheService implements OnModuleInit {
   }
 
   /**
-   * 重置字典数据缓存
+   * Reset dictionary data cache
    */
   async reset(): Promise<void> {
     await this.clear()
@@ -46,8 +46,8 @@ export class DictCacheService implements OnModuleInit {
   }
 
   /**
-   * 设置字典数据缓存
-   * @param dictType 缓存 key
+   * Set dictionary data cache
+   * @param dictType Cache key
    */
   async set(dictType: string): Promise<void> {
     const data = await this.dictDataRepository.findBy({ dictType })
@@ -55,9 +55,9 @@ export class DictCacheService implements OnModuleInit {
   }
 
   /**
-   * 查询字典数据缓存
-   * @param dictType 缓存 key
-   * @returns 缓存值
+   * Query dictionary data cache
+   * @param dictType Cache key
+   * @returns Cache value
    */
   async get(dictType: string): Promise<SysDictData[]> {
     const data = await this.redis.get(this.getCacheKey(dictType))
@@ -65,15 +65,15 @@ export class DictCacheService implements OnModuleInit {
   }
 
   /**
-   * 删除字典数据缓存
-   * @param dictType 缓存 key
+   * Delete dictionary data cache
+   * @param dictType Cache key
    */
   async del(dictType: string): Promise<void> {
     await this.redis.del(this.getCacheKey(dictType))
   }
 
   /**
-   * 清空字典数据缓存
+   * Clear dictionary data cache
    */
   async clear(): Promise<void> {
     const keys = await this.redis.keys(this.getCacheKey('*'))
@@ -81,7 +81,7 @@ export class DictCacheService implements OnModuleInit {
   }
 
   /**
-   * 获取缓存 key
+   * Get cache key
    */
   private getCacheKey(dictType: string): string {
     return `${SYS_DICT_KEY}${dictType}`

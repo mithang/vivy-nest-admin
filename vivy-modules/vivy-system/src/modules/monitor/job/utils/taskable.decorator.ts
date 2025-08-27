@@ -2,7 +2,7 @@ import { SetMetadata } from '@nestjs/common'
 import { TASKABLE_METADATA } from './job.constants'
 
 /**
- * 标记为定时任务
+ * Mark as scheduled task
  */
 export const Taskable = () => {
   return SetMetadata(TASKABLE_METADATA, true)

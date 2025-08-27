@@ -10,7 +10,7 @@ import { SysDictData } from './entities/sys-dict-data.entity'
 import { SysDictType } from './entities/sys-dict-type.entity'
 
 /**
- * 字典类型管理
+ * Dictionary type management
  * @author vivy
  */
 @Injectable()
@@ -29,9 +29,9 @@ export class DictTypeService {
   ) {}
 
   /**
-   * 查询字典类型列表
-   * @param dictType 字典类型信息
-   * @returns 字典类型列表
+   * Query dictionary type list
+   * @param dictType Dictionary type information
+   * @returns Dictionary type list
    */
   async list(dictType: ListDictTypeDto): Promise<Pagination<SysDictType>> {
     return paginate<SysDictType>(
@@ -54,17 +54,17 @@ export class DictTypeService {
   }
 
   /**
-   * 添加字典类型
-   * @param dictType 字典类型信息
+   * Add dictionary type
+   * @param dictType Dictionary type information
    */
   async add(dictType: CreateDictTypeDto): Promise<void> {
     await this.dictTypeRepository.insert(dictType)
   }
 
   /**
-   * 更新字典类型
-   * @param dictId 字典类型ID
-   * @param dictType 字典类型信息
+   * Update dictionary type
+   * @param dictId Dictionary type ID
+   * @param dictType Dictionary type information
    */
   async update(dictId: number, dictType: UpdateDictTypeDto): Promise<void> {
     await this.dataSource.transaction(async (manager) => {
@@ -79,15 +79,15 @@ export class DictTypeService {
   }
 
   /**
-   * 删除字典类型
-   * @param dictIds 字典类型ID
+   * Delete dictionary type
+   * @param dictIds Dictionary type ID
    */
   async delete(dictIds: number[]): Promise<void> {
     for (const dictId of dictIds) {
       const { dictType, dictName } = await this.dictTypeRepository.findOneBy({ dictId })
       const count = await this.dictDataRepository.countBy({ dictType })
       if (count > 0) {
-        throw new ServiceException(`${dictName}已分配,不能删除`)
+        throw new ServiceException(`${dictName} has been assigned, cannot delete`)
       }
       await this.dictTypeRepository.delete(dictId)
       await this.dictCacheService.del(dictType)
@@ -95,19 +95,19 @@ export class DictTypeService {
   }
 
   /**
-   * 字典类型详情
-   * @param dictId 字典类型ID
-   * @returns 字典类型详情
+   * Dictionary type details
+   * @param dictId Dictionary type ID
+   * @returns Dictionary type details
    */
   async info(dictId: number): Promise<SysDictType> {
     return this.dictTypeRepository.findOneBy({ dictId })
   }
 
   /**
-   * 校验字典类型是否唯一
-   * @param dictType 字典类型
-   * @param dictId 字典类型ID
-   * @returns true 唯一 / false 不唯一
+   * Check if dictionary type is unique
+   * @param dictType Dictionary type
+   * @param dictId Dictionary type ID
+   * @returns true unique / false not unique
    */
   async checkDictTypeUnique(dictType: string, dictId?: number): Promise<boolean> {
     const info = await this.dictTypeRepository.findOneBy({ dictType })
@@ -119,10 +119,10 @@ export class DictTypeService {
   }
 
   /**
-   * 校验字典名称是否唯一
-   * @param dictType 字典类型
-   * @param dictId 字典类型ID
-   * @returns true 唯一 / false 不唯一
+   * Check if dictionary name is unique
+   * @param dictType Dictionary type
+   * @param dictId Dictionary type ID
+   * @returns true unique / false not unique
    */
   async checkDictNameUnique(dictName: string, dictId?: number): Promise<boolean> {
     const info = await this.dictTypeRepository.findOneBy({ dictName })
@@ -134,8 +134,8 @@ export class DictTypeService {
   }
 
   /**
-   * 字典类型选项列表
-   * @returns 字典类型选项列表
+   * Dictionary type options list
+   * @returns Dictionary type options list
    */
   async options(): Promise<SysDictType[]> {
     return this.dictTypeRepository.find({

@@ -4,14 +4,14 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 't
 import { GenTable } from './gen-table.entity'
 
 /**
- * 代码生成业务表字段
+ * Code generation business table fields
  */
 @Entity({ name: 'gen_table_column' })
 export class GenTableColumn extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'column_id',
     type: 'int',
-    comment: '编号',
+    comment: 'ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class GenTableColumn extends BaseBusinessEntity {
   @Column({
     name: 'table_id',
     type: 'int',
-    comment: '归属表编号',
+    comment: 'Belonging table ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'column_name',
     type: 'varchar',
     length: 100,
-    comment: '列名称',
+    comment: 'Column name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'column_type',
     type: 'varchar',
     length: 100,
-    comment: '列类型',
+    comment: 'Column type',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -50,7 +50,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'column_sort',
     type: 'int',
     default: 0,
-    comment: '列顺序',
+    comment: 'Column order',
   })
   @IsInt()
   @IsOptional()
@@ -60,7 +60,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'column_comment',
     type: 'varchar',
     length: 100,
-    comment: '列描述',
+    comment: 'Column description',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -71,7 +71,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     nullable: true,
-    comment: '是否主键（0否 1是）',
+    comment: 'Is primary key (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -82,7 +82,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     nullable: true,
-    comment: '是否自增（0否 1是）',
+    comment: 'Is auto increment (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -93,7 +93,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     nullable: true,
-    comment: '是否必填（0否 1是）',
+    comment: 'Is required (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -104,7 +104,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     nullable: true,
-    comment: '是否为插入字段（0否 1是）',
+    comment: 'Is insert field (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -115,7 +115,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     nullable: true,
-    comment: '是否编辑字段（0否 1是）',
+    comment: 'Is edit field (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -126,7 +126,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     nullable: true,
-    comment: '是否列表字段（0否 1是）',
+    comment: 'Is list field (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -137,7 +137,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     nullable: true,
-    comment: '是否查询字段（0否 1是）',
+    comment: 'Is query field (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -147,7 +147,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'field_name',
     type: 'varchar',
     length: 100,
-    comment: '属性名称',
+    comment: 'Property name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -157,7 +157,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'tslang_type',
     type: 'varchar',
     length: 100,
-    comment: 'TS类型',
+    comment: 'TS type',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -167,7 +167,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'javalang_type',
     type: 'varchar',
     length: 100,
-    comment: 'JAVA类型',
+    comment: 'JAVA type',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -177,7 +177,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'query_type',
     type: 'varchar',
     length: 100,
-    comment: '查询方式',
+    comment: 'Query method',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -187,7 +187,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'html_type',
     type: 'varchar',
     length: 100,
-    comment: '显示类型',
+    comment: 'Display type',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -198,7 +198,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     type: 'varchar',
     length: 100,
     nullable: true,
-    comment: '字典类型',
+    comment: 'Dictionary type',
   })
   @MaxLength(100)
   @IsOptional()

@@ -4,28 +4,28 @@ import { Allow } from 'class-validator'
 import { SysConfig } from '../entities/sys-config.entity'
 
 /**
- * 查询参数配置
+ * Query parameter configuration
  */
 export class ListConfigDto extends PaginateDto {
-  /** 参数名称 */
+  /** Parameter name */
   @Allow()
   configName?: string
 
-  /** 参数键名 */
+  /** Parameter key */
   @Allow()
   configKey?: string
 
-  /** 状态（0正常 1停用） */
+  /** Status (0 normal 1 disabled) */
   @Allow()
   status?: string
 }
 
 /**
- * 添加参数配置
+ * Add parameter configuration
  */
 export class CreateConfigDto extends OmitType(SysConfig, ['configId'] as const) {}
 
 /**
- * 更新参数配置
+ * Update parameter configuration
  */
 export class UpdateConfigDto extends OmitType(SysConfig, ['configId'] as const) {}

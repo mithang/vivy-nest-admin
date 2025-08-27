@@ -14,13 +14,13 @@ interface TemplateItem {
 }
 
 interface ColumnContext extends GenTableColumn {
-  /** 属性显示名称 */
+  /** Property display name */
   fieldLabel?: string
 
-  /** 字典类型驼峰 */
+  /** Dictionary type camelCase */
   dictTypeCamelcase?: string
 
-  /** 数据库类型信息 */
+  /** Database type information */
   columnLength?: string
   columnPrecision?: string
   columnScale?: string
@@ -28,53 +28,53 @@ interface ColumnContext extends GenTableColumn {
 
 interface CompileContext extends GenTable {
   /**
-   * 常量值
+   * Constant values
    */
   constants: GenConstants
 
   /**
-   * 接口命名
+   * Interface naming
    */
   controllerName: string
 
   /**
-   * 实体类命名格式
+   * Entity class naming format
    */
   classNameCamelcase: string
   classNamePascalCase: string
   classNameKebabCase: string
 
   /**
-   * 业务名命名格式
+   * Business name naming format
    */
   businessNameCamelcase: string
   businessNamePascalCase: string
   businessNameKebabCase: string
 
   /**
-   * 主键列
+   * Primary key column
    */
   pkColumn: ColumnContext
 
   /**
-   * 字典列
+   * Dictionary columns
    */
   dictColumn: ColumnContext[]
 
   /**
-   * 标签类型
+   * Label types
    */
   htmlTypeList: string[]
 }
 
 /**
- * 模板工具类
+ * Template utility class
  * @author vivy
  */
 export class TemplateUtils {
   /**
-   * 获取模板列表
-   * @return 模板列表
+   * Get template list
+   * @return Template list
    */
   static getTemplateList(): TemplateItem[] {
     return [
@@ -98,10 +98,10 @@ export class TemplateUtils {
   }
 
   /**
-   * 获取文件名
-   * @param template 模板名称
-   * @param table 生成表信息
-   * @return 文件生成路径
+   * Get file name
+   * @param template Template name
+   * @param table Generation table information
+   * @return File generation path
    */
   static getFileName(template: string, table: GenTable) {
     let name = ''
@@ -131,10 +131,10 @@ export class TemplateUtils {
   }
 
   /**
-   * 编译模板代码
-   * @param template 模板内容
-   * @param table 生成表信息
-   * @return 模板结果
+   * Compile template code
+   * @param template Template content
+   * @param table Generation table information
+   * @return Template result
    */
   static compileTemplate(template: string, table: GenTable) {
     const context = this.getCompileContext(table)
@@ -142,52 +142,52 @@ export class TemplateUtils {
   }
 
   /**
-   * 构建编译上下文
-   * @param 生成表信息
-   * @returns 上下文
+   * Build compilation context
+   * @param Generation table information
+   * @returns Context
    */
   static getCompileContext(table: GenTable) {
     const context: CompileContext = table as CompileContext
 
     /**
-     * 常量值
+     * Constant values
      */
     context.constants = GenConstants
 
     /**
-     * 接口命名
+     * Interface naming
      */
     context.controllerName = pluralize(decamelize(table.businessName, { separator: '-' }))
 
     /**
-     * 实体类命名格式
+     * Entity class naming format
      */
     context.classNameCamelcase = camelcase(table.className)
     context.classNamePascalCase = camelcase(table.className, { pascalCase: true })
     context.classNameKebabCase = decamelize(table.className, { separator: '-' })
 
     /**
-     * 业务名命名格式
+     * Business name naming format
      */
     context.businessNameCamelcase = camelcase(table.businessName)
     context.businessNamePascalCase = camelcase(table.businessName, { pascalCase: true })
     context.businessNameKebabCase = decamelize(table.businessName, { separator: '-' })
 
     /**
-     * 列处理
+     * Column processing
      */
     table.columns.forEach((column: ColumnContext) => {
-      // 根据列备注提取标签名
+      // Extract label name from column comment
       if (column.columnComment) {
         column.fieldLabel = column.columnComment.replace(/\(.+\)/, '').replace(/（.+）/, '')
       }
 
-      // 根据字典类型获取变量名
+      // Get variable name from dictionary type
       if (column.dictType) {
         column.dictTypeCamelcase = camelcase(column.dictType)
       }
 
-      // 根据列字段类型获取字段长度
+      // Get field length from column field type
       if (column.columnType) {
         const dataType = GenUtils.getColumnType(column.columnType)
         if (GenConstants.COLUMNTYPE_NUMBER.includes(dataType)) {
@@ -207,7 +207,7 @@ export class TemplateUtils {
     })
 
     /**
-     * 主键列
+     * Primary key column
      */
     context.pkColumn = table.columns.find((column) => GenUtils.isRequire(column.isPk))
     if (!context.pkColumn) {
@@ -215,7 +215,7 @@ export class TemplateUtils {
     }
 
     /**
-     * 字典列
+     * Dictionary columns
      */
     context.dictColumn = []
     table.columns.forEach((column: ColumnContext) => {
@@ -225,7 +225,7 @@ export class TemplateUtils {
     })
 
     /**
-     * 标签类型
+     * Label types
      */
     context.htmlTypeList = []
     table.columns.forEach((column: ColumnContext) => {

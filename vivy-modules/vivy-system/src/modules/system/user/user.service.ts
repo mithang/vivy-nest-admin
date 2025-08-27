@@ -24,7 +24,7 @@ import { SysUser } from './entities/sys-user.entity'
 import { UserInfoVo } from './vo/user.vo'
 
 /**
- * 用户管理
+ * User management
  * @author vivy
  */
 @Injectable()
@@ -51,7 +51,7 @@ export class UserService {
   ) {}
 
   /**
-   * 数据范围角色列表查询构造
+   * Data scope user list query construction
    */
   @DataScope({ deptAlias: 'd', userAlias: 'u' })
   private dsUserQueryBuilder() {
@@ -63,9 +63,9 @@ export class UserService {
   }
 
   /**
-   * 用户列表
-   * @param user 用户信息
-   * @returns 用户列表
+   * User list
+   * @param user User information
+   * @returns User list
    */
   async list(user: ListUserDto): Promise<Pagination<SysUser>> {
     const queryBuilder = this.dsUserQueryBuilder().andWhere(
@@ -88,19 +88,19 @@ export class UserService {
   }
 
   /**
-   * 添加用户
-   * @param user 用户信息
+   * Add user
+   * @param user User information
    */
   async add(user: CreateUserDto): Promise<void> {
     const { roleIds, postIds, ...userInfo } = user
 
     await this.dataSource.transaction(async (manager) => {
-      // 新增用户信息
+      // Add user information
       userInfo.password = await PasswordUtils.create(user.password)
       const result = await manager.insert(SysUser, userInfo)
       const userId = result.identifiers[0].userId
 
-      // 新增用户与角色关联
+      // Add user-role association
       if (!isEmpty(roleIds)) {
         await manager.insert(
           SysUserRole,
@@ -108,7 +108,7 @@ export class UserService {
         )
       }
 
-      // 新增用户与岗位关联
+      // Add user-post association
       if (!isEmpty(postIds)) {
         await manager.insert(
           SysUserPost,
@@ -119,18 +119,18 @@ export class UserService {
   }
 
   /**
-   * 更新用户
-   * @param userId 用户ID
-   * @param user 用户信息
+   * Update user
+   * @param userId User ID
+   * @param user User information
    */
   async update(userId: number, user: UpdateUserDto): Promise<void> {
     const { roleIds, postIds, ...userInfo } = user
 
     await this.dataSource.transaction(async (manager) => {
-      // 修改用户信息
+      // Update user information
       await manager.update(SysUser, userId, userInfo)
 
-      // 删除并新增用户与角色关联
+      // Delete and add user-role association
       await manager.delete(SysUserRole, { userId })
       if (!isEmpty(roleIds)) {
         await manager.insert(
@@ -139,7 +139,7 @@ export class UserService {
         )
       }
 
-      // 删除并新增用户与岗位关联
+      // Delete and add user-post association
       await manager.delete(SysUserPost, { userId })
       if (!isEmpty(postIds)) {
         await manager.insert(
@@ -151,8 +151,8 @@ export class UserService {
   }
 
   /**
-   * 删除用户
-   * @param userIds 用户ID
+   * Delete user
+   * @param userIds User ID
    */
   async delete(userIds: number[]): Promise<void> {
     await this.dataSource.transaction(async (manager) => {
@@ -163,9 +163,9 @@ export class UserService {
   }
 
   /**
-   * 用户详情
-   * @param userId 用户ID
-   * @returns 用户详情
+   * User details
+   * @param userId User ID
+   * @returns User details
    */
   async info(userId: number): Promise<UserInfoVo> {
     const user = await this.userRepository.findOneBy({ userId })
@@ -180,30 +180,30 @@ export class UserService {
   }
 
   /**
-   * 更新用户基本信息
-   * @param userId 用户ID
-   * @param user 用户信息
+   * Update user basic information
+   * @param userId User ID
+   * @param user User information
    */
   async updateBasicInfo(userId: number, user: Partial<SysUser>): Promise<void> {
     await this.userRepository.update(userId, user)
   }
 
   /**
-   * 校验用户是否允许操作，检验失败抛出错误
-   * @param userId 用户ID
+   * Check if user operation is allowed, throw error on failure
+   * @param userId User ID
    */
   checkUserAllowed(userId: number | number[]) {
     const userIds = isArray(userId) ? userId : [userId]
     for (const userId of userIds) {
       if (IdentityUtils.isAdmin(userId)) {
-        throw new ServiceException('不允许操作超级管理员用户')
+        throw new ServiceException('Not allowed to operate super administrator user')
       }
     }
   }
 
   /**
-   * 校验是否有用户数据权限，检验失败抛出错误
-   * @param userId 用户ID
+   * Check if there is user data permission, throw error on failure
+   * @param userId User ID
    */
   async checkUserDataScope(userId: number | number[]) {
     if (isEmpty(userId)) return
@@ -212,15 +212,15 @@ export class UserService {
     const userIds = isArray(userId) ? userId : [userId]
     for (const userId of userIds) {
       const count = await this.dsUserQueryBuilder().andWhere({ userId }).getCount()
-      if (count <= 0) throw new ServiceException('没有权限访问用户数据')
+      if (count <= 0) throw new ServiceException('No permission to access user data')
     }
   }
 
   /**
-   * 校验用户名称是否唯一
-   * @param userName 用户名称
-   * @param userId 用户ID
-   * @returns true 唯一 / false 不唯一
+   * Check if user name is unique
+   * @param userName User name
+   * @param userId User ID
+   * @returns true unique / false not unique
    */
   async checkUserNameUnique(userName: string, userId?: number): Promise<boolean> {
     const info = await this.userRepository.findOneBy({ userName })
@@ -232,10 +232,10 @@ export class UserService {
   }
 
   /**
-   * 校验用户邮箱是否唯一
-   * @param email 用户邮箱
-   * @param userId 用户ID
-   * @returns true 唯一 / false 不唯一
+   * Check if user email is unique
+   * @param email User email
+   * @param userId User ID
+   * @returns true unique / false not unique
    */
   async checkUserEmailUnique(email: string, userId?: number): Promise<boolean> {
     if (!email) return true
@@ -249,10 +249,10 @@ export class UserService {
   }
 
   /**
-   * 校验用户手机号是否唯一
-   * @param phonenumber 用户手机号
-   * @param userId 用户ID
-   * @returns true 唯一 / false 不唯一
+   * Check if user phone is unique
+   * @param phonenumber User phone
+   * @param userId User ID
+   * @returns true unique / false not unique
    */
   async checkUserPhoneUnique(phonenumber: string, userId?: number): Promise<boolean> {
     if (!phonenumber) return true
@@ -266,9 +266,9 @@ export class UserService {
   }
 
   /**
-   * 根据用户名查询用户信息
-   * @param userName 用户名称
-   * @returns 用户信息
+   * Query user information by username
+   * @param userName User name
+   * @returns User information
    */
   async selectUserByUserName(userName: string): Promise<SysUser> {
     return this.userRepository
@@ -281,9 +281,9 @@ export class UserService {
   }
 
   /**
-   * 获取角色权限
-   * @param userId 用户Id
-   * @return 角色权限信息
+   * Get role permissions
+   * @param userId User ID
+   * @return Role permission information
    */
   async getRolePermission(userId: number): Promise<string[]> {
     if (IdentityUtils.isAdminUser(userId)) {
@@ -295,9 +295,9 @@ export class UserService {
   }
 
   /**
-   * 获取数据范围权限
-   * @param userId 用户Id
-   * @return 数据范围权限信息
+   * Get data scope permissions
+   * @param userId User ID
+   * @return Data scope permission information
    */
   async getRoleDataScope(userId: number): Promise<SysLoginUser['scopes']> {
     const roles = await this.roleService.selectRoleByUserId(userId)
@@ -308,9 +308,9 @@ export class UserService {
   }
 
   /**
-   * 获取菜单权限
-   * @param userId 用户Id
-   * @return 菜单权限信息
+   * Get menu permissions
+   * @param userId User ID
+   * @return Menu permission information
    */
   async getMenuPermission(userId: number): Promise<string[]> {
     if (IdentityUtils.isAdminUser(userId)) {
@@ -322,7 +322,7 @@ export class UserService {
   }
 
   /**
-   * 导出用户
+   * Export users
    */
   async export() {
     const data = await this.dsUserQueryBuilder().getMany()
@@ -331,7 +331,7 @@ export class UserService {
   }
 
   /**
-   * 导出模板
+   * Export template
    */
   async exportTemplate() {
     const buffer = await this.excelService.exportTemplate(SysUser, {
@@ -342,8 +342,8 @@ export class UserService {
 
   //Tam comment
   // /**
-  //  * 导入用户
-  //  * @param buffer 导入文件
+  //  * Import users
+  //  * @param buffer Import file
   //  */
   // async import(buffer: Buffer) {
   //   const data = await this.excelService.import(SysUser, buffer)

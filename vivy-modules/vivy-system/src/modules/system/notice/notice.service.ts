@@ -7,7 +7,7 @@ import { ListNoticeDto, CreateNoticeDto, UpdateNoticeDto } from './dto/notice.dt
 import { SysNotice } from './entities/sys-notice.entity'
 
 /**
- * 通知公告
+ * Notices and announcements
  * @author vivy
  */
 @Injectable()
@@ -18,9 +18,9 @@ export class NoticeService {
   ) {}
 
   /**
-   * 通知公告列表
-   * @param notice 通知公告信息
-   * @returns 通知公告列表
+   * Notices list
+   * @param notice Notice information
+   * @returns Notices list
    */
   async list(notice: ListNoticeDto): Promise<Pagination<SysNotice>> {
     return paginate<SysNotice>(
@@ -39,34 +39,34 @@ export class NoticeService {
   }
 
   /**
-   * 添加通知公告
-   * @param notice 通知公告信息
+   * Add notice
+   * @param notice Notice information
    */
   async add(notice: CreateNoticeDto): Promise<void> {
     await this.noticeRepository.insert(notice)
   }
 
   /**
-   * 更新通知公告
-   * @param noticeId 通知公告ID
-   * @param notice 通知公告信息
+   * Update notice
+   * @param noticeId Notice ID
+   * @param notice Notice information
    */
   async update(noticeId: number, notice: UpdateNoticeDto): Promise<void> {
     await this.noticeRepository.update(noticeId, notice)
   }
 
   /**
-   * 删除通知公告
-   * @param noticeIds 通知公告ID
+   * Delete notice
+   * @param noticeIds Notice ID
    */
   async delete(noticeIds: number[]): Promise<void> {
     await this.noticeRepository.delete(noticeIds)
   }
 
   /**
-   * 通知公告详情
-   * @param noticeId 通知公告ID
-   * @returns 通知公告详情
+   * Notice details
+   * @param noticeId Notice ID
+   * @returns Notice details
    */
   async info(noticeId: number): Promise<SysNotice> {
     return this.noticeRepository.findOneBy({ noticeId })

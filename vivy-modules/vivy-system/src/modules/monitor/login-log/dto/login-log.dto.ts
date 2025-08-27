@@ -4,23 +4,23 @@ import { Allow } from 'class-validator'
 import { SysLoginLog } from '../entities/sys-login-log.entity'
 
 /**
- * 登录日志列表
+ * Login log list
  */
 export class ListLoginLogDto extends PaginateDto {
-  /** 用户账号 */
+  /** User account */
   @Allow()
   loginName?: string
 
-  /** 登录状态 */
+  /** Login status */
   @Allow()
   loginStatus?: string
 
-  /** 登录时间 */
+  /** Login time */
   @Allow()
   createTime?: string[]
 }
 
 /**
- * 添加登录日志
+ * Add login log
  */
 export class CreateLoginLogDto extends OmitType(SysLoginLog, ['loginId'] as const) {}

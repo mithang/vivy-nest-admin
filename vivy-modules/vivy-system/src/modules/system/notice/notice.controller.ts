@@ -7,10 +7,10 @@ import { ListNoticeDto, CreateNoticeDto, UpdateNoticeDto } from './dto/notice.dt
 import { NoticeService } from './notice.service'
 
 /**
- * 通知公告
+ * Notices and announcements
  * @author vivy
  */
-@ApiTags('通知公告')
+@ApiTags('Notices and announcements')
 @ApiBearerAuth()
 @Controller('notices')
 export class NoticeController {
@@ -20,9 +20,9 @@ export class NoticeController {
   ) {}
 
   /**
-   * 通知公告列表
-   * @param notice 通知公告信息
-   * @returns 通知公告列表
+   * Notices list
+   * @param notice Notice information
+   * @returns Notices list
    */
   @Get()
   @RequirePermissions('system:notice:list')
@@ -31,11 +31,11 @@ export class NoticeController {
   }
 
   /**
-   * 添加通知公告
-   * @param notice 通知公告信息
+   * Add notice
+   * @param notice Notice information
    */
   @Post()
-  @Log({ title: '通知公告', operType: OperType.INSERT })
+  @Log({ title: 'Notices and announcements', operType: OperType.INSERT })
   @RequirePermissions('system:notice:add')
   async add(@Body() notice: CreateNoticeDto): Promise<AjaxResult> {
     notice.createBy = this.securityContext.getUserName()
@@ -43,12 +43,12 @@ export class NoticeController {
   }
 
   /**
-   * 更新通知公告
-   * @param noticeId 通知公告ID
-   * @param notice 通知公告信息
+   * Update notice
+   * @param noticeId Notice ID
+   * @param notice Notice information
    */
   @Put(':noticeId')
-  @Log({ title: '通知公告', operType: OperType.UPDATE })
+  @Log({ title: 'Notices and announcements', operType: OperType.UPDATE })
   @RequirePermissions('system:notice:update')
   async update(@Param('noticeId') noticeId: number, @Body() notice: UpdateNoticeDto): Promise<AjaxResult> {
     notice.updateBy = this.securityContext.getUserName()
@@ -56,20 +56,20 @@ export class NoticeController {
   }
 
   /**
-   * 删除通知公告
-   * @param noticeIds 通知公告ID
+   * Delete notice
+   * @param noticeIds Notice ID
    */
   @Delete(':noticeIds')
-  @Log({ title: '通知公告', operType: OperType.DELETE })
+  @Log({ title: 'Notices and announcements', operType: OperType.DELETE })
   @RequirePermissions('system:notice:delete')
   async delete(@Param('noticeIds', new ParseArrayPipe({ items: Number })) noticeIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.noticeService.delete(noticeIds))
   }
 
   /**
-   * 通知公告详情
-   * @param noticeId 通知公告ID
-   * @returns 通知公告详情
+   * Notice details
+   * @param noticeId Notice ID
+   * @returns Notice details
    */
   @Get(':noticeId')
   @RequirePermissions('system:notice:query')

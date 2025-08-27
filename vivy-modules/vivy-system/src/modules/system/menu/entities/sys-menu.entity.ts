@@ -3,14 +3,14 @@ import { IsEnum, IsIn, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-va
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 菜单权限表
+ * Menu permission table
  */
 @Entity({ name: 'sys_menu' })
 export class SysMenu extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'menu_id',
     type: 'bigint',
-    comment: '菜单ID',
+    comment: 'Menu ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'parent_id',
     type: 'bigint',
     default: 0,
-    comment: '父菜单ID',
+    comment: 'Parent menu ID',
   })
   @IsInt()
   @IsOptional()
@@ -30,7 +30,7 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'menu_name',
     type: 'varchar',
     length: 50,
-    comment: '菜单名称',
+    comment: 'Menu name',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'menu_type',
     type: 'char',
     length: 1,
-    comment: '菜单类型（M目录 C菜单 F按钮）',
+    comment: 'Menu type (M directory C menu F button)',
   })
   @IsIn(['M', 'C', 'F'])
   @IsNotEmpty()
@@ -50,7 +50,7 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'menu_sort',
     type: 'int',
     default: 0,
-    comment: '显示顺序',
+    comment: 'Display order',
   })
   @IsInt()
   @IsOptional()
@@ -61,7 +61,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '菜单状态（0正常 1停用）',
+    comment: 'Menu status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()
@@ -72,7 +72,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'varchar',
     length: 255,
     nullable: true,
-    comment: '路由地址',
+    comment: 'Route address',
   })
   @MaxLength(255)
   @IsOptional()
@@ -83,7 +83,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'varchar',
     length: 255,
     nullable: true,
-    comment: '组件路径',
+    comment: 'Component path',
   })
   @MaxLength(255)
   @IsOptional()
@@ -94,7 +94,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'varchar',
     length: 255,
     nullable: true,
-    comment: '路由参数',
+    comment: 'Route parameters',
   })
   @MaxLength(255)
   @IsOptional()
@@ -105,7 +105,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'varchar',
     length: 100,
     nullable: true,
-    comment: '权限标识',
+    comment: 'Permission identifier',
   })
   @MaxLength(100)
   @IsOptional()
@@ -116,7 +116,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'varchar',
     length: 100,
     nullable: true,
-    comment: '菜单图标',
+    comment: 'Menu icon',
   })
   @MaxLength(100)
   @IsOptional()
@@ -127,7 +127,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '1',
-    comment: '是否显示（0否 1是）',
+    comment: 'Whether to display (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -138,7 +138,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '是否为外链（0否 1是）',
+    comment: 'Whether it is an external link (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -149,7 +149,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '是否为内嵌（0否 1是）',
+    comment: 'Whether it is embedded (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()
@@ -160,7 +160,7 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '是否缓存（0否 1是）',
+    comment: 'Whether to cache (0 no 1 yes)',
   })
   @IsEnum(BaseIsEnum)
   @IsOptional()

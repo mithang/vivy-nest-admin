@@ -1,14 +1,14 @@
 import { Allow } from 'class-validator'
 
 /**
- * 查询在线用户
+ * Query online users
  */
 export class ListOnlineUserDto {
-  /** IP地址 */
+  /** IP address */
   @Allow()
   loginIp?: string
 
-  /** 用户名称 */
+  /** User name */
   @Allow()
   userName?: string
 }

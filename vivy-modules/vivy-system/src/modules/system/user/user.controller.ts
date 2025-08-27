@@ -9,10 +9,10 @@ import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto'
 import { UserService } from './user.service'
 
 /**
- * 用户管理
+ * User management
  * @author vivy
  */
-@ApiTags('用户管理')
+@ApiTags('User management')
 @ApiBearerAuth()
 @Controller('users')
 export class UserController {
@@ -24,9 +24,9 @@ export class UserController {
   ) {}
 
   /**
-   * 用户列表
-   * @param user 用户信息
-   * @returns 用户列表
+   * User list
+   * @param user User information
+   * @returns User list
    */
   @Get()
   @RequirePermissions('system:user:list')
@@ -35,26 +35,26 @@ export class UserController {
   }
 
   /**
-   * 添加用户
-   * @param user 用户信息
+   * Add user
+   * @param user User information
    */
   @Post()
-  @Log({ title: '用户管理', operType: OperType.INSERT })
+  @Log({ title: 'User management', operType: OperType.INSERT })
   @RequirePermissions('system:user:add')
   async add(@Body() user: CreateUserDto): Promise<AjaxResult> {
     await this.deptService.checkDeptDataScope(user.deptId)
     await this.roleService.checkRoleDataScope(user.roleIds)
 
     if (!(await this.userService.checkUserNameUnique(user.userName))) {
-      return AjaxResult.error(`新增用户${user.userName}失败，登录账号已存在`)
+      return AjaxResult.error(`Failed to add user ${user.userName}, login account already exists`)
     }
 
     if (!(await this.userService.checkUserEmailUnique(user.email))) {
-      return AjaxResult.error(`新增用户${user.userName}失败，邮箱账号已存在`)
+      return AjaxResult.error(`Failed to add user ${user.userName}, email account already exists`)
     }
 
     if (!(await this.userService.checkUserPhoneUnique(user.phonenumber))) {
-      return AjaxResult.error(`新增用户${user.userName}失败，手机号码已存在`)
+      return AjaxResult.error(`Failed to add user ${user.userName}, phone number already exists`)
     }
 
     user.createBy = this.securityContext.getUserName()
@@ -62,12 +62,12 @@ export class UserController {
   }
 
   /**
-   * 更新用户
-   * @param userId 用户ID
-   * @param user 用户信息
+   * Update user
+   * @param userId User ID
+   * @param user User information
    */
   @Put(':userId')
-  @Log({ title: '用户管理', operType: OperType.UPDATE })
+  @Log({ title: 'User management', operType: OperType.UPDATE })
   @RequirePermissions('system:user:update')
   async update(@Param('userId') userId: number, @Body() user: UpdateUserDto): Promise<AjaxResult> {
     this.userService.checkUserAllowed(userId)
@@ -76,15 +76,15 @@ export class UserController {
     await this.roleService.checkRoleDataScope(user.roleIds)
 
     if (!(await this.userService.checkUserNameUnique(user.userName, userId))) {
-      return AjaxResult.error(`修改用户${user.userName}失败，登录账号已存在`)
+      return AjaxResult.error(`Failed to update user ${user.userName}, login account already exists`)
     }
 
     if (!(await this.userService.checkUserEmailUnique(user.email, userId))) {
-      return AjaxResult.error(`修改用户${user.userName}失败，邮箱账号已存在`)
+      return AjaxResult.error(`Failed to update user ${user.userName}, email account already exists`)
     }
 
     if (!(await this.userService.checkUserPhoneUnique(user.phonenumber, userId))) {
-      return AjaxResult.error(`修改用户${user.userName}失败，手机号码已存在`)
+      return AjaxResult.error(`Failed to update user ${user.userName}, phone number already exists`)
     }
 
     user.updateBy = this.securityContext.getUserName()
@@ -92,11 +92,11 @@ export class UserController {
   }
 
   /**
-   * 删除用户
-   * @param userIds 用户ID
+   * Delete user
+   * @param userIds User IDs
    */
   @Delete(':userIds')
-  @Log({ title: '用户管理', operType: OperType.DELETE })
+  @Log({ title: 'User management', operType: OperType.DELETE })
   @RequirePermissions('system:user:delete')
   async delete(@Param('userIds', new ParseArrayPipe({ items: Number })) userIds: number[]): Promise<AjaxResult> {
     this.userService.checkUserAllowed(userIds)
@@ -105,9 +105,9 @@ export class UserController {
   }
 
   /**
-   * 用户详情
-   * @param userId 用户ID
-   * @returns 用户详情
+   * User details
+   * @param userId User ID
+   * @returns User details
    */
   @Get(':userId')
   @RequirePermissions('system:user:query')
@@ -117,10 +117,10 @@ export class UserController {
   }
 
   /**
-   * 导出用户
+   * Export users
    */
   @Post('export')
-  @Log({ title: '用户管理', operType: OperType.EXPORT })
+  @Log({ title: 'User management', operType: OperType.EXPORT })
   @RequirePermissions('system:user:export')
   async export() {
     const file = await this.userService.export()
@@ -128,10 +128,10 @@ export class UserController {
   }
 
   /**
-   * 导出模板
+   * Export template
    */
   @Post('export-template')
-  @Log({ title: '用户管理', operType: OperType.EXPORT })
+  @Log({ title: 'User management', operType: OperType.EXPORT })
   @RequirePermissions('system:user:export')
   async exportTemplate() {
     const file = await this.userService.exportTemplate()
@@ -140,10 +140,10 @@ export class UserController {
 
   //Tam comment
   // /**
-  //  * 导入用户
+  //  * Import users
   //  */
   // @Post('import')
-  // @Log({ title: '用户管理', operType: OperType.IMPORT })
+  // @Log({ title: 'User management', operType: OperType.IMPORT })
   // @RequirePermissions('system:user:import')
   // @UseInterceptors(FileInterceptor('file'))
   // async import(@UploadedFile() file: Express.Multer.File) {

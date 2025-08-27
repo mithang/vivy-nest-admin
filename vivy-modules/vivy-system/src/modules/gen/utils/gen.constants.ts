@@ -1,24 +1,24 @@
 /**
- * 代码生成通用常量
+ * Code generation common constants
  * @author vivy
  */
 export class GenConstants {
-  /** 所有者 */
+  /** Owner */
   static AUTHOR = 'vivy'
 
-  /** 模块名 */
+  /** Module name */
   static MODULE = 'system'
 
-  /** 数据库字符串类型 */
+  /** Database string type */
   static COLUMNTYPE_STR = ['char', 'varchar', 'nvarchar', 'varchar2']
 
-  /** 数据库文本类型 */
+  /** Database text type */
   static COLUMNTYPE_TEXT = ['tinytext', 'text', 'mediumtext', 'longtext']
 
-  /** 数据库时间类型 */
+  /** Database time type */
   static COLUMNTYPE_TIME = ['datetime', 'time', 'date', 'timestamp']
 
-  /** 数据库数字类型 */
+  /** Database number type */
   static COLUMNTYPE_NUMBER = [
     'tinyint',
     'smallint',
@@ -32,78 +32,78 @@ export class GenConstants {
     'decimal',
   ]
 
-  /** 页面不需要编辑字段 */
+  /** Page fields that do not need editing */
   static COLUMNNAME_NOT_EDIT = ['id', 'create_by', 'create_time', 'update_by', 'update_time']
 
-  /** 页面不需要显示的列表字段 */
+  /** Page fields that do not need to be displayed in the list */
   static COLUMNNAME_NOT_LIST = ['id', 'create_by', 'create_time', 'update_by', 'update_time']
 
-  /** 页面不需要查询字段 */
+  /** Page fields that do not need querying */
   static COLUMNNAME_NOT_QUERY = ['id', 'create_by', 'create_time', 'update_by', 'update_time']
 
-  /** Entity 基类字段 */
+  /** Entity base class fields */
   static BASE_ENTITY = ['createBy', 'createTime', 'updateBy', 'updateTime']
 
-  /** 文本框 */
+  /** Text box */
   static HTML_INPUT = 'input'
 
-  /** 数字框 */
+  /** Number box */
   static HTML_NUMBER = 'number'
 
-  /** 文本域 */
+  /** Text area */
   static HTML_TEXTAREA = 'textarea'
 
-  /** 下拉框 */
+  /** Dropdown box */
   static HTML_SELECT = 'select'
 
-  /** 单选框 */
+  /** Radio box */
   static HTML_RADIO = 'radio'
 
-  /** 复选框 */
+  /** Checkbox */
   static HTML_CHECKBOX = 'checkbox'
 
-  /** 日期控件 */
+  /** Date control */
   static HTML_DATETIME = 'datetime'
 
-  /** 上传控件 */
+  /** Upload control */
   static HTML_UPLOAD = 'upload'
 
-  /** 富文本控件 */
+  /** Rich text control */
   static HTML_EDITOR = 'editor'
 
-  /** TS 字符串类型 */
+  /** TS string type */
   static TS_TYPE_STRING = 'string'
 
-  /** TS 数字类型 */
+  /** TS number type */
   static TS_TYPE_NUMBER = 'number'
 
-  /** TS 未知类型 */
+  /** TS unknown type */
   static TS_TYPE_UNKNOWN = 'unknown'
 
-  /** JAVA 字符串类型 */
+  /** JAVA string type */
   static JAVA_TYPE_STRING = 'String'
 
-  /** JAVA 整型 */
+  /** JAVA integer type */
   static JAVA_TYPE_INTEGER = 'Integer'
 
-  /** JAVA 长整型 */
+  /** JAVA long integer type */
   static JAVA_TYPE_LONG = 'Long'
 
-  /** JAVA 浮点型 */
+  /** JAVA floating point type */
   static JAVA_TYPE_DOUBLE = 'Double'
 
-  /** JAVA 高精度计算类型 */
+  /** JAVA high precision calculation type */
   static JAVA_TYPE_BIGDECIMAL = 'BigDecimal'
 
-  /** JAVA 时间类型 */
+  /** JAVA time type */
   static JAVA_TYPE_DATE = 'Date'
 
-  /** 模糊查询 */
+  /** Fuzzy query */
   static QUERY_LIKE = 'LIKE'
 
-  /** 相等查询 */
+  /** Equal query */
   static QUERY_EQ = 'EQ'
 
-  /** 需要 */
+  /** Required */
   static REQUIRE = '1'
 }

@@ -3,14 +3,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 岗位信息表
+ * Post information table
  */
 @Entity({ name: 'sys_post' })
 export class SysPost extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'post_id',
     type: 'bigint',
-    comment: '岗位ID',
+    comment: 'Post ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysPost extends BaseBusinessEntity {
     name: 'post_name',
     type: 'varchar',
     length: 50,
-    comment: '岗位名称',
+    comment: 'Post name',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class SysPost extends BaseBusinessEntity {
     name: 'post_code',
     type: 'varchar',
     length: 50,
-    comment: '岗位编码',
+    comment: 'Post code',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class SysPost extends BaseBusinessEntity {
     name: 'post_sort',
     type: 'int',
     default: 0,
-    comment: '显示顺序',
+    comment: 'Display order',
   })
   @IsInt()
   @IsOptional()
@@ -51,7 +51,7 @@ export class SysPost extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '岗位状态（0正常 1停用）',
+    comment: 'Post status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()

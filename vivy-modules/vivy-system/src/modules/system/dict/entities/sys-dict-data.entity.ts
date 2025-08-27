@@ -3,14 +3,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 字典数据表
+ * Dictionary data table
  */
 @Entity({ name: 'sys_dict_data' })
 export class SysDictData extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'dict_id',
     type: 'bigint',
-    comment: '字典ID',
+    comment: 'Dictionary ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysDictData extends BaseBusinessEntity {
     name: 'dict_type',
     type: 'varchar',
     length: 100,
-    comment: '字典类型',
+    comment: 'Dictionary type',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class SysDictData extends BaseBusinessEntity {
     name: 'dict_label',
     type: 'varchar',
     length: 100,
-    comment: '字典标签',
+    comment: 'Dictionary label',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class SysDictData extends BaseBusinessEntity {
     name: 'dict_value',
     type: 'varchar',
     length: 100,
-    comment: '字典键值',
+    comment: 'Dictionary value',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -50,7 +50,7 @@ export class SysDictData extends BaseBusinessEntity {
     name: 'dict_sort',
     type: 'int',
     default: 0,
-    comment: '显示顺序',
+    comment: 'Display order',
   })
   @IsInt()
   @IsOptional()
@@ -61,7 +61,7 @@ export class SysDictData extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '字典状态（0正常 1停用）',
+    comment: 'Dictionary status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()
@@ -72,7 +72,7 @@ export class SysDictData extends BaseBusinessEntity {
     type: 'varchar',
     length: 100,
     nullable: true,
-    comment: '样式属性（其他样式扩展）',
+    comment: 'Style attribute (other style extensions)',
   })
   @MaxLength(100)
   @IsOptional()
@@ -83,7 +83,7 @@ export class SysDictData extends BaseBusinessEntity {
     type: 'varchar',
     length: 100,
     nullable: true,
-    comment: '表格回显样式',
+    comment: 'Table echo style',
   })
   @MaxLength(100)
   @IsOptional()

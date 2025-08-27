@@ -4,24 +4,24 @@ import { Allow } from 'class-validator'
 import { SysNotice } from '../entities/sys-notice.entity'
 
 /**
- * 查询通知公告
+ * Query notices
  */
 export class ListNoticeDto extends PaginateDto {
-  /** 公告标题 */
+  /** Notice title */
   @Allow()
   noticeTitle?: string
 
-  /** 公告类型（1通知 2公告） */
+  /** Notice type (1 notice 2 announcement) */
   @Allow()
   noticeType?: string
 }
 
 /**
- * 添加通知公告
+ * Add notice
  */
 export class CreateNoticeDto extends OmitType(SysNotice, ['noticeId'] as const) {}
 
 /**
- * 更新通知公告
+ * Update notice
  */
 export class UpdateNoticeDto extends OmitType(SysNotice, ['noticeId'] as const) {}

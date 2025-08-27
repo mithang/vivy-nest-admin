@@ -5,61 +5,61 @@ import { Allow, IsArray, IsEnum, IsOptional } from 'class-validator'
 import { SysRole } from '../entities/sys-role.entity'
 
 /**
- * 查询角色
+ * Query roles
  */
 export class ListRoleDto extends PaginateDto {
-  /** 角色名称 */
+  /** Role name */
   @Allow()
   roleName?: string
 
-  /** 角色编码 */
+  /** Role code */
   @Allow()
   roleCode?: string
 
-  /** 角色状态（0正常 1停用） */
+  /** Role status (0 normal 1 disabled) */
   @Allow()
   status?: string
 }
 
 /**
- * 添加角色
+ * Add role
  */
 export class CreateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
-  /** 菜单权限 */
+  /** Menu permissions */
   @IsArray()
   @IsOptional()
   menuIds?: number[]
 
-  /** 部门权限 */
+  /** Department permissions */
   // @IsArray()
   // @IsOptional()
   // deptIds?: number[]
 }
 
 /**
- * 更新角色
+ * Update role
  */
 export class UpdateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
-  /** 菜单权限 */
+  /** Menu permissions */
   @IsArray()
   @IsOptional()
   menuIds?: number[]
 
-  /** 部门权限 */
+  /** Department permissions */
   // @IsArray()
   // @IsOptional()
   // deptIds?: number[]
 }
 
 /**
- * 更新数据权限
+ * Update data scope
  */
 export class UpdateDataScopeDto {
-  /** 数据范围 */
+  /** Data scope */
   @IsEnum(DataScopeType)
   dataScope: string
 
-  /** 部门权限 */
+  /** Department permissions */
   @IsArray()
   @IsOptional()
   deptIds?: number[]

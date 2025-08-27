@@ -16,7 +16,7 @@ import { GenMapper } from './gen.mapper'
 import { GenPreviewVo } from './vo/gen.vo'
 
 /**
- * 代码生成
+ * Code generation
  * @author vivy
  */
 @Injectable()
@@ -33,9 +33,9 @@ export class GenService {
   ) {}
 
   /**
-   * 代码生成列表
-   * @param gen 搜索信息
-   * @returns 代码生成列表
+   * Code generation list
+   * @param gen Search information
+   * @returns Code generation list
    */
   async list(gen: ListGenDto): Promise<Pagination<GenTable>> {
     return paginate<GenTable>(
@@ -54,8 +54,8 @@ export class GenService {
   }
 
   /**
-   * 更新代码生成
-   * @param gen 更新信息
+   * Update code generation
+   * @param gen Update information
    */
   async update(gen: UpdateGenDto): Promise<void> {
     gen.updateBy = this.securityContext.getUserName()
@@ -63,17 +63,17 @@ export class GenService {
   }
 
   /**
-   * 删除代码生成
-   * @param tableIds 代码生成ID
+   * Delete code generation
+   * @param tableIds Code generation ID
    */
   async delete(tableIds: number[]): Promise<void> {
     await this.tableRepository.delete(tableIds)
   }
 
   /**
-   * 代码生成详情
-   * @param tableId 代码生成ID
-   * @returns 代码生成详情
+   * Code generation details
+   * @param tableId Code generation ID
+   * @returns Code generation details
    */
   async info(tableId: number): Promise<GenTable> {
     return this.tableRepository.findOne({
@@ -87,17 +87,17 @@ export class GenService {
   }
 
   /**
-   * 查询数据库表列表
-   * @param tableId 代码生成ID
-   * @returns 数据库表列表
+   * Query database table list
+   * @param tableId Code generation ID
+   * @returns Database table list
    */
   async dblist(gen: ListGenDto): Promise<GenTable[]> {
     return this.genMapper.selectDbTableList(gen.tableName, gen.tableComment)
   }
 
   /**
-   * 导入表结构到代码生成表
-   * @param tableNames 表名称
+   * Import table structure to code generation table
+   * @param tableNames Table names
    */
   async import(tableNames: string[]): Promise<void> {
     const tables = await this.genMapper.selectDbTableListByNames(tableNames)
@@ -114,16 +114,16 @@ export class GenService {
   }
 
   /**
-   * 同步表结构到代码生成表
-   * @param tableName 表名称
+   * Sync table structure to code generation table
+   * @param tableName Table name
    */
   async sync(tableName: string): Promise<any> {
     const dbColumns = await this.genMapper.selectDbTableColumnsByName(tableName)
     if (isEmpty(dbColumns)) {
-      throw new ServiceException('同步数据失败，原表结构不存在')
+      throw new ServiceException('Sync data failed, original table structure does not exist')
     }
 
-    // 获取到旧字段列信息并转换为对象便于查询
+    // Get old field column information and convert to object for easy querying
     const table = await this.tableRepository.findOne({
       where: {
         tableName,
@@ -137,20 +137,20 @@ export class GenService {
       tableColumnMap.set(column.columnName, column)
     })
 
-    // 获取到新字段列信息并把旧字段列信息的必要字段保留
+    // Get new field column information and retain necessary fields from old field column information
     dbColumns.forEach((column) => {
       GenUtils.initColumn(column, table)
 
       const oldColumn = tableColumnMap.get(column.columnName)
       if (isEmpty(oldColumn)) return
 
-      // 如果是列表，继续保留查询方式/字典类型选项
+      // If it's a list, continue to retain query method/dictionary type options
       if (GenUtils.isRequire(column.isList)) {
         column.dictType = oldColumn.dictType
         column.queryType = oldColumn.queryType
       }
 
-      // 如果是(新增/修改&非主键)，继续保留必填/显示类型选项
+      // If it's (add/update & not primary key), continue to retain required/display type options
       if (
         !GenUtils.isRequire(column.isPk) &&
         (GenUtils.isRequire(column.isEdit) || GenUtils.isRequire(column.isInsert))
@@ -160,20 +160,20 @@ export class GenService {
       }
     })
 
-    // 删除全部重新插入 // todo: 待优化按需更新、插入、删除
+    // Delete all and reinsert // todo: To be optimized for on-demand update, insert, delete
     await this.tableColumnRepository.delete({ tableId: table.tableId })
     await this.tableColumnRepository.insert(dbColumns)
   }
 
   /**
-   * 预览代码
-   * @param tableName 表名称
-   * @returns 代码详情
+   * Preview code
+   * @param tableName Table name
+   * @returns Code details
    */
   async preview(tableName: string): Promise<GenPreviewVo[]> {
     const result: GenPreviewVo[] = []
 
-    // 查询表信息
+    // Query table information
     const table = await this.tableRepository.findOne({
       where: {
         tableName,
@@ -183,13 +183,13 @@ export class GenService {
       },
     })
 
-    // 获取模板列表
+    // Get template list
     const templates = TemplateUtils.getTemplateList()
     for (const template of templates) {
       const item: GenPreviewVo = { name: template.name, files: [] }
       result.push(item)
 
-      // 渲染模板代码
+      // Render template code
       for (const file of template.files) {
         const raw = await fs.readFile(path.join(__dirname, '../template', file), 'utf-8')
         const name = TemplateUtils.getFileName(file, table)
@@ -202,9 +202,9 @@ export class GenService {
   }
 
   /**
-   * 下载代码
-   * @param tableName 表名称
-   * @returns 代码详情
+   * Download code
+   * @param tableName Table name
+   * @returns Code details
    */
   async download(tableName: string): Promise<StreamableFile> {
     const preview = await this.preview(tableName)

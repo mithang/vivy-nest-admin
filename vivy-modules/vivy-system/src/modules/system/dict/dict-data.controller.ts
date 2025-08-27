@@ -7,10 +7,10 @@ import { DictDataService } from './dict-data.service'
 import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto'
 
 /**
- * 字典数据管理
+ * Dictionary data management
  * @author vivy
  */
-@ApiTags('字典数据管理')
+@ApiTags('Dictionary data management')
 @ApiBearerAuth()
 @Controller('dict/datas')
 export class DictDataController {
@@ -20,10 +20,10 @@ export class DictDataController {
   ) {}
 
   /**
-   * 查询字典数据列表
+   * Query dictionary data list
    * @author vivy
-   * @param dictData 字典数据信息
-   * @returns 字典数据列表
+   * @param dictData Dictionary data information
+   * @returns Dictionary data list
    */
   @Get()
   @RequirePermissions('system:dict:list')
@@ -32,19 +32,19 @@ export class DictDataController {
   }
 
   /**
-   * 添加字典数据
-   * @param dictData 字典数据信息
+   * Add dictionary data
+   * @param dictData Dictionary data information
    */
   @Post()
-  @Log({ title: '字典数据管理', operType: OperType.INSERT })
+  @Log({ title: 'Dictionary data management', operType: OperType.INSERT })
   @RequirePermissions('system:dict:add')
   async add(@Body() dictData: CreateDictDataDto): Promise<AjaxResult> {
     if (!(await this.dictDataService.checkDictLabelUnique(dictData.dictType, dictData.dictLabel))) {
-      return AjaxResult.error(`新增字典${dictData.dictLabel}失败，字典标签已存在`)
+      return AjaxResult.error(`Failed to add dictionary ${dictData.dictLabel}, dictionary label already exists`)
     }
 
     if (!(await this.dictDataService.checkDictValueUnique(dictData.dictType, dictData.dictValue))) {
-      return AjaxResult.error(`新增字典${dictData.dictLabel}失败，字典键值已存在`)
+      return AjaxResult.error(`Failed to add dictionary ${dictData.dictLabel}, dictionary value already exists`)
     }
 
     dictData.createBy = this.securityContext.getUserName()
@@ -52,20 +52,20 @@ export class DictDataController {
   }
 
   /**
-   * 更新字典数据
-   * @param dictId 字典数据ID
-   * @param dictData 字典数据信息
+   * Update dictionary data
+   * @param dictId Dictionary data ID
+   * @param dictData Dictionary data information
    */
   @Put(':dictId')
-  @Log({ title: '字典数据管理', operType: OperType.UPDATE })
+  @Log({ title: 'Dictionary data management', operType: OperType.UPDATE })
   @RequirePermissions('system:dict:update')
   async update(@Param('dictId') dictId: number, @Body() dictData: UpdateDictDataDto): Promise<AjaxResult> {
     if (!(await this.dictDataService.checkDictLabelUnique(dictData.dictType, dictData.dictLabel, dictId))) {
-      return AjaxResult.error(`修改字典${dictData.dictLabel}失败，字典标签已存在`)
+      return AjaxResult.error(`Failed to update dictionary ${dictData.dictLabel}, dictionary label already exists`)
     }
 
     if (!(await this.dictDataService.checkDictValueUnique(dictData.dictType, dictData.dictValue, dictId))) {
-      return AjaxResult.error(`修改字典${dictData.dictLabel}失败，字典键值已存在`)
+      return AjaxResult.error(`Failed to update dictionary ${dictData.dictLabel}, dictionary value already exists`)
     }
 
     dictData.updateBy = this.securityContext.getUserName()
@@ -73,20 +73,20 @@ export class DictDataController {
   }
 
   /**
-   * 删除字典数据
-   * @param dictIds 字典数据ID
+   * Delete dictionary data
+   * @param dictIds Dictionary data ID
    */
   @Delete(':dictIds')
-  @Log({ title: '字典数据管理', operType: OperType.DELETE })
+  @Log({ title: 'Dictionary data management', operType: OperType.DELETE })
   @RequirePermissions('system:dict:delete')
   async delete(@Param('dictIds', new ParseArrayPipe({ items: Number })) dictIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.dictDataService.delete(dictIds))
   }
 
   /**
-   * 字典数据详情
-   * @param dictId 字典数据ID
-   * @returns 字典数据详情
+   * Dictionary data details
+   * @param dictId Dictionary data ID
+   * @returns Dictionary data details
    */
   @Get(':dictId')
   @RequirePermissions('system:dict:query')
@@ -95,9 +95,9 @@ export class DictDataController {
   }
 
   /**
-   * 根据字典类型查询字典数据选项列表
-   * @param dictType 字典类型
-   * @returns 字典数据选项列表
+   * Query dictionary data options list by dictionary type
+   * @param dictType Dictionary type
+   * @returns Dictionary data options list
    */
   @Get('options/:dictType')
   async options(@Param('dictType') dictType: string): Promise<AjaxResult> {

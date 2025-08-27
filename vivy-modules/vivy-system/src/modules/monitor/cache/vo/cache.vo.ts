@@ -1,16 +1,16 @@
 /**
- * 缓存信息
+ * Cache information
  */
 export class CacheVo {
-  /** 缓存名称 */
+  /** Cache name */
   name?: string
 
-  /** 缓存键名 */
+  /** Cache key name */
   key?: string
 
-  /** 缓存内容 */
+  /** Cache content */
   value?: string
 
-  /** 缓存备注 */
+  /** Cache remark */
   remark?: string
 }

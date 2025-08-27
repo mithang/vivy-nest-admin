@@ -14,7 +14,7 @@ import { LoginDto } from './dto/login.dto'
 import { CaptchaVo, RouterTreeVo } from './vo/login.vo'
 
 /**
- * 登录管理
+ * Login management
  * @author vivy
  */
 @Injectable()
@@ -28,31 +28,31 @@ export class LoginService {
   ) {}
 
   /**
-   * 用户登录
-   * @param form 登录账户信息
+   * User login
+   * @param form Login account information
    */
   async login(form: LoginDto): Promise<SysLoginUser> {
     const { username, password } = form
     if (isEmpty(username) || isEmpty(password)) {
-      throw new ServiceException('用户/密码必须填写')
+      throw new ServiceException('Username/password must be filled')
     }
 
     const user = await this.userService.selectUserByUserName(username)
     if (isEmpty(user)) {
-      throw new ServiceException('登录用户不存在')
+      throw new ServiceException('Login user does not exist')
     }
 
     if (user.status === UserStatusEnum.DISABLE) {
-      throw new ServiceException('您的账号已停用')
+      throw new ServiceException('Your account has been disabled')
     }
 
     if (user.status === UserStatusEnum.DELETED) {
-      throw new ServiceException('您的账号已删除')
+      throw new ServiceException('Your account has been deleted')
     }
 
     const isMatch = await PasswordUtils.compare(password, user.password)
     if (!isMatch) {
-      throw new ServiceException('密码输入错误')
+      throw new ServiceException('Password input error')
     }
 
     const loginUser = new SysLoginUser()
@@ -64,7 +64,7 @@ export class LoginService {
   }
 
   /**
-   * 创建验证码
+   * Create captcha
    */
   async createCaptcha(): Promise<CaptchaVo> {
     const { data, text } = svgCaptcha.createMathExpr({
@@ -86,24 +86,24 @@ export class LoginService {
   }
 
   /**
-   * 验证验证码
-   * @param form 登录账户信息
-   * @returns 验证失败抛出错误信息
+   * Verify captcha
+   * @param form Login account information
+   * @returns Verification failure throws error message
    */
   async verifyCaptcha(form: LoginDto): Promise<void> {
     const key = `${CAPTCHA_CODE_KEY}${form.uuid}`
     const code = await this.redis.get(key)
     if (!code) {
-      throw new ServiceException('验证码已过期')
+      throw new ServiceException('Captcha has expired')
     }
     if (code !== form.code) {
-      throw new ServiceException('验证码输入错误')
+      throw new ServiceException('Captcha input error')
     }
   }
 
   /**
-   * 是否启用验证码功能
-   * @returns true 启用 / false 不启用
+   * Whether to enable captcha function
+   * @returns true enable / false disable
    */
   async isEnableCaptcha() {
     const enableCaptcha = await this.configService.value('sys.account.enableCaptcha')
@@ -114,9 +114,9 @@ export class LoginService {
   }
 
   /**
-   * 查询用户路由信息
-   * @param userId 用户ID
-   * @returns 用户路由信息
+   * Query user route information
+   * @param userId User ID
+   * @returns User route information
    */
   async getUserRouters(userId: number) {
     const menus = await this.menuService.selectUserMenuTree(userId)
@@ -124,9 +124,9 @@ export class LoginService {
   }
 
   /**
-   * 构建前端 UmiMax 所需要的路由
-   * @param 菜单列表
-   * @returns 路由列表
+   * Build routes required by frontend UmiMax
+   * @param Menu list
+   * @returns Route list
    */
   private buildUmiMaxRouters(menus: MenuTreeVo[]): RouterTreeVo[] {
     const routers: RouterTreeVo[] = []

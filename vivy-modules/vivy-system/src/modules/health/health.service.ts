@@ -18,28 +18,28 @@ export class HealthService {
   ) {}
 
   /**
-   * 检查网络连接
+   * Check network connection
    */
   async checkNetwork() {
     return this.http.pingCheck('vivy', 'http://43.140.221.180:8000/')
   }
 
   /**
-   * 检查 MySQL 连接
+   * Check MySQL connection
    */
   async checkMysql() {
     return this.db.pingCheck('mysql')
   }
 
   /**
-   * 检查 Redis 连接
+   * Check Redis connection
    */
   async checkRedis() {
     return this.redis.pingCheck('redis')
   }
 
   /**
-   * 检查磁盘使用情况
+   * Check disk usage
    */
   async checkDisk() {
     return this.disk.checkStorage('disk', {
@@ -49,14 +49,14 @@ export class HealthService {
   }
 
   /**
-   * 检查进程的内存堆使用情况
+   * Check process heap memory usage
    */
   async checkMemoryHeap() {
     return this.memory.checkHeap('memory-heap', 200 * 1024 * 1024)
   }
 
   /**
-   * 检查进程的内存使用情况 (RSS)
+   * Check process memory usage (RSS)
    */
   async checkMemoryRSS() {
     return this.memory.checkRSS('memory-rss', 200 * 1024 * 1024)

@@ -8,7 +8,7 @@ import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dic
 import { SysDictData } from './entities/sys-dict-data.entity'
 
 /**
- * 字典数据管理
+ * Dictionary data management
  * @author vivy
  */
 @Injectable()
@@ -21,10 +21,10 @@ export class DictDataService {
   ) {}
 
   /**
-   * 查询字典数据列表
+   * Query dictionary data list
    * @author vivy
-   * @param dictData 字典数据信息
-   * @returns 字典数据列表
+   * @param dictData Dictionary data information
+   * @returns Dictionary data list
    */
   async list(dictData: ListDictDataDto): Promise<Pagination<SysDictData>> {
     return paginate<SysDictData>(
@@ -47,8 +47,8 @@ export class DictDataService {
   }
 
   /**
-   * 添加字典数据
-   * @param dictData 字典数据信息
+   * Add dictionary data
+   * @param dictData Dictionary data information
    */
   async add(dictData: CreateDictDataDto): Promise<void> {
     await this.dictDataRepository.insert(dictData)
@@ -56,9 +56,9 @@ export class DictDataService {
   }
 
   /**
-   * 更新字典数据
-   * @param dictId 字典数据ID
-   * @param dictData 字典数据信息
+   * Update dictionary data
+   * @param dictId Dictionary data ID
+   * @param dictData Dictionary data information
    */
   async update(dictId: number, dictData: UpdateDictDataDto): Promise<void> {
     await this.dictDataRepository.update(dictId, dictData)
@@ -66,8 +66,8 @@ export class DictDataService {
   }
 
   /**
-   * 删除字典数据
-   * @param dictIds 字典数据ID
+   * Delete dictionary data
+   * @param dictIds Dictionary data ID
    */
   async delete(dictIds: number[]): Promise<void> {
     for (const dictId of dictIds) {
@@ -78,20 +78,20 @@ export class DictDataService {
   }
 
   /**
-   * 字典数据详情
-   * @param dictId 字典数据ID
-   * @returns 字典数据详情
+   * Dictionary data details
+   * @param dictId Dictionary data ID
+   * @returns Dictionary data details
    */
   async info(dictId: number): Promise<SysDictData> {
     return this.dictDataRepository.findOneBy({ dictId })
   }
 
   /**
-   * 校验字典标签是否唯一
-   * @param dictType 字典类型
-   * @param dictLabel 字典数据标签
-   * @param dictId 字典数据ID
-   * @returns true 唯一 / false 不唯一
+   * Check if dictionary label is unique
+   * @param dictType Dictionary type
+   * @param dictLabel Dictionary data label
+   * @param dictId Dictionary data ID
+   * @returns true unique / false not unique
    */
   async checkDictLabelUnique(dictType: string, dictLabel: string, dictId?: number): Promise<boolean> {
     const info = await this.dictDataRepository.findOneBy({ dictType, dictLabel })
@@ -103,11 +103,11 @@ export class DictDataService {
   }
 
   /**
-   * 校验字典键值是否唯一
-   * @param dictType 字典类型
-   * @param dictValue 字典数据键值
-   * @param dictId 字典数据ID
-   * @returns true 唯一 / false 不唯一
+   * Check if dictionary value is unique
+   * @param dictType Dictionary type
+   * @param dictValue Dictionary data value
+   * @param dictId Dictionary data ID
+   * @returns true unique / false not unique
    */
   async checkDictValueUnique(dictType: string, dictValue: string, dictId?: number): Promise<boolean> {
     const info = await this.dictDataRepository.findOneBy({ dictType, dictValue })
@@ -119,9 +119,9 @@ export class DictDataService {
   }
 
   /**
-   * 根据字典类型查询字典数据选项列表
-   * @param dictType 字典类型
-   * @returns 字典数据选项列表
+   * Query dictionary data options list by dictionary type
+   * @param dictType Dictionary type
+   * @returns Dictionary data options list
    */
   async options(dictType: string): Promise<SysDictData[]> {
     const datas = await this.dictCacheService.get(dictType)
@@ -129,9 +129,9 @@ export class DictDataService {
   }
 
   /**
-   * 根据字典类型查询字典对象集合
-   * @param dictTypes 字典类型
-   * @returns 字典数据选项对象
+   * Query dictionary object collection by dictionary type
+   * @param dictTypes Dictionary type
+   * @returns Dictionary data options object
    */
   async selectDictLabelValue(dictTypes: string[]) {
     const data = await this.dictDataRepository.find({

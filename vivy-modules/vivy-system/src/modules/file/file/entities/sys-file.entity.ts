@@ -3,14 +3,14 @@ import { IsInt, IsNotEmpty, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 文件表
+ * File table
  */
 @Entity({ name: 'sys_file' })
 export class SysFile extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'file_id',
     type: 'bigint',
-    comment: '文件ID',
+    comment: 'File ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysFile extends BaseBusinessEntity {
     name: 'file_use',
     type: 'varchar',
     length: 100,
-    comment: '文件用途',
+    comment: 'File usage',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class SysFile extends BaseBusinessEntity {
     name: 'file_url',
     type: 'varchar',
     length: 500,
-    comment: '文件路径',
+    comment: 'File path',
   })
   @MaxLength(500)
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class SysFile extends BaseBusinessEntity {
     name: 'file_name',
     type: 'varchar',
     length: 500,
-    comment: '文件名称',
+    comment: 'File name',
   })
   @MaxLength(500)
   @IsNotEmpty()
@@ -49,7 +49,7 @@ export class SysFile extends BaseBusinessEntity {
   @Column({
     name: 'file_size',
     type: 'bigint',
-    comment: '文件大小',
+    comment: 'File size',
   })
   @IsInt()
   @IsNotEmpty()
@@ -59,7 +59,7 @@ export class SysFile extends BaseBusinessEntity {
     name: 'file_type',
     type: 'varchar',
     length: 100,
-    comment: '文件类型',
+    comment: 'File type',
   })
   @MaxLength(100)
   @IsNotEmpty()

@@ -1,4 +1,4 @@
 /**
- * 定时任务
+ * Scheduled tasks
  */
 export const JOB_BULL_NAME = 'job'

@@ -1,42 +1,41 @@
 /**
- * 验证码
+ * Captcha
  */
 export class CaptchaVo {
-  /* 验证码 img */
+  /* Captcha img */
   img: string
 
-  /* 验证码 uuid */
+  /* Captcha uuid */
   uuid: string
 }
-
 /**
- * 路由树
+ * Route tree
  */
 export class RouterTreeVo {
-  /** 菜单的名字 */
+  /** Menu name */
   name: string
 
-  /** 路径,可以设定为网页链接 */
+  /** Path, can be set as a web link */
   path: string
 
-  /** 菜单的 icon */
+  /** Menu icon */
   icon: string
 
-  /** 自定义菜单的国际化 key */
+  /** Custom menu internationalization key */
   locale: string | false
 
-  /** 组件路径，通过路径找到组件元素 */
+  /** Component path, find component element through path */
   component: string
 
-  /** 子菜单 */
+  /** Submenu */
   children: RouterTreeVo[]
 
-  /** 在菜单中隐藏自己和子节点 */
+  /** Hide self and child nodes in menu */
   hideInMenu: boolean
 
-  /** 在菜单中隐藏子节点 */
+  /** Hide child nodes in menu */
   hideChildrenInMenu: boolean
 
-  /** 当此节点被选中的时候也会选中 parentKeys 的节点 */
+  /** When this node is selected, parentKeys nodes will also be selected */
   parentKeys: string[]
 }

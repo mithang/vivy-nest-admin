@@ -2,7 +2,7 @@ import { BaseTimeEntity } from '@vivy-common/core'
 import { Column, Entity } from 'typeorm'
 
 /**
- * 角色和菜单关联表 角色1-N菜单
+ * Role and menu association table Role 1-N Menu
  */
 @Entity({ name: 'sys_role_menu' })
 export class SysRoleMenu extends BaseTimeEntity {
@@ -10,7 +10,7 @@ export class SysRoleMenu extends BaseTimeEntity {
     name: 'role_id',
     type: 'bigint',
     primary: true,
-    comment: '角色ID',
+    comment: 'Role ID',
   })
   roleId: number
 
@@ -18,7 +18,7 @@ export class SysRoleMenu extends BaseTimeEntity {
     name: 'menu_id',
     type: 'bigint',
     primary: true,
-    comment: '菜单ID',
+    comment: 'Menu ID',
   })
   menuId: number
 }

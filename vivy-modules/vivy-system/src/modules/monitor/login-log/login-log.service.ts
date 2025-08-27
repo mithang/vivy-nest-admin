@@ -9,7 +9,7 @@ import { SysLoginLog } from './entities/sys-login-log.entity'
 import { LoginLogListVo } from './vo/login-log.vo'
 
 /**
- * 登录日志
+ * Login logs
  * @author vivy
  */
 @Injectable()
@@ -20,9 +20,9 @@ export class LoginLogService {
   ) {}
 
   /**
-   * 查询登录日志列表
-   * @param loginLog 登录日志信息
-   * @returns 登录日志列表
+   * Query login log list
+   * @param loginLog Login log information
+   * @returns Login log list
    */
   async list(loginLog: ListLoginLogDto): Promise<Pagination<LoginLogListVo>> {
     const list = await paginate<SysLoginLog>(
@@ -59,15 +59,15 @@ export class LoginLogService {
   }
 
   /**
-   * 添加登录日志
-   * @param loginLog 登录日志信息
+   * Add login log
+   * @param loginLog Login log information
    */
   async add(loginLog: CreateLoginLogDto): Promise<void> {
     await this.loginLogRepository.insert(loginLog)
   }
 
   /**
-   * 清空登录日志
+   * Clear login logs
    */
   async clear(): Promise<void> {
     await this.loginLogRepository.clear()

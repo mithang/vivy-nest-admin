@@ -3,19 +3,19 @@ import { Allow } from 'class-validator'
 
 export class LoginDto {
   /**
-   * 验证码 code
+   * Captcha code
    */
   @Allow()
   code?: string
 
   /**
-   * 验证码 uuid
+   * Captcha uuid
    */
   @Allow()
   uuid?: string
 
   /**
-   * 用户名
+   * Username
    */
   @Allow()
   @ApiProperty({
@@ -24,7 +24,7 @@ export class LoginDto {
   username: string
 
   /**
-   * 用户密码
+   * User password
    */
   @Allow()
   @ApiProperty({

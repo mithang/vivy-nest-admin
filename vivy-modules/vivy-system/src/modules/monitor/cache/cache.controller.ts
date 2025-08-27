@@ -6,17 +6,17 @@ import { RequirePermissions } from '@vivy-common/security'
 import { CacheService } from './cache.service'
 
 /**
- * 缓存管理
+ * Cache management
  * @author vivy
  */
-@ApiTags('缓存列表')
+@ApiTags('Cache list')
 @ApiBearerAuth()
 @Controller('caches')
 export class CacheController {
   constructor(private cacheService: CacheService) {}
 
   /**
-   * 查询缓存名称列表
+   * Query cache name list
    */
   @Get()
   @RequirePermissions('monitor:cache:query')
@@ -25,8 +25,8 @@ export class CacheController {
   }
 
   /**
-   * 查询缓存键名列表
-   * @param name 缓存名称
+   * Query cache key name list
+   * @param name Cache name
    */
   @Get(':name/keys')
   @RequirePermissions('monitor:cache:query')
@@ -35,9 +35,9 @@ export class CacheController {
   }
 
   /**
-   * 查询缓存内容
-   * @param name 缓存名称
-   * @param key 缓存键名
+   * Query cache content
+   * @param name Cache name
+   * @param key Cache key name
    */
   @Get(':name/keys/:key')
   @RequirePermissions('monitor:cache:query')
@@ -46,33 +46,33 @@ export class CacheController {
   }
 
   /**
-   * 删除全部缓存内容
+   * Delete all cache content
    */
   @Delete()
-  @Log({ title: '缓存列表', operType: OperType.DELETE })
+  @Log({ title: 'Cache list', operType: OperType.DELETE })
   @RequirePermissions('monitor:cache:delete')
   async deleteAll(): Promise<AjaxResult> {
     return AjaxResult.success(await this.cacheService.deleteAll())
   }
 
   /**
-   * 根据缓存名称删除缓存内容
-   * @param name 缓存名称
+   * Delete cache content by cache name
+   * @param name Cache name
    */
   @Delete(':name')
-  @Log({ title: '缓存列表', operType: OperType.DELETE })
+  @Log({ title: 'Cache list', operType: OperType.DELETE })
   @RequirePermissions('monitor:cache:delete')
   async deleteByName(@Param('name') name: string): Promise<AjaxResult> {
     return AjaxResult.success(await this.cacheService.deleteByName(name))
   }
 
   /**
-   * 根据缓存键名删除缓存内容
-   * @param name 缓存名称
-   * @param key 缓存键名
+   * Delete cache content by cache key name
+   * @param name Cache name
+   * @param key Cache key name
    */
   @Delete(':name/keys/:key')
-  @Log({ title: '缓存列表', operType: OperType.DELETE })
+  @Log({ title: 'Cache list', operType: OperType.DELETE })
   @RequirePermissions('monitor:cache:delete')
   async deleteByNameAndKey(@Param('name') name: string, @Param('key') key: string): Promise<AjaxResult> {
     return AjaxResult.success(await this.cacheService.deleteByNameAndKey(name, key))

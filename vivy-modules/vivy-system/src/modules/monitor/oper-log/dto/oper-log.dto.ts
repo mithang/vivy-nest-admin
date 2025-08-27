@@ -4,35 +4,35 @@ import { Allow } from 'class-validator'
 import { SysOperLog } from '../entities/sys-oper-log.entity'
 
 /**
- * 查询操作日志
+ * Query operation logs
  */
 export class ListOperLogDto extends PaginateDto {
-  /** 模块标题 */
+  /** Module title */
   @Allow()
   title?: string
 
-  /** 操作类型 */
+  /** Operation type */
   @Allow()
   operType?: string
 
-  /** 操作人员 */
+  /** Operator */
   @Allow()
   operName?: string
 
-  /** 操作状态 */
+  /** Operation status */
   @Allow()
   operStatus?: string
 
-  /** 请求地址 */
+  /** Request URL */
   @Allow()
   requestUrl?: string
 
-  /** 操作时间 */
+  /** Operation time */
   @Allow()
   createTime?: string[]
 }
 
 /**
- * 添加操作日志
+ * Add operation log
  */
 export class CreateOperLogDto extends OmitType(SysOperLog, ['operId'] as const) {}

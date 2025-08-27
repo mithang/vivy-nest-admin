@@ -7,10 +7,10 @@ import { UpdatePasswordDto, UpdateProfileDto, UpdateAvatarDto } from './dto/prof
 import { ProfileService } from './profile.service'
 
 /**
- * 个人信息
+ * Personal information
  * @author vivy
  */
-@ApiTags('个人信息')
+@ApiTags('Personal information')
 @ApiBearerAuth()
 @Controller('profile')
 export class ProfileController {
@@ -20,7 +20,7 @@ export class ProfileController {
   ) {}
 
   /**
-   * 查询个人信息
+   * Query personal information
    */
   @Get()
   async info(): Promise<AjaxResult> {
@@ -28,28 +28,28 @@ export class ProfileController {
   }
 
   /**
-   * 修改个人信息
+   * Update personal information
    */
   @Put()
-  @Log({ title: '个人信息', operType: OperType.UPDATE })
+  @Log({ title: 'Personal information', operType: OperType.UPDATE })
   async update(@Body() profile: UpdateProfileDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.profileService.update(profile))
   }
 
   /**
-   * 修改个人密码
+   * Update personal password
    */
   @Put('password')
-  @Log({ title: '个人信息', operType: OperType.UPDATE })
+  @Log({ title: 'Personal information', operType: OperType.UPDATE })
   async password(@Body() password: UpdatePasswordDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.profileService.password(password))
   }
 
   /**
-   * 修改个人头像
+   * Update personal avatar
    */
   @Post('avatar')
-  @Log({ title: '个人信息', operType: OperType.UPDATE })
+  @Log({ title: 'Personal information', operType: OperType.UPDATE })
   async avatar(@Body() avatar: UpdateAvatarDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.profileService.avatar(avatar))
   }

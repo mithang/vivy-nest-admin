@@ -3,52 +3,52 @@ import { includes, isEqual } from 'lodash'
 import { GenUtils } from './gen.utils'
 
 /**
- * 判断是否包含
- * @param value 判断值
- * @param other 判断值
+ * Check if includes
+ * @param value Value to check
+ * @param other Value to check
  */
 handlebars.registerHelper('isIn', function (value: any, other: any) {
   return includes(value, other)
 })
 
 /**
- * 判断是否不包含
- * @param value 判断值
- * @param other 判断值
+ * Check if not includes
+ * @param value Value to check
+ * @param other Value to check
  */
 handlebars.registerHelper('notIn', function (value: any, other: any) {
   return !includes(value, other)
 })
 
 /**
- * 判断是否相等
- * @param value 判断值
- * @param other 判断值
+ * Check if equal
+ * @param value Value to check
+ * @param other Value to check
  */
 handlebars.registerHelper('isEqual', function (value: any, other: any) {
   return isEqual(value, other)
 })
 
 /**
- * 判断是否不相等
- * @param value 判断值
- * @param other 判断值
+ * Check if not equal
+ * @param value Value to check
+ * @param other Value to check
  */
 handlebars.registerHelper('notEqual', function (value: any, other: any) {
   return !isEqual(value, other)
 })
 
 /**
- * 判断是否为是
- * @param value 判断值
+ * Check if is required
+ * @param value Value to check
  */
 handlebars.registerHelper('isRequire', function (value: any) {
   return GenUtils.isRequire(value)
 })
 
 /**
- * 判断是否不为是
- * @param value 判断值
+ * Check if not required
+ * @param value Value to check
  */
 handlebars.registerHelper('notRequire', function (value: any) {
   return !GenUtils.isRequire(value)

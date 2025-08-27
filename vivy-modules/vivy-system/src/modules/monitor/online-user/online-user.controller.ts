@@ -7,19 +7,19 @@ import { ListOnlineUserDto } from './dto/online-user.dto'
 import { OnlineUserService } from './online-user.service'
 
 /**
- * 在线用户
+ * Online users
  * @author vivy
  */
-@ApiTags('在线用户')
+@ApiTags('Online users')
 @ApiBearerAuth()
 @Controller('online-users')
 export class OnlineUserController {
   constructor(private onlineUserService: OnlineUserService) {}
 
   /**
-   * 在线用户列表
-   * @param dto 查询信息
-   * @returns 在线用户列表
+   * Online user list
+   * @param dto Query information
+   * @returns Online user list
    */
   @Get()
   @RequirePermissions('monitor:online:list')
@@ -28,11 +28,11 @@ export class OnlineUserController {
   }
 
   /**
-   * 强退在线用户
-   * @param userSk 用户会话编号
+   * Force logout online user
+   * @param userSk User session ID
    */
   @Delete(':userSk')
-  @Log({ title: '在线用户', operType: OperType.DELETE })
+  @Log({ title: 'Online users', operType: OperType.DELETE })
   @RequirePermissions('monitor:online:logout')
   async logout(@Param('userSk') userSk: string): Promise<AjaxResult> {
     return AjaxResult.success(await this.onlineUserService.logout(userSk))

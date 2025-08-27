@@ -7,19 +7,19 @@ import { ListLoginLogDto } from './dto/login-log.dto'
 import { LoginLogService } from './login-log.service'
 
 /**
- * 登录日志
+ * Login logs
  * @author vivy
  */
-@ApiTags('登录日志')
+@ApiTags('Login logs')
 @ApiBearerAuth()
 @Controller('login-logs')
 export class LoginLogController {
   constructor(private loginLogService: LoginLogService) {}
 
   /**
-   * 查询登录日志列表
-   * @param loginLog 登录日志信息
-   * @returns 登录日志列表
+   * Query login log list
+   * @param loginLog Login log information
+   * @returns Login log list
    */
   @Get()
   @RequirePermissions('monitor:loginlog:list')
@@ -28,10 +28,10 @@ export class LoginLogController {
   }
 
   /**
-   * 清空登录日志
+   * Clear login logs
    */
   @Delete('clear')
-  @Log({ title: '登录日志', operType: OperType.CLEAN })
+  @Log({ title: 'Login logs', operType: OperType.CLEAN })
   @RequirePermissions('monitor:loginlog:delete')
   async clear(): Promise<AjaxResult> {
     return AjaxResult.success(await this.loginLogService.clear())

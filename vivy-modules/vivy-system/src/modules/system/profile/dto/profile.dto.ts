@@ -1,50 +1,50 @@
 import { IsEmail, IsIn, IsMobilePhone, IsNotEmpty, MaxLength } from 'class-validator'
 
 /**
- * 更新个人信息
+ * Update personal information
  */
 export class UpdateProfileDto {
-  /** 用户昵称 */
+  /** User nickname */
   @MaxLength(50)
   @IsNotEmpty()
   nickName: string
 
-  /** 用户邮箱 */
+  /** User email */
   @IsEmail()
   @MaxLength(50)
   @IsNotEmpty()
   email: string
 
-  /** 手机号码 */
+  /** Phone number */
   @IsMobilePhone('zh-CN')
   @MaxLength(11)
   @IsNotEmpty()
   phonenumber: string
 
-  /** 用户性别 */
+  /** User gender */
   @IsIn(['1', '2', '3'])
   @IsNotEmpty()
   sex: string
 }
 
 /**
- * 更新个人密码
+ * Update personal password
  */
 export class UpdatePasswordDto {
-  /** 旧密码 */
+  /** Old password */
   @MaxLength(36)
   oldPassword: string
 
-  /** 新密码 */
+  /** New password */
   @MaxLength(36)
   newPassword: string
 }
 
 /**
- * 更新个人头像
+ * Update personal avatar
  */
 export class UpdateAvatarDto {
-  /** 用户头像 */
+  /** User avatar */
   @MaxLength(255)
   avatar: string
 }

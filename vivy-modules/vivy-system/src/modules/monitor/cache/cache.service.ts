@@ -4,18 +4,18 @@ import { Redis } from 'ioredis'
 import { CacheVo } from './vo/cache.vo'
 
 /**
- * 缓存列表
+ * Cache list
  */
 export const cacheList: CacheVo[] = [
-  { name: 'login_token', remark: '用户信息' },
-  { name: 'captcha_code', remark: '验证码' },
-  { name: 'repeat_submit', remark: '防重提交' },
-  { name: 'sys_dict', remark: '数据字典' },
-  { name: 'sys_config', remark: '参数配置' },
+  { name: 'login_token', remark: 'User information' },
+  { name: 'captcha_code', remark: 'Verification code' },
+  { name: 'repeat_submit', remark: 'Duplicate submission prevention' },
+  { name: 'sys_dict', remark: 'Data dictionary' },
+  { name: 'sys_config', remark: 'Parameter configuration' },
 ]
 
 /**
- * 缓存管理
+ * Cache management
  * @author vivy
  */
 @Injectable()
@@ -26,15 +26,15 @@ export class CacheService {
   ) {}
 
   /**
-   * 查询缓存名称列表
+   * Query cache name list
    */
   async getAll(): Promise<CacheVo[]> {
     return cacheList
   }
 
   /**
-   * 查询缓存键名列表
-   * @param name 缓存名称
+   * Query cache key name list
+   * @param name Cache name
    */
   async getKeys(name: string): Promise<CacheVo[]> {
     const keys = await this.redis.keys(`${name}:*`)
@@ -42,9 +42,9 @@ export class CacheService {
   }
 
   /**
-   * 查询缓存内容
-   * @param name 缓存名称
-   * @param key 缓存键名
+   * Query cache content
+   * @param name Cache name
+   * @param key Cache key name
    */
   async getValue(name: string, key: string): Promise<CacheVo> {
     const value = await this.redis.get(`${name}:${key}`)
@@ -52,7 +52,7 @@ export class CacheService {
   }
 
   /**
-   * 删除全部缓存内容
+   * Delete all cache content
    */
   async deleteAll(): Promise<void> {
     for (const { name } of cacheList) {
@@ -61,8 +61,8 @@ export class CacheService {
   }
 
   /**
-   * 根据缓存名称删除缓存内容
-   * @param name 缓存名称
+   * Delete cache content by cache name
+   * @param name Cache name
    */
   async deleteByName(name: string): Promise<void> {
     const keys = await this.redis.keys(`${name}:*`)
@@ -70,9 +70,9 @@ export class CacheService {
   }
 
   /**
-   * 根据缓存键名删除缓存内容
-   * @param name 缓存名称
-   * @param key 缓存键名
+   * Delete cache content by cache key name
+   * @param name Cache name
+   * @param key Cache key name
    */
   async deleteByNameAndKey(name: string, key: string): Promise<void> {
     await this.redis.del(`${name}:${key}`)

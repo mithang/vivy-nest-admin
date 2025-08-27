@@ -3,7 +3,7 @@ import { Request } from 'express'
 import { UPLOAD_FILE_URL } from './upload.config'
 
 /**
- * 获取单个文件地址
+ * Get single file address
  */
 export const UploadFileUrl = createParamDecorator((data: unknown, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest<Request>()
@@ -11,7 +11,7 @@ export const UploadFileUrl = createParamDecorator((data: unknown, ctx: Execution
 })
 
 /**
- * 获取多个文件地址
+ * Get multiple file addresses
  */
 export const UploadFileUrls = createParamDecorator((data: unknown, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest<Request>()

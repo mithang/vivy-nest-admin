@@ -7,10 +7,10 @@ import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
 import { MenuService } from './menu.service'
 
 /**
- * 菜单管理
+ * Menu management
  * @author vivy
  */
-@ApiTags('菜单管理')
+@ApiTags('Menu management')
 @ApiBearerAuth()
 @Controller('menus')
 export class MenuController {
@@ -20,7 +20,7 @@ export class MenuController {
   ) {}
 
   /**
-   * 查询菜单树结构
+   * Query menu tree structure
    */
   @Get('tree')
   @RequirePermissions('system:menu:list')
@@ -29,11 +29,11 @@ export class MenuController {
   }
 
   /**
-   * 添加菜单
-   * @param menu 菜单信息
+   * Add menu
+   * @param menu Menu information
    */
   @Post()
-  @Log({ title: '菜单管理', operType: OperType.INSERT })
+  @Log({ title: 'Menu management', operType: OperType.INSERT })
   @RequirePermissions('system:menu:add')
   async add(@Body() menu: CreateMenuDto): Promise<AjaxResult> {
     menu.createBy = this.securityContext.getUserName()
@@ -41,15 +41,15 @@ export class MenuController {
   }
 
   /**
-   * 更新菜单
-   * @param menu 菜单信息
+   * Update menu
+   * @param menu Menu information
    */
   @Put(':menuId')
-  @Log({ title: '菜单管理', operType: OperType.UPDATE })
+  @Log({ title: 'Menu management', operType: OperType.UPDATE })
   @RequirePermissions('system:menu:update')
   async update(@Param('menuId') menuId: number, @Body() menu: UpdateMenuDto): Promise<AjaxResult> {
     if (menuId === menu.parentId) {
-      return AjaxResult.error(`修改菜单${menu.menuName}失败，上级菜单不能是自己`)
+      return AjaxResult.error(`Failed to update menu ${menu.menuName}, parent menu cannot be itself`)
     }
 
     menu.updateBy = this.securityContext.getUserName()
@@ -57,27 +57,27 @@ export class MenuController {
   }
 
   /**
-   * 删除菜单
-   * @param menuId 菜单ID
+   * Delete menu
+   * @param menuId Menu ID
    */
   @Delete(':menuId')
-  @Log({ title: '菜单管理', operType: OperType.DELETE })
+  @Log({ title: 'Menu management', operType: OperType.DELETE })
   @RequirePermissions('system:menu:delete')
   async delete(@Param('menuId') menuId: number): Promise<AjaxResult> {
     if (await this.menuService.checkMenuExistChild(menuId)) {
-      return AjaxResult.error('存在下级菜单,不允许删除')
+      return AjaxResult.error('There are sub-menus, deletion is not allowed')
     }
 
     if (await this.menuService.checkMenuExistRole(menuId)) {
-      return AjaxResult.error('菜单已分配角色,不允许删除')
+      return AjaxResult.error('Menu has been assigned to roles, deletion is not allowed')
     }
 
     return AjaxResult.success(await this.menuService.delete(menuId))
   }
 
   /**
-   * 查询菜单选项树
-   * @returns 菜单选项树
+   * Query menu options tree
+   * @returns Menu options tree
    */
   @Get('tree-options')
   async treeOptions(): Promise<AjaxResult> {
@@ -85,9 +85,9 @@ export class MenuController {
   }
 
   /**
-   * 菜单详情
-   * @param menuId 菜单ID
-   * @returns 菜单详情
+   * Menu details
+   * @param menuId Menu ID
+   * @returns Menu details
    */
   @Get(':menuId')
   @RequirePermissions('system:menu:query')

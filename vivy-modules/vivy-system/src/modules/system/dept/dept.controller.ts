@@ -7,10 +7,10 @@ import { DeptService } from './dept.service'
 import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto'
 
 /**
- * 部门管理
+ * Department management
  * @author vivy
  */
-@ApiTags('部门管理')
+@ApiTags('Department management')
 @ApiBearerAuth()
 @Controller('depts')
 export class DeptController {
@@ -20,7 +20,7 @@ export class DeptController {
   ) {}
 
   /**
-   * 查询部门树结构
+   * Query department tree structure
    */
   @Get('tree')
   @RequirePermissions('system:dept:list')
@@ -29,11 +29,11 @@ export class DeptController {
   }
 
   /**
-   * 添加部门
-   * @param dept 部门信息
+   * Add department
+   * @param dept Department information
    */
   @Post()
-  @Log({ title: '部门管理', operType: OperType.INSERT })
+  @Log({ title: 'Department management', operType: OperType.INSERT })
   @RequirePermissions('system:dept:add')
   async add(@Body() dept: CreateDeptDto): Promise<AjaxResult> {
     dept.createBy = this.securityContext.getUserName()
@@ -41,18 +41,18 @@ export class DeptController {
   }
 
   /**
-   * 更新部门
-   * @param deptId 部门ID
-   * @param dept 部门信息
+   * Update department
+   * @param deptId Department ID
+   * @param dept Department information
    */
   @Put(':deptId')
-  @Log({ title: '部门管理', operType: OperType.UPDATE })
+  @Log({ title: 'Department management', operType: OperType.UPDATE })
   @RequirePermissions('system:dept:update')
   async update(@Param('deptId') deptId: number, @Body() dept: UpdateDeptDto): Promise<AjaxResult> {
     await this.deptService.checkDeptDataScope(deptId)
 
     if (deptId === dept.parentId) {
-      return AjaxResult.error(`修改部门${dept.deptName}失败，上级部门不能是自己`)
+      return AjaxResult.error(`Failed to update department ${dept.deptName}, parent department cannot be itself`)
     }
 
     dept.updateBy = this.securityContext.getUserName()
@@ -60,29 +60,29 @@ export class DeptController {
   }
 
   /**
-   * 删除部门
-   * @param deptId 部门ID
+   * Delete department
+   * @param deptId Department ID
    */
   @Delete(':deptId')
-  @Log({ title: '部门管理', operType: OperType.DELETE })
+  @Log({ title: 'Department management', operType: OperType.DELETE })
   @RequirePermissions('system:dept:delete')
   async delete(@Param('deptId') deptId: number): Promise<AjaxResult> {
     await this.deptService.checkDeptDataScope(deptId)
 
     if (await this.deptService.checkDeptExistChild(deptId)) {
-      return AjaxResult.error('存在下级部门,不允许删除')
+      return AjaxResult.error('There are sub-departments, deletion is not allowed')
     }
 
     if (await this.deptService.checkDeptExistUser(deptId)) {
-      return AjaxResult.error('部门存在用户,不允许删除')
+      return AjaxResult.error('Department has users, deletion is not allowed')
     }
 
     return AjaxResult.success(await this.deptService.delete(deptId))
   }
 
   /**
-   * 查询部门选项树
-   * @returns 部门选项树
+   * Query department options tree
+   * @returns Department options tree
    */
   @Get('tree-options')
   async treeOptions(): Promise<AjaxResult> {
@@ -90,9 +90,9 @@ export class DeptController {
   }
 
   /**
-   * 部门详情
-   * @param deptId 部门ID
-   * @returns 部门详情
+   * Department details
+   * @param deptId Department ID
+   * @returns Department details
    */
   @Get(':deptId')
   @RequirePermissions('system:dept:query')

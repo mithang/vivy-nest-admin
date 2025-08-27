@@ -14,9 +14,9 @@ export class GenMapper {
   ) {}
 
   /**
-   * 查询数据库表列表
-   * @param name 表名称
-   * @param comment 表注释
+   * Query database table list
+   * @param name Table name
+   * @param comment Table comment
    */
   async selectDbTableList(name: string, comment: string): Promise<GenTable[]> {
     const sql = this.mybatisService.getSql('gen.gen.mapper', 'selectDbTableList', {
@@ -27,8 +27,8 @@ export class GenMapper {
   }
 
   /**
-   * 根据名称查询数据库表列表
-   * @param names 表名称
+   * Query database table list by names
+   * @param names Table names
    */
   async selectDbTableListByNames(names: string[]): Promise<GenTable[]> {
     const sql = this.mybatisService.getSql('gen.gen.mapper', 'selectDbTableListByNames', {
@@ -38,8 +38,8 @@ export class GenMapper {
   }
 
   /**
-   * 根据名称查询表格列列表
-   * @param name 表名称
+   * Query table column list by name
+   * @param name Table name
    */
   async selectDbTableColumnsByName(name: string): Promise<GenTableColumn[]> {
     const sql = this.mybatisService.getSql('gen.gen.mapper', 'selectDbTableColumnsByName', {

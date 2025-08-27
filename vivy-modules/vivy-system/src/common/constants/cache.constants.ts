@@ -1,14 +1,14 @@
 /**
- * 验证码
+ * Captcha
  */
 export const CAPTCHA_CODE_KEY = 'captcha_code:'
 
 /**
- * 参数管理
+ * Parameter management
  */
 export const SYS_CONFIG_KEY = 'sys_config:'
 
 /**
- * 字典管理
+ * Dictionary management
  */
 export const SYS_DICT_KEY = 'sys_dict:'

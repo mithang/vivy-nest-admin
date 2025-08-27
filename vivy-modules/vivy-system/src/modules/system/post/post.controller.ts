@@ -7,10 +7,10 @@ import { ListPostDto, CreatePostDto, UpdatePostDto } from './dto/post.dto'
 import { PostService } from './post.service'
 
 /**
- * 岗位管理
+ * Post management
  * @author vivy
  */
-@ApiTags('岗位管理')
+@ApiTags('Post management')
 @ApiBearerAuth()
 @Controller('posts')
 export class PostController {
@@ -20,9 +20,9 @@ export class PostController {
   ) {}
 
   /**
-   * 岗位列表
-   * @param post 岗位信息
-   * @returns 岗位列表
+   * Post list
+   * @param post Post information
+   * @returns Post list
    */
   @Get()
   @RequirePermissions('system:post:list')
@@ -31,19 +31,19 @@ export class PostController {
   }
 
   /**
-   * 添加岗位
-   * @param post 岗位信息
+   * Add post
+   * @param post Post information
    */
   @Post()
-  @Log({ title: '岗位管理', operType: OperType.INSERT })
+  @Log({ title: 'Post management', operType: OperType.INSERT })
   @RequirePermissions('system:post:add')
   async add(@Body() post: CreatePostDto): Promise<AjaxResult> {
     if (!(await this.postService.checkPostNameUnique(post.postName))) {
-      return AjaxResult.error(`新增岗位${post.postName}失败，岗位名称已存在`)
+      return AjaxResult.error(`Add post ${post.postName} failed, post name already exists`)
     }
 
     if (!(await this.postService.checkPostCodeUnique(post.postCode))) {
-      return AjaxResult.error(`新增岗位${post.postName}失败，岗位编码已存在`)
+      return AjaxResult.error(`Add post ${post.postName} failed, post code already exists`)
     }
 
     post.createBy = this.securityContext.getUserName()
@@ -51,20 +51,20 @@ export class PostController {
   }
 
   /**
-   * 更新岗位
-   * @param postId 岗位ID
-   * @param post 岗位信息
+   * Update post
+   * @param postId Post ID
+   * @param post Post information
    */
   @Put(':postId')
-  @Log({ title: '岗位管理', operType: OperType.UPDATE })
+  @Log({ title: 'Post management', operType: OperType.UPDATE })
   @RequirePermissions('system:post:update')
   async update(@Param('postId') postId: number, @Body() post: UpdatePostDto): Promise<AjaxResult> {
     if (!(await this.postService.checkPostNameUnique(post.postName, postId))) {
-      return AjaxResult.error(`修改岗位${post.postName}失败，岗位名称已存在`)
+      return AjaxResult.error(`Update post ${post.postName} failed, post name already exists`)
     }
 
     if (!(await this.postService.checkPostCodeUnique(post.postCode, postId))) {
-      return AjaxResult.error(`修改岗位${post.postName}失败，岗位编码已存在`)
+      return AjaxResult.error(`Update post ${post.postName} failed, post code already exists`)
     }
 
     post.updateBy = this.securityContext.getUserName()
@@ -72,19 +72,19 @@ export class PostController {
   }
 
   /**
-   * 删除岗位
-   * @param postIds 岗位ID
+   * Delete post
+   * @param postIds Post ID
    */
   @Delete(':postIds')
-  @Log({ title: '岗位管理', operType: OperType.DELETE })
+  @Log({ title: 'Post management', operType: OperType.DELETE })
   @RequirePermissions('system:post:delete')
   async delete(@Param('postIds', new ParseArrayPipe({ items: Number })) postIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.postService.delete(postIds))
   }
 
   /**
-   * 岗位选项列表
-   * @returns 岗位选项列表
+   * Post options list
+   * @returns Post options list
    */
   @Get('options')
   async options(): Promise<AjaxResult> {
@@ -92,9 +92,9 @@ export class PostController {
   }
 
   /**
-   * 岗位详情
-   * @param postId 岗位ID
-   * @returns 岗位详情
+   * Post details
+   * @param postId Post ID
+   * @returns Post details
    */
   @Get(':postId')
   @RequirePermissions('system:post:query')

@@ -1,22 +1,22 @@
 /**
- * 在线用户信息
+ * Online user information
  */
 export class OnlineUserVo {
-  /** 会话Key */
+  /** Session Key */
   userSk: string
 
-  /** 用户Id */
+  /** User ID */
   userId: number
 
-  /** 用户名称 */
+  /** User name */
   userName: string
 
-  /** 用户昵称 */
+  /** User nickname */
   nickName: string
 
-  /** 登录IP */
+  /** Login IP */
   loginIp: string
 
-  /** 登录时间 */
+  /** Login time */
   loginTime: string
 }

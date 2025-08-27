@@ -5,7 +5,7 @@ import { ListOnlineUserDto } from './dto/online-user.dto'
 import { OnlineUserVo } from './vo/online-user.vo'
 
 /**
- * 在线用户
+ * Online users
  * @author vivy
  */
 @Injectable()
@@ -13,9 +13,9 @@ export class OnlineUserService {
   constructor(private tokenService: TokenService) {}
 
   /**
-   * 在线用户列表
-   * @param dto 查询信息
-   * @returns 在线用户列表
+   * Online user list
+   * @param dto Query information
+   * @returns Online user list
    */
   async list(dto: ListOnlineUserDto): Promise<OnlineUserVo[]> {
     const redis = this.tokenService.getRedis()
@@ -41,8 +41,8 @@ export class OnlineUserService {
   }
 
   /**
-   * 强退在线用户
-   * @param userSk 用户会话编号
+   * Force logout online user
+   * @param userSk User session ID
    */
   async logout(userSk: string): Promise<void> {
     const redis = this.tokenService.getRedis()

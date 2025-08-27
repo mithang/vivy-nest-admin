@@ -8,7 +8,7 @@ import { SYS_CONFIG_KEY } from '@/common/constants/cache.constants'
 import { SysConfig } from './entities/sys-config.entity'
 
 /**
- * 参数配置缓存
+ * Parameter configuration cache
  * @author vivy
  */
 @Injectable()
@@ -26,7 +26,7 @@ export class ConfigCacheService implements OnModuleInit {
   }
 
   /**
-   * 加载参数配置缓存
+   * Load parameter configuration cache
    */
   async init(): Promise<void> {
     const configs = await this.configRepository.findBy({ status: BaseStatusEnum.NORMAL })
@@ -36,7 +36,7 @@ export class ConfigCacheService implements OnModuleInit {
   }
 
   /**
-   * 重置参数配置缓存
+   * Reset parameter configuration cache
    */
   async reset(): Promise<void> {
     await this.clear()
@@ -44,8 +44,8 @@ export class ConfigCacheService implements OnModuleInit {
   }
 
   /**
-   * 设置参数配置缓存
-   * @param configKey 缓存 key
+   * Set parameter configuration cache
+   * @param configKey Cache key
    */
   async set(configKey: string): Promise<void> {
     const config = await this.configRepository.findOneBy({ configKey })
@@ -53,9 +53,9 @@ export class ConfigCacheService implements OnModuleInit {
   }
 
   /**
-   * 查询参数配置缓存
-   * @param configKey 缓存 key
-   * @returns 缓存值
+   * Query parameter configuration cache
+   * @param configKey Cache key
+   * @returns Cache value
    */
   async get(configKey: string): Promise<SysConfig> {
     const config = await this.redis.get(this.getCacheKey(configKey))
@@ -63,15 +63,15 @@ export class ConfigCacheService implements OnModuleInit {
   }
 
   /**
-   * 删除参数配置缓存
-   * @param configKey 缓存 key
+   * Delete parameter configuration cache
+   * @param configKey Cache key
    */
   async del(configKey: string): Promise<void> {
     await this.redis.del(this.getCacheKey(configKey))
   }
 
   /**
-   * 清空参数配置缓存
+   * Clear parameter configuration cache
    */
   async clear(): Promise<void> {
     const keys = await this.redis.keys(this.getCacheKey('*'))
@@ -79,7 +79,7 @@ export class ConfigCacheService implements OnModuleInit {
   }
 
   /**
-   * 获取缓存 key
+   * Get cache key
    */
   private getCacheKey(configKey: string): string {
     return `${SYS_CONFIG_KEY}${configKey}`

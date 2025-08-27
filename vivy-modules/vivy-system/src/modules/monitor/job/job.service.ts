@@ -11,7 +11,7 @@ import { JobQueueService } from './job-queue.service'
 import { TASKABLE_METADATA } from './utils/job.constants'
 
 /**
- * 定时任务
+ * Scheduled tasks
  * @author vivy
  */
 @Injectable()
@@ -29,9 +29,9 @@ export class JobService {
   ) {}
 
   /**
-   * 定时任务列表
-   * @param job 定时任务信息
-   * @returns 定时任务列表
+   * Scheduled task list
+   * @param job Scheduled task information
+   * @returns Scheduled task list
    */
   async list(job: ListJobDto): Promise<Pagination<SysJob>> {
     return paginate<SysJob>(
@@ -52,8 +52,8 @@ export class JobService {
   }
 
   /**
-   * 添加定时任务
-   * @param job 定时任务信息
+   * Add scheduled task
+   * @param job Scheduled task information
    */
   async add(job: CreateJobDto): Promise<void> {
     const res = await this.jobRepository.save(job)
@@ -63,9 +63,9 @@ export class JobService {
   }
 
   /**
-   * 更新定时任务
-   * @param jobId 定时任务ID
-   * @param job 定时任务信息
+   * Update scheduled task
+   * @param jobId Scheduled task ID
+   * @param job Scheduled task information
    */
   async update(jobId: number, job: UpdateJobDto): Promise<void> {
     await this.jobRepository.update(jobId, job)
@@ -79,8 +79,8 @@ export class JobService {
   }
 
   /**
-   * 删除定时任务
-   * @param jobIds 定时任务ID
+   * Delete scheduled task
+   * @param jobIds Scheduled task ID
    */
   async delete(jobIds: number[]): Promise<void> {
     const jobs = await this.jobRepository.findBy({ jobId: In(jobIds) })
@@ -91,17 +91,17 @@ export class JobService {
   }
 
   /**
-   * 定时任务详情
-   * @param jobId 定时任务ID
-   * @returns 定时任务详情
+   * Scheduled task details
+   * @param jobId Scheduled task ID
+   * @returns Scheduled task details
    */
   async info(jobId: number): Promise<SysJob> {
     return this.jobRepository.findOneBy({ jobId })
   }
 
   /**
-   * 执行一次定时任务
-   * @param jobId 定时任务ID
+   * Execute scheduled task once
+   * @param jobId Scheduled task ID
    */
   async once(jobId: number): Promise<void> {
     const job = await this.jobRepository.findOneBy({ jobId })
@@ -109,19 +109,19 @@ export class JobService {
   }
 
   /**
-   * 检测调用目标是否正常
-   * @param invokeTarget 调用目标字符串
-   * @returns 异常抛出 ServiceException
+   * Check if invoke target is valid
+   * @param invokeTarget Invoke target string
+   * @returns Exception thrown ServiceException
    */
   async checkInvokeTargetAllowed(invokeTarget: string) {
-    // 任务格式是否正确
+    // Check if task format is correct
     const target = invokeTarget.split('.')
     const [className, handleName] = target
     if (target.length !== 2) {
-      throw new ServiceException('调用目标不正确')
+      throw new ServiceException('Invoke target is incorrect')
     }
 
-    // 任务名称是否正确
+    // Check if task name is correct
     let service: any
     try {
       service = await this.moduleRef.get(className, { strict: false })
@@ -129,13 +129,13 @@ export class JobService {
       //
     }
     if (!service || typeof service[handleName] !== 'function') {
-      throw new ServiceException('调用目标不存在')
+      throw new ServiceException('Invoke target does not exist')
     }
 
-    // 是否标记为任务
+    // Check if marked as task
     const hasTaskable = this.reflector.get<boolean>(TASKABLE_METADATA, service.constructor)
     if (!hasTaskable) {
-      throw new ServiceException('调用目标未添加@Taskable装饰器')
+      throw new ServiceException('Invoke target does not have @Taskable decorator')
     }
   }
 }

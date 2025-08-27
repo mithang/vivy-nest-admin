@@ -6,19 +6,19 @@ import { ListGenDto, UpdateGenDto } from './dto/gen.dto'
 import { GenService } from './gen.service'
 
 /**
- * 代码生成
+ * Code generation
  * @author vivy
  */
-@ApiTags('代码生成')
+@ApiTags('Code generation')
 @ApiBearerAuth()
 @Controller('gen')
 export class GenController {
   constructor(private genService: GenService) {}
 
   /**
-   * 代码生成列表
-   * @param gen 搜索信息
-   * @returns 代码生成列表
+   * Code generation list
+   * @param gen Search information
+   * @returns Code generation list
    */
   @Get('list')
   async list(@Query() gen: ListGenDto): Promise<AjaxResult> {
@@ -26,29 +26,29 @@ export class GenController {
   }
 
   /**
-   * 更新代码生成
-   * @param gen 更新信息
+   * Update code generation
+   * @param gen Update information
    */
   @Put('update')
-  @Log({ title: '代码生成', operType: OperType.UPDATE })
+  @Log({ title: 'Code generation', operType: OperType.UPDATE })
   async update(@Body() gen: UpdateGenDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.genService.update(gen))
   }
 
   /**
-   * 删除代码生成
-   * @param tableIds 代码生成ID
+   * Delete code generation
+   * @param tableIds Code generation IDs
    */
   @Delete(':tableIds')
-  @Log({ title: '代码生成', operType: OperType.DELETE })
+  @Log({ title: 'Code generation', operType: OperType.DELETE })
   async delete(@Param('tableIds', new ParseArrayPipe({ items: Number })) tableIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.genService.delete(tableIds))
   }
 
   /**
-   * 代码生成详情
-   * @param tableId 代码生成ID
-   * @returns 代码生成详情
+   * Code generation details
+   * @param tableId Code generation ID
+   * @returns Code generation details
    */
   @Get(':tableId')
   async info(@Param('tableId') tableId: number): Promise<AjaxResult> {
@@ -56,9 +56,9 @@ export class GenController {
   }
 
   /**
-   * 查询数据库表列表
-   * @param tableId 代码生成ID
-   * @returns 数据库表列表
+   * Query database table list
+   * @param tableId Code generation ID
+   * @returns Database table list
    */
   @Get('db/list')
   async dblist(@Query() gen: ListGenDto): Promise<AjaxResult> {
@@ -66,29 +66,29 @@ export class GenController {
   }
 
   /**
-   * 导入表结构到代码生成表
-   * @param tableNames 表名称
+   * Import table structure to code generation table
+   * @param tableNames Table names
    */
   @Post('import/:tableNames')
-  @Log({ title: '代码生成', operType: OperType.INSERT })
+  @Log({ title: 'Code generation', operType: OperType.INSERT })
   async import(@Param('tableNames', new ParseArrayPipe()) tableNames: string[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.genService.import(tableNames))
   }
 
   /**
-   * 同步表结构到代码生成表
-   * @param tableName 表名称
+   * Sync table structure to code generation table
+   * @param tableName Table name
    */
   @Put('sync/:tableName')
-  @Log({ title: '代码生成', operType: OperType.INSERT })
+  @Log({ title: 'Code generation', operType: OperType.INSERT })
   async sync(@Param('tableName') tableName: string): Promise<AjaxResult> {
     return AjaxResult.success(await this.genService.sync(tableName))
   }
 
   /**
-   * 预览代码
-   * @param tableName 表名称
-   * @returns 代码详情
+   * Preview code
+   * @param tableName Table name
+   * @returns Code details
    */
   @Get('preview/:tableName')
   async preview(@Param('tableName') tableName: string): Promise<AjaxResult> {
@@ -96,9 +96,9 @@ export class GenController {
   }
 
   /**
-   * 下载代码
-   * @param tableName 表名称
-   * @returns 代码详情
+   * Download code
+   * @param tableName Table name
+   * @returns Code details
    */
   @Get('download/:tableName')
   async download(@Param('tableName') tableName: string): Promise<StreamableFile> {

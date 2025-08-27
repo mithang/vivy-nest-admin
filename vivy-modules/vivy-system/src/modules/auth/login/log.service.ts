@@ -12,31 +12,31 @@ export class LogService {
   ) {}
 
   /**
-   * 登录成功
-   * @param type 登录类型
-   * @param name 用户名称
-   * @param message 登录消息
+   * Login success
+   * @param type Login type
+   * @param name User name
+   * @param message Login message
    */
   ok(type: LoginType, name: string, message: string) {
     this.saveLoginLog(type, name, BaseStatusEnum.NORMAL, message)
   }
 
   /**
-   * 登录失败
-   * @param type 登录类型
-   * @param name 用户名称
-   * @param message 登录消息
+   * Login failure
+   * @param type Login type
+   * @param name User name
+   * @param message Login message
    */
   fail(type: LoginType, name: string, message: string) {
     this.saveLoginLog(type, name, BaseStatusEnum.DISABLE, message)
   }
 
   /**
-   * 登录日志保存
-   * @param type 登录类型
-   * @param name 用户名称
-   * @param status 登录状态
-   * @param message 登录消息
+   * Save login log
+   * @param type Login type
+   * @param name User name
+   * @param status Login status
+   * @param message Login message
    */
   private saveLoginLog(type: LoginType, name: string, status: BaseStatusEnum, message: string) {
     const loginLog = new CreateLoginLogDto()

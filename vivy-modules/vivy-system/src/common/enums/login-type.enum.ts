@@ -1,9 +1,9 @@
 /**
- * 登录类型
+ * Login type
  */
 export enum LoginType {
   /**
-   * 账号密码
+   * Account password
    */
   ACCOUNT_PASSWORD = '0',
 }

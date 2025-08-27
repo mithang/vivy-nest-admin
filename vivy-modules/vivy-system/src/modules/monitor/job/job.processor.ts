@@ -37,7 +37,7 @@ export class JobProcessor {
     jobLog.jobGroup = data.jobGroup
     jobLog.invokeTarget = data.invokeTarget
     jobLog.invokeParams = data.invokeParams
-    jobLog.invokeMessage = '执行成功'
+    jobLog.invokeMessage = 'Execution successful'
     jobLog.status = '0'
     await this.jobLogService.add(jobLog)
   }
@@ -51,7 +51,7 @@ export class JobProcessor {
     jobLog.jobGroup = data.jobGroup
     jobLog.invokeTarget = data.invokeTarget
     jobLog.invokeParams = data.invokeParams
-    jobLog.invokeMessage = '执行失败'
+    jobLog.invokeMessage = 'Execution failed'
     jobLog.exceptionMessage = err instanceof HttpException ? JSON.stringify(err.getResponse()) : err.message
     jobLog.status = '1'
     await this.jobLogService.add(jobLog)

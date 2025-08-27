@@ -2,38 +2,37 @@ import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
 import { SysJobLog } from '../entities/sys-job-log.entity'
-
 /**
- * 查询任务日志
+ * Query task logs
  */
 export class ListJobLogDto extends PaginateDto {
-  /** 任务ID */
+  /** Task ID */
   @Allow()
   jobId?: number
 
-  /** 任务名称 */
+  /** Task name */
   @Allow()
   jobName?: string
 
-  /** 任务组名 */
+  /** Task group name */
   @Allow()
   jobGroup?: string
 
-  /** 调用目标 */
+  /** Invoke target */
   @Allow()
   invokeTarget?: string
 
-  /** 状态（0成功 1失败） */
+  /** Status (0 success 1 failure) */
   @Allow()
   status?: string
 }
 
 /**
- * 添加任务日志
+ * Add task log
  */
 export class CreateJobLogDto extends OmitType(SysJobLog, ['jobLogId'] as const) {}
 
 /**
- * 更新任务日志
+ * Update task log
  */
 export class UpdateJobLogDto extends OmitType(SysJobLog, ['jobLogId'] as const) {}

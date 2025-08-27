@@ -7,19 +7,19 @@ import { ListOperLogDto } from './dto/oper-log.dto'
 import { OperLogService } from './oper-log.service'
 
 /**
- * 操作日志
+ * Operation logs
  * @author vivy
  */
-@ApiTags('操作日志')
+@ApiTags('Operation logs')
 @ApiBearerAuth()
 @Controller('oper-logs')
 export class OperLogController {
   constructor(private operLogService: OperLogService) {}
 
   /**
-   * 操作日志列表
-   * @param operLog 操作日志信息
-   * @returns 操作日志列表
+   * Operation log list
+   * @param operLog Operation log information
+   * @returns Operation log list
    */
   @Get()
   @RequirePermissions('monitor:operlog:list')
@@ -28,10 +28,10 @@ export class OperLogController {
   }
 
   /**
-   * 清空操作日志
+   * Clear operation logs
    */
   @Delete('clear')
-  @Log({ title: '操作日志', operType: OperType.CLEAN })
+  @Log({ title: 'Operation logs', operType: OperType.CLEAN })
   @RequirePermissions('monitor:operlog:delete')
   async clear(): Promise<AjaxResult> {
     return AjaxResult.success(await this.operLogService.clear())

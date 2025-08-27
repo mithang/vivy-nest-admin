@@ -2,7 +2,7 @@ import { BaseTimeEntity } from '@vivy-common/core'
 import { Column, Entity } from 'typeorm'
 
 /**
- * 用户和角色关联表 用户1-N角色
+ * User and role association table User 1-N Role
  */
 @Entity({ name: 'sys_user_role' })
 export class SysUserRole extends BaseTimeEntity {
@@ -10,7 +10,7 @@ export class SysUserRole extends BaseTimeEntity {
     name: 'user_id',
     type: 'bigint',
     primary: true,
-    comment: '用户ID',
+    comment: 'User ID',
   })
   userId: number
 
@@ -18,7 +18,7 @@ export class SysUserRole extends BaseTimeEntity {
     name: 'role_id',
     type: 'bigint',
     primary: true,
-    comment: '角色ID',
+    comment: 'Role ID',
   })
   roleId: number
 }

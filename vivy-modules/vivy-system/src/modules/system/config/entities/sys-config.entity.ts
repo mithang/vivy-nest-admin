@@ -3,14 +3,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 参数配置表
+ * Parameter configuration table
  */
 @Entity({ name: 'sys_config' })
 export class SysConfig extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'config_id',
     type: 'bigint',
-    comment: '参数ID',
+    comment: 'Parameter ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysConfig extends BaseBusinessEntity {
     name: 'config_name',
     type: 'varchar',
     length: 100,
-    comment: '参数名称',
+    comment: 'Parameter name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class SysConfig extends BaseBusinessEntity {
     name: 'config_key',
     type: 'varchar',
     length: 100,
-    comment: '参数键名',
+    comment: 'Parameter key',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class SysConfig extends BaseBusinessEntity {
     name: 'config_value',
     type: 'varchar',
     length: 500,
-    comment: '参数键值',
+    comment: 'Parameter value',
   })
   @MaxLength(500)
   @IsNotEmpty()
@@ -51,7 +51,7 @@ export class SysConfig extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '状态（0正常 1停用）',
+    comment: 'Status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()
@@ -62,7 +62,7 @@ export class SysConfig extends BaseBusinessEntity {
     type: 'varchar',
     length: 500,
     nullable: true,
-    comment: '备注',
+    comment: 'Remark',
   })
   @MaxLength(100)
   @IsOptional()

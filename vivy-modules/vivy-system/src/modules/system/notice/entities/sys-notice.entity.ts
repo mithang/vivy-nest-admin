@@ -3,14 +3,14 @@ import { IsEnum, IsIn, IsInt, IsNotEmpty, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 通知公告表
+ * Notices and announcements table
  */
 @Entity({ name: 'sys_notice' })
 export class SysNotice extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'notice_id',
     type: 'bigint',
-    comment: '公告ID',
+    comment: 'Notice ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysNotice extends BaseBusinessEntity {
     name: 'notice_title',
     type: 'varchar',
     length: 50,
-    comment: '公告标题',
+    comment: 'Notice title',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class SysNotice extends BaseBusinessEntity {
     name: 'notice_type',
     type: 'char',
     length: 2,
-    comment: '公告类型（1通知 2公告）',
+    comment: 'Notice type (1 notice 2 announcement)',
   })
   @IsIn(['1', '2'])
   @IsNotEmpty()
@@ -39,7 +39,7 @@ export class SysNotice extends BaseBusinessEntity {
   @Column({
     name: 'notice_content',
     type: 'longblob',
-    comment: '公告内容',
+    comment: 'Notice content',
     transformer: {
       to(value) {
         return value
@@ -56,7 +56,7 @@ export class SysNotice extends BaseBusinessEntity {
     name: 'status',
     type: 'char',
     length: 1,
-    comment: '公告状态（0正常 1关闭）',
+    comment: 'Notice status (0 normal 1 closed)',
   })
   @IsEnum(BaseStatusEnum)
   @IsNotEmpty()

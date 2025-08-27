@@ -7,7 +7,7 @@ import { ListOperLogDto, CreateOperLogDto } from './dto/oper-log.dto'
 import { SysOperLog } from './entities/sys-oper-log.entity'
 
 /**
- * 操作日志
+ * Operation logs
  * @author vivy
  */
 @Injectable()
@@ -18,9 +18,9 @@ export class OperLogService {
   ) {}
 
   /**
-   * 操作日志列表
-   * @param operLog 操作日志信息
-   * @returns 操作日志列表
+   * Operation log list
+   * @param operLog Operation log information
+   * @returns Operation log list
    */
   async list(operLog: ListOperLogDto): Promise<Pagination<SysOperLog>> {
     return paginate<SysOperLog>(
@@ -46,15 +46,15 @@ export class OperLogService {
   }
 
   /**
-   * 添加操作日志
-   * @param operLog 操作日志信息
+   * Add operation log
+   * @param operLog Operation log information
    */
   async add(operLog: CreateOperLogDto): Promise<void> {
     await this.operLogRepository.insert(operLog)
   }
 
   /**
-   * 清空操作日志
+   * Clear operation logs
    */
   async clear(): Promise<void> {
     await this.operLogRepository.clear()

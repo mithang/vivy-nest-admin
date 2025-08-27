@@ -1,12 +1,12 @@
 import { SysLoginLog } from '../entities/sys-login-log.entity'
 
 /**
- * 查询登录日志
+ * Query login logs
  */
 export class LoginLogListVo extends SysLoginLog {
-  /** 操作系统 */
+  /** Operating system */
   os: string
 
-  /** 浏览器信息 */
+  /** Browser information */
   browser: string
 }

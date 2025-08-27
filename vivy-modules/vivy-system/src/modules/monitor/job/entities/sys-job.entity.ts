@@ -14,7 +14,7 @@ import * as parser from 'cron-parser'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * Cron 表达式验证，Bull 使用 cron-parser 解析
+ * Cron expression validation, Bull uses cron-parser to parse
  */
 @ValidatorConstraint({ name: 'isCronExpression', async: false })
 export class IsCronExpression implements ValidatorConstraintInterface {
@@ -33,14 +33,14 @@ export class IsCronExpression implements ValidatorConstraintInterface {
 }
 
 /**
- * 定时任务表
+ * Scheduled task table
  */
 @Entity({ name: 'sys_job' })
 export class SysJob extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'job_id',
     type: 'bigint',
-    comment: '任务ID',
+    comment: 'Task ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -50,7 +50,7 @@ export class SysJob extends BaseBusinessEntity {
     name: 'job_name',
     type: 'varchar',
     length: 100,
-    comment: '任务名称',
+    comment: 'Task name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -60,7 +60,7 @@ export class SysJob extends BaseBusinessEntity {
     name: 'job_group',
     type: 'varchar',
     length: 100,
-    comment: '任务组名',
+    comment: 'Task group name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -70,7 +70,7 @@ export class SysJob extends BaseBusinessEntity {
     name: 'invoke_target',
     type: 'varchar',
     length: 500,
-    comment: '调用目标',
+    comment: 'Invoke target',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -81,7 +81,7 @@ export class SysJob extends BaseBusinessEntity {
     type: 'varchar',
     length: 500,
     nullable: true,
-    comment: '调用参数',
+    comment: 'Invoke parameters',
   })
   @MaxLength(500)
   @IsOptional()
@@ -91,7 +91,7 @@ export class SysJob extends BaseBusinessEntity {
     name: 'cron_expression',
     type: 'varchar',
     length: 100,
-    comment: 'Cron表达式',
+    comment: 'Cron expression',
   })
   @Validate(IsCronExpression)
   @MaxLength(100)
@@ -103,7 +103,7 @@ export class SysJob extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '状态（0正常 1停用）',
+    comment: 'Status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()
@@ -114,7 +114,7 @@ export class SysJob extends BaseBusinessEntity {
     type: 'varchar',
     length: 500,
     nullable: true,
-    comment: '备注',
+    comment: 'Remark',
   })
   @MaxLength(500)
   @IsOptional()

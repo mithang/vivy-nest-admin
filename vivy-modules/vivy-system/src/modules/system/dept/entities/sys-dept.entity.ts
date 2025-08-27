@@ -3,14 +3,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 部门表
+ * Department table
  */
 @Entity({ name: 'sys_dept' })
 export class SysDept extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'dept_id',
     type: 'bigint',
-    comment: '部门ID',
+    comment: 'Department ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class SysDept extends BaseBusinessEntity {
     name: 'parent_id',
     type: 'bigint',
     default: 0,
-    comment: '父部门ID',
+    comment: 'Parent department ID',
   })
   @IsInt()
   @IsOptional()
@@ -31,7 +31,7 @@ export class SysDept extends BaseBusinessEntity {
     type: 'varchar',
     length: 200,
     default: '0',
-    comment: '祖级列表',
+    comment: 'Ancestor list',
   })
   @MaxLength(200)
   @IsOptional()
@@ -41,7 +41,7 @@ export class SysDept extends BaseBusinessEntity {
     name: 'dept_name',
     type: 'varchar',
     length: 50,
-    comment: '部门名称',
+    comment: 'Department name',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -51,7 +51,7 @@ export class SysDept extends BaseBusinessEntity {
     name: 'dept_sort',
     type: 'int',
     default: 0,
-    comment: '显示顺序',
+    comment: 'Display order',
   })
   @IsInt()
   @IsOptional()
@@ -62,7 +62,7 @@ export class SysDept extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '部门状态（0正常 1停用）',
+    comment: 'Department status (0 normal 1 disabled)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()

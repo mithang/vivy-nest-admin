@@ -4,30 +4,30 @@ export const UPLOAD_OPTIONS = Symbol('UPLOAD_OPTIONS')
 export const UPLOAD_FILE_URL = 'fileurl'
 
 /**
- * 上传配置
+ * Upload configuration
  */
 export interface UploadOptions {
   /**
-   * 上传路径
+   * Upload path
    */
   path: string
   /**
-   * 访问前缀
+   * Access prefix
    */
   prefix: string
   /**
-   * 访问域名
+   * Access domain
    */
   domain?: string
 }
 
 /**
- * 客户端动态配置
+ * Client dynamic configuration
  */
 export class UploadClientOptions {
   /**
-   * 自定义路径
-   * @description 前台传入自定义路径，与基础上传路径拼接
+   * Custom path
+   * @description Frontend passes in custom path, spliced with base upload path
    * @example formData.set('path', 'avatar')
    */
   @Allow()

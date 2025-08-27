@@ -3,14 +3,14 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validato
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
- * 定时任务日志表
+ * Scheduled task log table
  */
 @Entity({ name: 'sys_job_log' })
 export class SysJobLog extends BaseTimeEntity {
   @PrimaryGeneratedColumn({
     name: 'job_log_id',
     type: 'bigint',
-    comment: '任务日志ID',
+    comment: 'Task log ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -19,7 +19,7 @@ export class SysJobLog extends BaseTimeEntity {
   @Column({
     name: 'job_id',
     type: 'bigint',
-    comment: '任务ID',
+    comment: 'Task ID',
   })
   @IsInt()
   @IsNotEmpty()
@@ -29,7 +29,7 @@ export class SysJobLog extends BaseTimeEntity {
     name: 'job_name',
     type: 'varchar',
     length: 100,
-    comment: '任务名称',
+    comment: 'Task name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -39,7 +39,7 @@ export class SysJobLog extends BaseTimeEntity {
     name: 'job_group',
     type: 'varchar',
     length: 100,
-    comment: '任务组名',
+    comment: 'Task group name',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -49,7 +49,7 @@ export class SysJobLog extends BaseTimeEntity {
     name: 'invoke_target',
     type: 'varchar',
     length: 500,
-    comment: '调用目标',
+    comment: 'Invoke target',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -60,7 +60,7 @@ export class SysJobLog extends BaseTimeEntity {
     type: 'varchar',
     length: 500,
     nullable: true,
-    comment: '调用参数',
+    comment: 'Invoke parameters',
   })
   @MaxLength(500)
   @IsNotEmpty()
@@ -71,7 +71,7 @@ export class SysJobLog extends BaseTimeEntity {
     type: 'varchar',
     length: 500,
     nullable: true,
-    comment: '调用信息',
+    comment: 'Invoke message',
   })
   @MaxLength(500)
   @IsOptional()
@@ -82,7 +82,7 @@ export class SysJobLog extends BaseTimeEntity {
     type: 'varchar',
     length: 500,
     nullable: true,
-    comment: '异常信息',
+    comment: 'Exception message',
   })
   @MaxLength(500)
   @IsOptional()
@@ -93,7 +93,7 @@ export class SysJobLog extends BaseTimeEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '状态（0成功 1失败）',
+    comment: 'Status (0 success 1 failure)',
   })
   @IsEnum(BaseStatusEnum)
   @IsOptional()

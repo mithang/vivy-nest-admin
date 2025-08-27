@@ -7,10 +7,10 @@ import { ListRoleDto, CreateRoleDto, UpdateRoleDto, UpdateDataScopeDto } from '.
 import { RoleService } from './role.service'
 
 /**
- * 角色管理
+ * Role management
  * @author vivy
  */
-@ApiTags('角色管理')
+@ApiTags('Role management')
 @ApiBearerAuth()
 @Controller('roles')
 export class RoleController {
@@ -20,9 +20,9 @@ export class RoleController {
   ) {}
 
   /**
-   * 角色列表
-   * @param role 角色信息
-   * @returns 角色列表
+   * Role list
+   * @param role Role information
+   * @returns Role list
    */
   @Get()
   @RequirePermissions('system:role:list')
@@ -31,19 +31,19 @@ export class RoleController {
   }
 
   /**
-   * 添加角色
-   * @param role 角色信息
+   * Add role
+   * @param role Role information
    */
   @Post()
-  @Log({ title: '角色管理', operType: OperType.INSERT })
+  @Log({ title: 'Role management', operType: OperType.INSERT })
   @RequirePermissions('system:role:add')
   async add(@Body() role: CreateRoleDto): Promise<AjaxResult> {
     if (!(await this.roleService.checkRoleNameUnique(role.roleName))) {
-      return AjaxResult.error(`新增角色${role.roleName}失败，角色名称已存在`)
+      return AjaxResult.error(`Failed to add role ${role.roleName}, role name already exists`)
     }
 
     if (!(await this.roleService.checkRoleCodeUnique(role.roleCode))) {
-      return AjaxResult.error(`新增角色${role.roleName}失败，角色权限已存在`)
+      return AjaxResult.error(`Failed to add role ${role.roleName}, role permission already exists`)
     }
 
     role.createBy = this.securityContext.getUserName()
@@ -51,23 +51,23 @@ export class RoleController {
   }
 
   /**
-   * 更新角色
-   * @param roleId 角色ID
-   * @param role 角色信息
+   * Update role
+   * @param roleId Role ID
+   * @param role Role information
    */
   @Put(':roleId')
-  @Log({ title: '角色管理', operType: OperType.UPDATE })
+  @Log({ title: 'Role management', operType: OperType.UPDATE })
   @RequirePermissions('system:role:update')
   async update(@Param('roleId') roleId: number, @Body() role: UpdateRoleDto): Promise<AjaxResult> {
     this.roleService.checkRoleAllowed(roleId)
     await this.roleService.checkRoleDataScope(roleId)
 
     if (!(await this.roleService.checkRoleNameUnique(role.roleName, roleId))) {
-      return AjaxResult.error(`修改角色${role.roleName}失败，角色名称已存在`)
+      return AjaxResult.error(`Failed to update role ${role.roleName}, role name already exists`)
     }
 
     if (!(await this.roleService.checkRoleCodeUnique(role.roleCode, roleId))) {
-      return AjaxResult.error(`修改角色${role.roleName}失败，角色权限已存在`)
+      return AjaxResult.error(`Failed to update role ${role.roleName}, role permission already exists`)
     }
 
     role.updateBy = this.securityContext.getUserName()
@@ -75,11 +75,11 @@ export class RoleController {
   }
 
   /**
-   * 删除角色
-   * @param roleIds 角色ID
+   * Delete role
+   * @param roleIds Role IDs
    */
   @Delete(':roleIds')
-  @Log({ title: '角色管理', operType: OperType.DELETE })
+  @Log({ title: 'Role management', operType: OperType.DELETE })
   @RequirePermissions('system:role:delete')
   async delete(@Param('roleIds', new ParseArrayPipe({ items: Number })) roleIds: number[]): Promise<AjaxResult> {
     this.roleService.checkRoleAllowed(roleIds)
@@ -88,8 +88,8 @@ export class RoleController {
   }
 
   /**
-   * 角色选项列表
-   * @returns 角色选项列表
+   * Role options list
+   * @returns Role options list
    */
   @Get('options')
   async options(): Promise<AjaxResult> {
@@ -97,9 +97,9 @@ export class RoleController {
   }
 
   /**
-   * 角色详情
-   * @param roleId 角色ID
-   * @returns 角色详情
+   * Role details
+   * @param roleId Role ID
+   * @returns Role details
    */
   @Get(':roleId')
   @RequirePermissions('system:role:query')
@@ -109,12 +109,12 @@ export class RoleController {
   }
 
   /**
-   * 更新数据权限
-   * @param roleId 角色ID
-   * @param dataScopeDto 数据权限范围信息
+   * Update data scope
+   * @param roleId Role ID
+   * @param dataScopeDto Data scope range information
    */
   @Put(':roleId/data-scope')
-  @Log({ title: '角色管理', operType: OperType.UPDATE })
+  @Log({ title: 'Role management', operType: OperType.UPDATE })
   @RequirePermissions('system:role:update')
   async updateDataScope(
     @Param('roleId') roleId: number,
