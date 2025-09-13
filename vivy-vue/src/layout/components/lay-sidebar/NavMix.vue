@@ -49,7 +49,7 @@ watch(
     v-loading="usePermissionStoreHook().wholeMenus.length === 0"
     class="horizontal-header"
   >
-    <el-menu
+    <ElMenu
       ref="menuRef"
       router
       mode="horizontal"
@@ -57,7 +57,7 @@ watch(
       class="horizontal-header-menu"
       :default-active="defaultActive"
     >
-      <el-menu-item
+      <ElMenuItem
         v-for="route in usePermissionStoreHook().wholeMenus"
         :key="route.path"
         :index="resolvePath(route) || route.redirect"
@@ -73,8 +73,8 @@ watch(
             <LaySidebarExtraIcon :extra-icon="route.meta.extraIcon" />
           </div>
         </template>
-      </el-menu-item>
-    </el-menu>
+      </ElMenuItem>
+    </ElMenu>
     <div class="horizontal-header-right">
       <!-- 菜单搜索 -->
       <LaySearch id="header-search" />
@@ -83,20 +83,20 @@ watch(
       <!-- 消息通知 -->
       <LayNotice id="header-notice" />
       <!-- 退出登录 -->
-      <el-dropdown trigger="click">
+      <ElDropdown trigger="click">
         <span class="el-dropdown-link navbar-bg-hover select-none">
           <img :src="userAvatar" :style="avatarsStyle" />
           <p v-if="username" class="dark:text-white">{{ username }}</p>
         </span>
         <template #dropdown>
-          <el-dropdown-menu class="logout">
-            <el-dropdown-item @click="logout">
+          <ElDropdownMenu class="logout">
+            <ElDropdownItem @click="logout">
               <IconifyIconOffline :icon="LogoutCircleRLine" style="margin: 5px" />
               退出系统
-            </el-dropdown-item>
-          </el-dropdown-menu>
+            </ElDropdownItem>
+          </ElDropdownMenu>
         </template>
-      </el-dropdown>
+      </ElDropdown>
       <span class="set-icon navbar-bg-hover" title="打开系统配置" @click="onPanel">
         <IconifyIconOffline :icon="Setting" />
       </span>

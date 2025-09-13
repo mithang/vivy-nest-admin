@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import noServer from '@/assets/status/500.svg?component'
+import NoServer from '@/assets/status/500.svg?component'
 
 defineOptions({
   name: '500',
@@ -11,7 +11,7 @@ const router = useRouter()
 
 <template>
   <div class="flex justify-center items-center h-[640px]">
-    <noServer />
+    <NoServer />
     <div class="ml-12">
       <p
         v-motion
@@ -47,7 +47,7 @@ const router = useRouter()
       >
         抱歉，服务器出错了
       </p>
-      <el-button
+      <ElButton
         v-motion
         type="primary"
         :initial="{
@@ -64,7 +64,7 @@ const router = useRouter()
         @click="router.push('/')"
       >
         返回首页
-      </el-button>
+      </ElButton>
     </div>
   </div>
 </template>

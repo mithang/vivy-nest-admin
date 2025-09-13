@@ -1,8 +1,8 @@
 <template>
-  <el-config-provider :locale="currentLocale">
-    <router-view />
+  <ElConfigProvider :locale="currentLocale">
+    <RouterView />
     <ReDialog />
-  </el-config-provider>
+  </ElConfigProvider>
 </template>
 
 <script lang="ts">

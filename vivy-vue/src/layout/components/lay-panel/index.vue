@@ -67,12 +67,12 @@ onBeforeUnmount(() => {
           />
         </span>
       </div>
-      <el-scrollbar>
+      <ElScrollbar>
         <slot />
-      </el-scrollbar>
+      </ElScrollbar>
 
       <div class="flex justify-end p-3 border-0 border-t-[1px] border-solid border-[var(--pure-border-color)]">
-        <el-button
+        <ElButton
           v-tippy="{
             content: '清空缓存并返回登录页',
             placement: 'left-start',
@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
           @click="onReset"
         >
           清空缓存
-        </el-button>
+        </ElButton>
       </div>
     </div>
   </div>

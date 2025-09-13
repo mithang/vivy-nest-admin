@@ -45,10 +45,10 @@ function hoverDescription(event, description) {
 
 <template>
   <div class="notice-container border-0 border-b-[1px] border-solid border-[#f0f0f0] dark:border-[#303030]">
-    <el-avatar v-if="noticeItem.avatar" :size="30" :src="noticeItem.avatar" class="notice-container-avatar" />
+    <ElAvatar v-if="noticeItem.avatar" :size="30" :src="noticeItem.avatar" class="notice-container-avatar" />
     <div class="notice-container-text">
       <div class="notice-text-title text-[#000000d9] dark:text-white">
-        <el-tooltip
+        <ElTooltip
           popper-class="notice-title-popper"
           :effect="tooltipEffect"
           :disabled="!titleTooltip"
@@ -59,13 +59,13 @@ function hoverDescription(event, description) {
           <div ref="titleRef" class="notice-title-content" @mouseover="hoverTitle">
             {{ noticeItem.title }}
           </div>
-        </el-tooltip>
-        <el-tag v-if="noticeItem?.extra" :type="noticeItem?.status" size="small" class="notice-title-extra">
+        </ElTooltip>
+        <ElTag v-if="noticeItem?.extra" :type="noticeItem?.status" size="small" class="notice-title-extra">
           {{ noticeItem?.extra }}
-        </el-tag>
+        </ElTag>
       </div>
 
-      <el-tooltip
+      <ElTooltip
         popper-class="notice-title-popper"
         :effect="tooltipEffect"
         :disabled="!descriptionTooltip"
@@ -79,7 +79,7 @@ function hoverDescription(event, description) {
         >
           {{ noticeItem.description }}
         </div>
-      </el-tooltip>
+      </ElTooltip>
       <div class="notice-text-datetime text-[#00000073] dark:text-white">
         {{ noticeItem.datetime }}
       </div>

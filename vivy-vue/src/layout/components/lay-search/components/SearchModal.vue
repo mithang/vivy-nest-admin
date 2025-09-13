@@ -250,7 +250,7 @@ onKeyStroke('ArrowDown', handleDown)
 </script>
 
 <template>
-  <el-dialog
+  <ElDialog
     v-model="show"
     top="5vh"
     class="pure-search-dialog"
@@ -264,7 +264,7 @@ onKeyStroke('ArrowDown', handleDown)
     @opened="inputRef.focus()"
     @closed="inputRef.blur()"
   >
-    <el-input
+    <ElInput
       ref="inputRef"
       v-model="keyword"
       size="large"
@@ -275,10 +275,10 @@ onKeyStroke('ArrowDown', handleDown)
       <template #prefix>
         <IconifyIconOffline :icon="SearchIcon" class="text-primary w-[24px] h-[24px]" />
       </template>
-    </el-input>
+    </ElInput>
     <div class="search-content">
-      <el-scrollbar ref="scrollbarRef" max-height="calc(90vh - 140px)">
-        <el-empty v-if="showEmpty" description="暂无搜索结果" />
+      <ElScrollbar ref="scrollbarRef" max-height="calc(90vh - 140px)">
+        <ElEmpty v-if="showEmpty" description="暂无搜索结果" />
         <SearchHistory
           v-if="showSearchHistory"
           ref="historyRef"
@@ -296,12 +296,12 @@ onKeyStroke('ArrowDown', handleDown)
           :options="resultOptions"
           @click="handleEnter"
         />
-      </el-scrollbar>
+      </ElScrollbar>
     </div>
     <template #footer>
       <SearchFooter :total="resultOptions.length" />
     </template>
-  </el-dialog>
+  </ElDialog>
 </template>
 
 <style lang="scss" scoped>

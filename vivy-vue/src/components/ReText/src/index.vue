@@ -55,7 +55,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-text
+  <ElText
     v-bind="{
       truncated: !lineClamp,
       lineClamp,
@@ -65,5 +65,5 @@ onMounted(() => {
     @mouseover.self="handleHover"
   >
     <slot />
-  </el-text>
+  </ElText>
 </template>

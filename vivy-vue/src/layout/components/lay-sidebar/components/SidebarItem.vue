@@ -110,7 +110,7 @@ function resolvePath(routePath) {
     v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren)"
     :to="item"
   >
-    <el-menu-item
+    <ElMenuItem
       :index="resolvePath(onlyOneChild.path)"
       :class="{ 'submenu-title-noDropdown': !isNest }"
       :style="getNoDropdownStyle"
@@ -119,7 +119,7 @@ function resolvePath(routePath) {
       <div v-if="toRaw(item.meta.icon)" class="sub-menu-icon" :style="getSubMenuIconStyle">
         <component :is="useRenderIcon(toRaw(onlyOneChild.meta.icon) || (item.meta && toRaw(item.meta.icon)))" />
       </div>
-      <el-text
+      <ElText
         v-if="
           (!item?.meta.icon && isCollapse && layout === 'vertical' && item?.pathList?.length === 1) ||
           (!onlyOneChild.meta.icon && isCollapse && layout === 'mix' && item?.pathList?.length === 2)
@@ -128,7 +128,7 @@ function resolvePath(routePath) {
         class="w-full! px-3! min-w-[54px]! text-center! text-inherit!"
       >
         {{ onlyOneChild.meta.title }}
-      </el-text>
+      </ElText>
 
       <template #title>
         <div :style="getDivStyle">
@@ -144,9 +144,9 @@ function resolvePath(routePath) {
           <SidebarExtraIcon :extra-icon="onlyOneChild.meta.extraIcon" />
         </div>
       </template>
-    </el-menu-item>
+    </ElMenuItem>
   </SidebarLinkItem>
-  <el-sub-menu v-else ref="subMenu" teleported :index="resolvePath(item.path)" v-bind="expandCloseIcon">
+  <ElSubMenu v-else ref="subMenu" teleported :index="resolvePath(item.path)" v-bind="expandCloseIcon">
     <template #title>
       <div v-if="toRaw(item.meta.icon)" :style="getSubMenuIconStyle" class="sub-menu-icon">
         <component :is="useRenderIcon(item.meta && toRaw(item.meta.icon))" />
@@ -168,7 +168,7 @@ function resolvePath(routePath) {
       <SidebarExtraIcon v-if="!isCollapse" :extra-icon="item.meta.extraIcon" />
     </template>
 
-    <sidebar-item
+    <SidebarItem
       v-for="child in item.children"
       :key="child.path"
       :is-nest="true"
@@ -176,5 +176,5 @@ function resolvePath(routePath) {
       :base-path="resolvePath(child.path)"
       class="nest-menu"
     />
-  </el-sub-menu>
+  </ElSubMenu>
 </template>

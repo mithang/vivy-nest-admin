@@ -577,7 +577,7 @@ onBeforeUnmount(() => {
       <IconifyIconOffline :icon="ArrowRightSLine" @click="handleScroll(-200)" />
     </span>
     <!-- 右键菜单按钮 -->
-    <transition name="el-zoom-in-top">
+    <Transition name="el-zoom-in-top">
       <ul v-show="visible" ref="contextmenuRef" :key="Math.random()" :style="getContextMenuStyle" class="contextmenu">
         <div v-for="(item, key) in tagsViews.slice(0, 6)" :key="key" style="display: flex; align-items: center">
           <li v-if="item.show" @click="selectTag(key, item)">
@@ -586,15 +586,15 @@ onBeforeUnmount(() => {
           </li>
         </div>
       </ul>
-    </transition>
+    </Transition>
     <!-- 右侧功能按钮 -->
-    <el-dropdown trigger="click" placement="bottom-end" @command="handleCommand">
+    <ElDropdown trigger="click" placement="bottom-end" @command="handleCommand">
       <span class="arrow-down">
         <IconifyIconOffline :icon="ArrowDown" class="dark:text-white" />
       </span>
       <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item
+        <ElDropdownMenu>
+          <ElDropdownItem
             v-for="(item, key) in tagsViews"
             :key="key"
             :command="{ key, item }"
@@ -603,10 +603,10 @@ onBeforeUnmount(() => {
           >
             <IconifyIconOffline :icon="item.icon" />
             {{ item.text }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
+          </ElDropdownItem>
+        </ElDropdownMenu>
       </template>
-    </el-dropdown>
+    </ElDropdown>
   </div>
 </template>
 

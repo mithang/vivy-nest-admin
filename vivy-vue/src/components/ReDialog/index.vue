@@ -80,7 +80,7 @@ function handleClose(options: DialogOptions, index: number, args = { command: 'c
 </script>
 
 <template>
-  <el-dialog
+  <ElDialog
     v-for="(options, index) in dialogStore"
     :key="index"
     v-bind="options"
@@ -126,7 +126,7 @@ function handleClose(options: DialogOptions, index: number, args = { command: 'c
       </template>
       <span v-else>
         <template v-for="(btn, key) in footerButtons(options)" :key="key">
-          <el-popconfirm
+          <ElPopconfirm
             v-if="btn.popconfirm"
             v-bind="btn.popconfirm"
             @confirm="
@@ -137,10 +137,10 @@ function handleClose(options: DialogOptions, index: number, args = { command: 'c
             "
           >
             <template #reference>
-              <el-button v-bind="btn">{{ btn?.label }}</el-button>
+              <ElButton v-bind="btn">{{ btn?.label }}</ElButton>
             </template>
-          </el-popconfirm>
-          <el-button
+          </ElPopconfirm>
+          <ElButton
             v-else
             v-bind="btn"
             :loading="key === 1 && sureBtnMap[index]?.loading"
@@ -152,9 +152,9 @@ function handleClose(options: DialogOptions, index: number, args = { command: 'c
             "
           >
             {{ btn?.label }}
-          </el-button>
+          </ElButton>
         </template>
       </span>
     </template>
-  </el-dialog>
+  </ElDialog>
 </template>

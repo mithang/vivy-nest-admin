@@ -73,8 +73,8 @@ onBeforeUnmount(() => {
     @mouseleave.prevent="isShow = false"
   >
     <LaySidebarLogo v-if="showLogo" :collapse="isCollapse" />
-    <el-scrollbar wrap-class="scrollbar-wrapper" :class="[device === 'mobile' ? 'mobile' : 'pc']">
-      <el-menu
+    <ElScrollbar wrap-class="scrollbar-wrapper" :class="[device === 'mobile' ? 'mobile' : 'pc']">
+      <ElMenu
         unique-opened
         mode="vertical"
         popper-class="pure-scrollbar"
@@ -91,8 +91,8 @@ onBeforeUnmount(() => {
           :base-path="routes.path"
           class="outer-most select-none"
         />
-      </el-menu>
-    </el-scrollbar>
+      </ElMenu>
+    </ElScrollbar>
     <LaySidebarCenterCollapse
       v-if="device !== 'mobile' && (isShow || isCollapse)"
       :is-active="pureApp.sidebar.opened"

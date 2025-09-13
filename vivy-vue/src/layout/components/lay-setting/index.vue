@@ -314,9 +314,9 @@ onUnmounted(() => removeMatchMedia)
           :style="getThemeColorStyle(item.color)"
           @click="setLayoutThemeColor(item.themeColor)"
         >
-          <el-icon style="margin: 0.1em 0.1em 0 0" :size="17" :color="getThemeColor(item.themeColor)">
+          <ElIcon style="margin: 0.1em 0.1em 0 0" :size="17" :color="getThemeColor(item.themeColor)">
             <IconifyIconOffline :icon="Check" />
-          </el-icon>
+          </ElIcon>
         </li>
       </ul>
 
@@ -371,7 +371,7 @@ onUnmounted(() => removeMatchMedia)
           :options="stretchTypeOptions"
           @change="stretchTypeChange"
         />
-        <el-input-number
+        <ElInputNumber
           v-if="isNumber(settings.stretch)"
           v-model="settings.stretch as number"
           :min="1280"
@@ -410,37 +410,19 @@ onUnmounted(() => removeMatchMedia)
       <ul class="setting">
         <li>
           <span class="dark:text-white">灰色模式</span>
-          <el-switch
-            v-model="settings.greyVal"
-            inline-prompt
-            active-text="开"
-            inactive-text="关"
-            @change="greyChange"
-          />
+          <ElSwitch v-model="settings.greyVal" inline-prompt active-text="开" inactive-text="关" @change="greyChange" />
         </li>
         <li>
           <span class="dark:text-white">色弱模式</span>
-          <el-switch
-            v-model="settings.weakVal"
-            inline-prompt
-            active-text="开"
-            inactive-text="关"
-            @change="weekChange"
-          />
+          <ElSwitch v-model="settings.weakVal" inline-prompt active-text="开" inactive-text="关" @change="weekChange" />
         </li>
         <li>
           <span class="dark:text-white">隐藏标签页</span>
-          <el-switch
-            v-model="settings.tabsVal"
-            inline-prompt
-            active-text="开"
-            inactive-text="关"
-            @change="tagsChange"
-          />
+          <ElSwitch v-model="settings.tabsVal" inline-prompt active-text="开" inactive-text="关" @change="tagsChange" />
         </li>
         <li>
           <span class="dark:text-white">隐藏页脚</span>
-          <el-switch
+          <ElSwitch
             v-model="settings.hideFooter"
             inline-prompt
             active-text="开"
@@ -450,7 +432,7 @@ onUnmounted(() => removeMatchMedia)
         </li>
         <li>
           <span class="dark:text-white">Logo</span>
-          <el-switch
+          <ElSwitch
             v-model="logoVal"
             inline-prompt
             :active-value="true"
@@ -462,7 +444,7 @@ onUnmounted(() => removeMatchMedia)
         </li>
         <li>
           <span class="dark:text-white">页签持久化</span>
-          <el-switch
+          <ElSwitch
             v-model="settings.multiTagsCache"
             inline-prompt
             active-text="开"

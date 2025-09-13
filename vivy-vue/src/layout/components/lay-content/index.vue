@@ -86,11 +86,11 @@ const transitionMain = defineComponent({
 
 <template>
   <section :class="[fixedHeader ? 'app-main' : 'app-main-nofixed-header']" :style="getSectionStyle">
-    <router-view>
+    <RouterView>
       <template #default="{ Component, route }">
         <LayFrame :curr-comp="Component" :curr-route="route">
           <template #default="{ Comp, fullPath, frameInfo }">
-            <el-scrollbar
+            <ElScrollbar
               v-if="fixedHeader"
               :wrap-style="{
                 display: 'flex',
@@ -106,31 +106,31 @@ const transitionMain = defineComponent({
                 'flex-direction': 'column',
               }"
             >
-              <el-backtop title="回到顶部" target=".app-main .el-scrollbar__wrap">
+              <ElBacktop title="回到顶部" target=".app-main .el-scrollbar__wrap">
                 <BackTopIcon />
-              </el-backtop>
+              </ElBacktop>
               <div class="grow">
-                <transitionMain :route="route">
-                  <keep-alive v-if="isKeepAlive" :include="usePermissionStoreHook().cachePageList">
+                <TransitionMain :route="route">
+                  <KeepAlive v-if="isKeepAlive" :include="usePermissionStoreHook().cachePageList">
                     <component :is="Comp" :key="fullPath" :frame-info="frameInfo" class="main-content" />
-                  </keep-alive>
+                  </KeepAlive>
                   <component :is="Comp" v-else :key="fullPath" :frame-info="frameInfo" class="main-content" />
-                </transitionMain>
+                </TransitionMain>
               </div>
               <LayFooter v-if="!hideFooter" />
-            </el-scrollbar>
+            </ElScrollbar>
             <div v-else class="grow">
-              <transitionMain :route="route">
-                <keep-alive v-if="isKeepAlive" :include="usePermissionStoreHook().cachePageList">
+              <TransitionMain :route="route">
+                <KeepAlive v-if="isKeepAlive" :include="usePermissionStoreHook().cachePageList">
                   <component :is="Comp" :key="fullPath" :frame-info="frameInfo" class="main-content" />
-                </keep-alive>
+                </KeepAlive>
                 <component :is="Comp" v-else :key="fullPath" :frame-info="frameInfo" class="main-content" />
-              </transitionMain>
+              </TransitionMain>
             </div>
           </template>
         </LayFrame>
       </template>
-    </router-view>
+    </RouterView>
 
     <!-- 页脚 -->
     <LayFooter v-if="!hideFooter && !fixedHeader" />

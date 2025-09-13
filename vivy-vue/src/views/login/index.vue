@@ -90,7 +90,7 @@ useEventListener(document, 'keydown', ({ code }) => {
     <img :src="bg" class="wave" />
     <div class="flex-c absolute right-5 top-3">
       <!-- 主题 -->
-      <el-switch
+      <ElSwitch
         v-model="dataTheme"
         inline-prompt
         :active-icon="dayIcon"
@@ -109,9 +109,9 @@ useEventListener(document, 'keydown', ({ code }) => {
             <h2 class="outline-hidden">{{ title }}</h2>
           </Motion>
 
-          <el-form ref="ruleFormRef" :model="ruleForm" :rules="loginRules" size="large">
+          <ElForm ref="ruleFormRef" :model="ruleForm" :rules="loginRules" size="large">
             <Motion :delay="100">
-              <el-form-item
+              <ElFormItem
                 :rules="[
                   {
                     required: true,
@@ -121,25 +121,25 @@ useEventListener(document, 'keydown', ({ code }) => {
                 ]"
                 prop="username"
               >
-                <el-input v-model="ruleForm.username" clearable placeholder="账号" :prefix-icon="useRenderIcon(User)" />
-              </el-form-item>
+                <ElInput v-model="ruleForm.username" clearable placeholder="账号" :prefix-icon="useRenderIcon(User)" />
+              </ElFormItem>
             </Motion>
 
             <Motion :delay="150">
-              <el-form-item prop="password">
-                <el-input
+              <ElFormItem prop="password">
+                <ElInput
                   v-model="ruleForm.password"
                   clearable
                   show-password
                   placeholder="密码"
                   :prefix-icon="useRenderIcon(Lock)"
                 />
-              </el-form-item>
+              </ElFormItem>
             </Motion>
 
             <Motion v-if="captchaImage" :delay="150">
-              <el-space :size="20">
-                <el-form-item
+              <ElSpace :size="20">
+                <ElFormItem
                   :rules="[
                     {
                       required: true,
@@ -149,14 +149,14 @@ useEventListener(document, 'keydown', ({ code }) => {
                   ]"
                   prop="code"
                 >
-                  <el-input v-model="ruleForm.code" clearable placeholder="验证码" :prefix-icon="useRenderIcon(Code)" />
-                </el-form-item>
+                  <ElInput v-model="ruleForm.code" clearable placeholder="验证码" :prefix-icon="useRenderIcon(Code)" />
+                </ElFormItem>
                 <div class="flex cursor-pointer mb-[24px]" @click="runCaptchaImage" v-html="captchaImage.img" />
-              </el-space>
+              </ElSpace>
             </Motion>
 
             <Motion :delay="250">
-              <el-button
+              <ElButton
                 class="w-full mt-4!"
                 size="default"
                 type="primary"
@@ -165,9 +165,9 @@ useEventListener(document, 'keydown', ({ code }) => {
                 @click="onLogin(ruleFormRef)"
               >
                 登录
-              </el-button>
+              </ElButton>
             </Motion>
-          </el-form>
+          </ElForm>
         </div>
       </div>
     </div>
